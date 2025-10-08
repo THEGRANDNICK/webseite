@@ -1,400 +1,941 @@
 <!DOCTYPE html>
-
-<html data-lang="en" data-theme="light" lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Nicolas Vogt Portfolio</title>
-<style>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Nicolas Vogt Portfolio</title>
+  <style>
     :root {
-      --bg-light: #ffffff;
-      --bg-dark: #000000;
-      --text-light: #000000;
-      --text-dark: #ffffff;
-      --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
+      color-scheme: light;
+      --body-bg: radial-gradient(140% 160% at 20% 10%, #f7f8fa 0%, #f0f2f8 32%, #dbe0f5 100%);
+      --text-primary: #0b0c11;
+      --text-secondary: rgba(17, 18, 25, 0.68);
+      --surface-glass: rgba(255, 255, 255, 0.7);
+      --surface-hero: linear-gradient(135deg, rgba(12, 12, 20, 0.92), rgba(22, 24, 40, 0.72));
+      --surface-panel: linear-gradient(135deg, rgba(24, 26, 44, 0.85), rgba(10, 10, 16, 0.82));
+      --surface-panel-alt: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(245, 245, 247, 0.9));
+      --border-soft: rgba(255, 255, 255, 0.4);
+      --shadow-lg: 0 40px 80px rgba(15, 16, 36, 0.2);
+      --shadow-xl: 0 48px 120px rgba(12, 14, 32, 0.35);
+      --panel-radius: 36px;
+      --transition: all 0.35s ease;
     }
-    [data-theme="light"] {
-      background: var(--bg-light);
-      color: var(--text-light);
-    }
+
     [data-theme="dark"] {
-      background: var(--bg-dark);
-      color: var(--text-dark);
+      color-scheme: dark;
+      --body-bg: radial-gradient(140% 160% at 20% 10%, #06070d 0%, #0e101c 40%, #070912 100%);
+      --text-primary: #f5f5f7;
+      --text-secondary: rgba(245, 245, 247, 0.7);
+      --surface-glass: rgba(16, 17, 27, 0.62);
+      --surface-hero: linear-gradient(135deg, rgba(12, 13, 24, 0.92), rgba(38, 43, 70, 0.78));
+      --surface-panel: linear-gradient(135deg, rgba(25, 28, 42, 0.92), rgba(10, 11, 18, 0.92));
+      --surface-panel-alt: linear-gradient(135deg, rgba(28, 30, 48, 0.88), rgba(14, 15, 25, 0.9));
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.45);
+      --shadow-xl: 0 48px 120px rgba(0, 0, 0, 0.55);
     }
-    html, body {
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      transition: var(--transition);
-      scroll-behavior: smooth;
-      cursor: none;
+      min-height: 100vh;
+      font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--body-bg);
+      color: var(--text-primary);
+      transition: background 0.6s ease, color 0.6s ease;
     }
-    .cursor {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: rgba(128, 128, 128, 0.3);
+
+    body::before {
+      content: "";
       position: fixed;
+      inset: 0;
+      backdrop-filter: blur(60px);
       pointer-events: none;
-      z-index: 1000;
-      transition: transform 0.1s ease;
+      z-index: -1;
     }
-    header {
-      text-align: center;
-      padding: 2rem 1rem;
+
+    img {
+      max-width: 100%;
+      display: block;
     }
-    .profile-pic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: var(--shadow);
-      margin: auto;
-    }
-    h1 {
-      font-size: 2rem;
-      margin: 1rem 0 0.5rem;
-    }
-    p.subtitle {
-      font-size: 1.2rem;
-      opacity: 0.7;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 2rem auto;
-    }
-    nav button {
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      border: 2px solid black;
-      background-color: black;
-      color: white;
-      cursor: pointer;
-      transition: var(--transition);
-      text-decoration: none;
-      display: inline-block;
-    }
-    [data-theme="dark"] nav button {
-      background-color: white;
-      color: black;
-    }
-    nav button:hover {
-      animation: jiggle 0.3s ease;
-      background-color: white;
-      color: black;
-    }
-    [data-theme="dark"] nav button:hover {
-      background-color: black;
-      color: white;
-    }
-    @keyframes jiggle {
-      0% { transform: scale(1); }
-      25% { transform: scale(1.1) rotate(1deg); }
-      50% { transform: scale(1.1) rotate(-1deg); }
-      75% { transform: scale(1.05) rotate(1deg); }
-      100% { transform: scale(1); }
-    }
-    section {
-      text-align: center;
-      padding: 2rem 1rem;
-      margin-bottom: 2rem;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    section h2 {
-      color: inherit;
-    }
-    .project {
-      max-width: 500px;
-      margin: auto;
-    }
-    .project img {
-      width: 100%;
-      border-radius: 12px;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-    .project img:hover {
-      transform: scale(1.05);
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      backdrop-filter: blur(8px);
-      background-color: rgba(0, 0, 0, 0.4);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      opacity: 0;
-      transform: scale(0.9);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .modal.show {
-      display: flex;
-      opacity: 1;
-      transform: scale(1);
-    }
-    .modal-content {
-      background: white;
-      color: black;
-      padding: 2rem;
-      border-radius: 12px;
-      max-width: 90%;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      transform: translateY(20px);
-      animation: riseUp 0.4s ease forwards;
-      position: relative;
-    }
-    .modal-content button.close {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: black;
-    }
-    @keyframes riseUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .modal img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 12px;
-    }
-    .modal p {
-      margin-top: 1rem;
-    }
+
     .top-right-controls {
       position: fixed;
-      top: 1rem;
-      right: 1rem;
+      top: 1.25rem;
+      right: 1.25rem;
       display: flex;
-      flex-direction: row;
       gap: 1rem;
-      align-items: center;
+      z-index: 40;
     }
+
     .toggle-switch {
       position: relative;
-      display: inline-block;
-      width: 80px;
-      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      width: 92px;
+      height: 36px;
     }
+
     .toggle-switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
+
     .slider {
       position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: 0.4s;
-      border-radius: 32px;
-      text-align: center;
-      line-height: 32px;
+      inset: 0;
+      border-radius: 9999px;
+      background: var(--surface-glass);
+      border: 1px solid var(--border-soft);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
       font-size: 0.75rem;
-      font-weight: normal;
-      color: #000;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: grid;
+      place-items: center;
+      color: var(--text-primary);
+      transition: var(--transition);
+      backdrop-filter: blur(18px);
     }
-    .slider:before {
-      position: absolute;
+
+    .slider::before {
       content: "";
-      height: 24px;
-      width: 24px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: 0.4s;
+      position: absolute;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      top: 4px;
+      left: 6px;
+      box-shadow: 0 10px 25px rgba(12, 14, 32, 0.2);
+      transition: var(--transition);
     }
-    input:checked + .slider {
-      background-color: #666;
+
+    input:checked + .slider::before {
+      transform: translateX(52px);
+      background: rgba(255, 255, 255, 0.85);
     }
-    input:checked + .slider:before {
-      transform: translateX(48px);
+
+    nav.site-nav {
+      position: sticky;
+      top: 1.25rem;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      max-width: 960px;
+      border-radius: 9999px;
+      background: var(--surface-glass);
+      border: 1px solid var(--border-soft);
+      backdrop-filter: blur(18px);
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      box-shadow: 0 20px 40px rgba(15, 16, 36, 0.12);
+      z-index: 30;
     }
-    .contact-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .contact-buttons a.nav-button {
-    padding: 0.5rem 1.25rem;
-    border-radius: 9999px;
-    border: 2px solid black;
-    background-color: black;
-    color: white;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: var(--transition);
-  }
-  [data-theme="dark"] .contact-buttons a.nav-button {
-    background-color: white;
-    color: black;
-  }
-  .contact-buttons a.nav-button:hover {
-    background-color: white;
-    color: black;
-    animation: jiggle 0.3s ease;
-  }
-  [data-theme="dark"] .contact-buttons a.nav-button:hover {
-    background-color: black;
-    color: white;
-  }
-</style>
+
+    nav.site-nav button {
+      border: none;
+      background: transparent;
+      border-radius: 9999px;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    nav.site-nav button:hover,
+    nav.site-nav button:focus-visible {
+      background: rgba(255, 255, 255, 0.35);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+      outline: none;
+    }
+
+    main.page {
+      padding: clamp(6rem, 10vw, 9rem) clamp(1.5rem, 4vw, 4rem) 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(3.5rem, 8vw, 6rem);
+    }
+
+    .hero {
+      position: relative;
+      border-radius: var(--panel-radius);
+      padding: clamp(3.5rem, 6vw, 5.5rem);
+      background: var(--surface-hero);
+      color: #f5f5f7;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(2rem, 4vw, 4rem);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -20% -10% 10% 40%;
+      background: radial-gradient(circle at top left, rgba(105, 158, 255, 0.55), transparent 55%);
+      transform: translate3d(0, 0, 0);
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 30% -15% -40% 20%;
+      background: radial-gradient(circle at bottom right, rgba(255, 120, 60, 0.45), transparent 60%);
+      z-index: 0;
+    }
+
+    .hero__content,
+    .hero__visual {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero__eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      opacity: 0.65;
+      margin: 0 0 1.25rem;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 6vw, 4.4rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .hero__lead {
+      margin: 1.5rem 0 2.5rem;
+      font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+      line-height: 1.6;
+      max-width: 42ch;
+      color: rgba(245, 245, 247, 0.82);
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .cta {
+      border: none;
+      border-radius: 9999px;
+      padding: 0.85rem 2.4rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .cta--primary {
+      background: linear-gradient(135deg, #0071e3, #559dff);
+      color: #fff;
+      box-shadow: 0 24px 48px rgba(0, 113, 227, 0.35);
+    }
+
+    .cta--primary:hover,
+    .cta--primary:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: 0 32px 64px rgba(0, 113, 227, 0.42);
+      outline: none;
+    }
+
+    .cta--ghost {
+      background: rgba(255, 255, 255, 0.16);
+      color: #f5f5f7;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+    }
+
+    .cta--ghost:hover,
+    .cta--ghost:focus-visible {
+      background: rgba(255, 255, 255, 0.24);
+      transform: translateY(-4px);
+      outline: none;
+    }
+
+    .hero__visual {
+      display: grid;
+      place-items: center;
+    }
+
+    .hero__visual figure,
+    .hero__visual img {
+      border-radius: 32px;
+      overflow: hidden;
+    }
+
+    .hero__visual img {
+      width: min(520px, 100%);
+      box-shadow: 0 50px 110px rgba(3, 5, 15, 0.55);
+      transform: translateY(0);
+      transition: transform 0.6s ease;
+    }
+
+    .hero:hover .hero__visual img {
+      transform: translateY(-6px) scale(1.015);
+    }
+
+    .panel {
+      position: relative;
+      border-radius: var(--panel-radius);
+      padding: clamp(3rem, 6vw, 4.5rem);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      gap: clamp(2rem, 4vw, 3rem);
+      color: #f5f5f7;
+      background: var(--surface-panel);
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(120% 120% at 15% 0%, rgba(255, 255, 255, 0.22), transparent 60%);
+      opacity: 0.85;
+      z-index: 0;
+    }
+
+    .panel--light {
+      background: var(--surface-panel-alt);
+      color: var(--text-primary);
+    }
+
+    .panel--light::before {
+      background: radial-gradient(120% 120% at 85% 0%, rgba(91, 132, 255, 0.15), transparent 65%);
+    }
+
+    .panel__content,
+    .panel__grid,
+    .panel__visual {
+      position: relative;
+      z-index: 1;
+    }
+
+    section[data-animate] {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    section[data-animate].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    section p.lead {
+      margin: 1rem 0 0;
+      font-size: 1.1rem;
+      line-height: 1.65;
+      color: inherit;
+      max-width: 56ch;
+    }
+
+    .about-highlights {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .about-card {
+      padding: 1.75rem;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(18px);
+    }
+
+    .panel--light .about-card {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(15, 16, 36, 0.08);
+    }
+
+    .about-card h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .about-card p {
+      margin: 0;
+      line-height: 1.6;
+      color: inherit;
+      opacity: 0.85;
+    }
+
+    .experience-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .experience-item {
+      padding: 1.75rem;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(14px);
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .experience-item span {
+      font-size: 0.9rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+
+    .experience-item h3 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .experience-item p {
+      margin: 0;
+      color: inherit;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      cursor: pointer;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .panel--light .project-card {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(15, 16, 36, 0.08);
+    }
+
+    .project-card:hover,
+    .project-card:focus-visible {
+      transform: translateY(-8px);
+      box-shadow: 0 32px 60px rgba(12, 14, 32, 0.25);
+      outline: none;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .project-card__body {
+      padding: 1.75rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .project-card__title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .project-card__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      color: inherit;
+      opacity: 0.65;
+      font-size: 0.9rem;
+    }
+
+    .project-card__description {
+      margin: 0;
+      line-height: 1.6;
+      color: inherit;
+      opacity: 0.85;
+    }
+
+    .projects-levels {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .level-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 9999px;
+      padding: 0.4rem 1.1rem;
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .panel--light .level-chip {
+      background: rgba(15, 16, 36, 0.08);
+      border: 1px solid rgba(15, 16, 36, 0.12);
+    }
+
+    .level-chip[data-state="available"] {
+      cursor: pointer;
+    }
+
+    .level-chip[data-state="available"]:hover,
+    .level-chip[data-state="available"]:focus-visible {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.4);
+      outline: none;
+    }
+
+    .contact-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .contact-cta a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      transition: var(--transition);
+    }
+
+    .panel--light .contact-cta a {
+      background: rgba(15, 16, 36, 0.08);
+      border: 1px solid rgba(15, 16, 36, 0.16);
+    }
+
+    .contact-cta a:hover,
+    .contact-cta a:focus-visible {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.26);
+      outline: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(3, 5, 15, 0.55);
+      backdrop-filter: blur(18px);
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal__content {
+      background: var(--surface-panel-alt);
+      color: var(--text-primary);
+      padding: clamp(2rem, 4vw, 3rem);
+      border-radius: 28px;
+      max-width: min(560px, 90vw);
+      box-shadow: 0 32px 80px rgba(12, 14, 32, 0.32);
+      display: grid;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      border: none;
+      background: rgba(15, 16, 36, 0.08);
+      border-radius: 9999px;
+      width: 36px;
+      height: 36px;
+      font-size: 1.35rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: var(--transition);
+    }
+
+    .modal__close:hover,
+    .modal__close:focus-visible {
+      background: rgba(15, 16, 36, 0.16);
+      outline: none;
+    }
+
+    .modal__media img {
+      border-radius: 20px;
+      box-shadow: 0 24px 60px rgba(12, 14, 32, 0.25);
+    }
+
+    .modal__description {
+      margin: 0;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      nav.site-nav {
+        position: static;
+      }
+
+      .top-right-controls {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      main.page {
+        padding-top: 7rem;
+      }
+
+      .hero,
+      .panel {
+        border-radius: 28px;
+      }
+
+      .hero__actions,
+      .contact-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .cta,
+      .contact-cta a {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
-<body>
-<audio id="clickSound" src="audio/S_Bubble_Click.mp3" preload="auto"></audio>
-<audio id="hoverSound" src="audio/x" preload="auto"></audio>
-<div class="cursor"></div>
-<div class="top-right-controls">
-<label class="toggle-switch" title="Jedi/Sith Mode">
-<input id="themeSwitch" type="checkbox"/>
-<span class="slider" id="themeLabel">Jedi</span>
-</label>
-<label class="toggle-switch" title="Language Toggle">
-<input id="langSwitch" type="checkbox"/>
-<span class="slider" id="langLabel">EN</span>
-</label>
-</div>
-<header onclick="scrollToSection('top')">
-<img alt="Profile Picture" class="profile-pic" src="img/profilbild.jpg"/>
-<h1>Nicolas Vogt</h1>
-<p class="subtitle" data-de="UX &amp; VR Entwickler" data-en="UX &amp; VR Developer">UX &amp; VR Developer</p>
-</header>
-<nav>
-<button onclick="scrollToSection('about')">About</button>
-<button onclick="scrollToSection('experience')">Experience</button>
-<button onclick="scrollToSection('projects')">Projects</button>
-<button onclick="window.open('resume.pdf')">Resume</button>
-<button onclick="scrollToSection('contact')">Contact</button>
-</nav>
-<section id="about">
-<h2 data-de="Über Mich" data-en="About Me">About Me</h2>
-<p data-de="Ich kreiere immersive digitale Erlebnisse." data-en="I create immersive digital experiences.">
-    I create immersive digital experiences.
-  </p>
-</section>
-<section id="experience">
-<h2 data-de="Erfahrung" data-en="Experience">Experience</h2>
-<p data-de="Spezialisiert auf UX und VR mit Unreal Engine." data-en="Specializing in UX and VR with Unreal Engine.">
-    Specializing in UX and VR with Unreal Engine.
-  </p>
-</section>
-<section id="projects">
-<h2 data-de="Projekte" data-en="Projects">Projects</h2>
-<div class="project">
-<img alt="Vermögensstruktur VR" onclick="openModal('project1')" src="img/project.png"/>
-</div>
-<!-- You can add more project entries similarly -->
-</section>
-<section id="contact">
-<h2 data-de="Kontakt" data-en="Contact">Contact</h2>
-<div class="contact-buttons">
-<a class="nav-button" href="mailto:nicolas.vogt@thegrandnick.de">E-Mail</a>
-<a class="nav-button" href="https://github.com/THEGRANDNICK" target="_blank">GitHub</a>
-<a class="nav-button" href="https://linkedin.com/in/nicolasjannekvogt" target="_blank">LinkedIn</a>
-</div>
-</section>
-<div class="modal" id="projectModal" onclick="handleModalClick(event)">
-<div class="modal-content" onclick="event.stopPropagation()">
-<button class="close" onclick="closeModal()">×</button>
-<img alt="Vermögensstruktur VR" src="img/project.png"/>
-<p data-de="VR-Visualisierung von Vermögensstrukturen für Union Investment mit Unreal Engine." data-en="VR visualization of asset structures for Union Investment using Unreal Engine.">
-      VR visualization of asset structures for Union Investment using Unreal Engine.
-    </p>
-</div>
-</div>
-<script>
-  function scrollToSection(id) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  }
+<body data-lang="en">
+  <audio id="hoverSound" src="audio/hover.mp3" preload="auto"></audio>
+  <audio id="clickSound" src="audio/click.mp3" preload="auto"></audio>
 
-  const modal = document.getElementById('projectModal');
-  const blub = document.getElementById('blubSound');
+  <div class="top-right-controls">
+    <label class="toggle-switch" title="Jedi/Sith Mode">
+      <input id="themeSwitch" type="checkbox" />
+      <span class="slider" id="themeLabel">Jedi</span>
+    </label>
+    <label class="toggle-switch" title="Language Toggle">
+      <input id="langSwitch" type="checkbox" />
+      <span class="slider" id="langLabel">EN</span>
+    </label>
+  </div>
 
-  function openModal(id) {
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('show'), 10);
-    blub.currentTime = 0;
-    blub.play().catch(() => {});
-  }
+  <nav aria-label="Primary" class="site-nav">
+    <button data-de="Überblick" data-en="About" data-scroll="about">About</button>
+    <button data-de="Erfahrung" data-en="Experience" data-scroll="experience">Experience</button>
+    <button data-de="Projekte" data-en="Projects" data-scroll="projects">Projects</button>
+    <button data-de="Kontakt" data-en="Contact" data-scroll="contact">Contact</button>
+    <button data-action="resume" data-de="Résumé" data-en="Résumé">Résumé</button>
+  </nav>
 
-  function closeModal() {
-    modal.classList.remove('show');
-    setTimeout(() => {
-      modal.style.display = 'none';
-    }, 400);
-  }
+  <main class="page">
+    <header class="hero" id="top" data-animate>
+      <div class="hero__content">
+        <p class="hero__eyebrow" data-de="Immersive Experience Design" data-en="Immersive Experience Design">Immersive Experience Design</p>
+        <h1 data-de="Nicolas Vogt" data-en="Nicolas Vogt">Nicolas Vogt</h1>
+        <p class="hero__lead" data-de="Ich kreiere elegante, eindringliche XR-Erlebnisse für visionäre Marken." data-en="I craft elegant, immersive XR experiences for visionary brands.">I craft elegant, immersive XR experiences for visionary brands.</p>
+        <div class="hero__actions">
+          <button class="cta cta--primary" data-de="Projekte ansehen" data-en="Explore Projects" id="viewProjects">Explore Projects</button>
+          <button class="cta cta--ghost" data-de="Résumé herunterladen" data-en="Download Résumé" data-action="resume">Download Résumé</button>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <figure>
+          <img alt="Cinematic rendering of a virtual reality workspace" src="img/background.jpg" />
+        </figure>
+      </div>
+    </header>
 
-  function handleModalClick(event) {
-    if (event.target === modal) {
-      closeModal();
-      scrollToSection('top');
-    }
-  }
+    <section class="panel panel--light" data-animate id="about">
+      <div class="panel__content">
+        <h2 data-de="Über mich" data-en="About me">About me</h2>
+        <p class="lead" data-de="Ich kombiniere UX-Prinzipien mit immersiver Technologie, um Geschichten zu erzählen, die berühren und messbare Ergebnisse liefern." data-en="I combine UX principles with immersive technology to tell stories that resonate and deliver measurable outcomes.">I combine UX principles with immersive technology to tell stories that resonate and deliver measurable outcomes.</p>
+      </div>
+      <div class="panel__grid about-highlights">
+        <div class="about-card">
+          <h3 data-de="Design &amp; Strategie" data-en="Design &amp; Strategy">Design &amp; Strategy</h3>
+          <p data-de="Human-Centered Design, Produkt-Workshops und raffinierte Journeys für XR." data-en="Human-centered design, product workshops, and refined journeys tailored for XR.">Human-centered design, product workshops, and refined journeys tailored for XR.</p>
+        </div>
+        <div class="about-card">
+          <h3 data-de="Immersive Tech" data-en="Immersive Tech">Immersive Tech</h3>
+          <p data-de="Unreal Engine, Spatial Audio und multisensorische Prototypen für Mixed Reality." data-en="Unreal Engine, spatial audio, and multisensory prototyping for mixed reality.">Unreal Engine, spatial audio, and multisensory prototyping for mixed reality.</p>
+        </div>
+        <div class="about-card">
+          <h3 data-de="Collaboration" data-en="Collaboration">Collaboration</h3>
+          <p data-de="Arbeit mit Studios, Startups und Agenturen, um skalierbare Erfahrungen zu schaffen." data-en="Partnering with studios, startups, and agencies to ship scalable experiences.">Partnering with studios, startups, and agencies to ship scalable experiences.</p>
+        </div>
+      </div>
+    </section>
 
-  const themeSwitch = document.getElementById('themeSwitch');
-  const themeLabel = document.getElementById('themeLabel');
-  themeSwitch.addEventListener('change', () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    themeLabel.textContent = isDark ? 'Jedi' : 'Sith';
-  });
+    <section class="panel" data-animate id="experience">
+      <div class="panel__content">
+        <h2 data-de="Erfahrung" data-en="Experience">Experience</h2>
+        <p class="lead" data-de="Ein Apple-inspirierter Karrierepfad, kuratiert für zukünftige Projekte und Partnerschaften." data-en="An Apple-inspired career timeline, curated for future projects and partnerships.">An Apple-inspired career timeline, curated for future projects and partnerships.</p>
+      </div>
+      <ul class="experience-list">
+        <li class="experience-item">
+          <span data-de="Union Investment" data-en="Union Investment">Union Investment</span>
+          <h3 data-de="Lead XR Designer" data-en="Lead XR Designer">Lead XR Designer</h3>
+          <p data-de="Entwickelte eine immersive Vermögensstruktur-Erfahrung, die komplexe Finanzthemen intuitiv erfahrbar macht." data-en="Crafted an immersive asset-structure experience translating complex finance into intuitive storytelling.">Crafted an immersive asset-structure experience translating complex finance into intuitive storytelling.</p>
+        </li>
+        <li class="experience-item">
+          <span data-de="Freelance" data-en="Freelance">Freelance</span>
+          <h3 data-de="XR Consultant" data-en="XR Consultant">XR Consultant</h3>
+          <p data-de="Unterstützte Studios bei der Konzeption von Spatial-Interfaces, Rapid-Prototyping und Nutzerforschung." data-en="Supported studios with spatial interface concepts, rapid prototyping, and user research." >Supported studios with spatial interface concepts, rapid prototyping, and user research.</p>
+        </li>
+        <li class="experience-item">
+          <span data-de="Zukünftige Kapitel" data-en="Future Chapters">Future Chapters</span>
+          <h3 data-de="Bereit für neue Horizonte" data-en="Ready for new horizons">Ready for new horizons</h3>
+          <p data-de="Platzhalter für kommende Projekte, die Technologie und Emotion vereinen." data-en="Placeholder for upcoming engagements that merge technology and emotion." >Placeholder for upcoming engagements that merge technology and emotion.</p>
+        </li>
+      </ul>
+    </section>
 
-  const langSwitch = document.getElementById('langSwitch');
-  const langLabel = document.getElementById('langLabel');
-  langSwitch.addEventListener('change', () => {
-    const currentLang = document.body.getAttribute('data-lang') === 'de' ? 'en' : 'de';
-    document.body.setAttribute('data-lang', currentLang);
-    document.querySelectorAll('[data-en]').forEach(el => {
-      el.textContent = el.getAttribute(`data-${currentLang}`);
+    <section class="panel" data-animate id="projects">
+      <div class="panel__content">
+        <h2 data-de="Signature-Projekt" data-en="Signature Project">Signature Project</h2>
+        <p class="lead" data-de="Ein cineastisches Schaufenster für aktuelle und zukünftige Level, gestaltet mit einem Apple-inspirierten Blick." data-en="A cinematic showcase for current and future levels, framed with Apple-inspired craft.">A cinematic showcase for current and future levels, framed with Apple-inspired craft.</p>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card" tabindex="0" onclick="openModal()" data-sound="click">
+          <img alt="Preview of the Vermögensstruktur VR experience" src="img/project.png" />
+          <div class="project-card__body">
+            <h3 class="project-card__title" data-de="Vermögensstruktur VR" data-en="Vermögensstruktur VR">Vermögensstruktur VR</h3>
+            <div class="project-card__meta">
+              <span data-de="Immersive Finance" data-en="Immersive Finance">Immersive Finance</span>
+              <span data-de="Unreal Engine" data-en="Unreal Engine">Unreal Engine</span>
+            </div>
+            <p class="project-card__description" data-de="Ein XR-Erlebnis, das komplexe Vermögenslandschaften in eine klare, emotionale Reise verwandelt." data-en="An XR journey translating complex asset landscapes into an emotional, intuitive narrative.">An XR journey translating complex asset landscapes into an emotional, intuitive narrative.</p>
+            <ul class="projects-levels">
+              <li>
+                <button class="level-chip" data-state="available" onclick="openModal()" data-de="Level 1 • verfügbar" data-en="Level 1 • available">Level 1 • available</button>
+              </li>
+              <li>
+                <span class="level-chip" data-state="upcoming" data-de="Level 2 • demnächst" data-en="Level 2 • coming soon">Level 2 • coming soon</span>
+              </li>
+              <li>
+                <span class="level-chip" data-state="upcoming" data-de="Level 3 • in Planung" data-en="Level 3 • in planning">Level 3 • in planning</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel panel--light" data-animate id="contact">
+      <div class="panel__content">
+        <h2 data-de="Kontakt" data-en="Contact">Contact</h2>
+        <p class="lead" data-de="Lassen Sie uns ein immersives Erlebnis erschaffen, das so ikonisch ist wie Ihr nächstes Produkt." data-en="Let's build an immersive experience as iconic as your next product.">Let's build an immersive experience as iconic as your next product.</p>
+      </div>
+      <div class="panel__grid contact-cta">
+        <a href="mailto:nicolas.vogt@thegrandnick.de" data-de="E-Mail" data-en="Email">Email</a>
+        <a href="https://github.com/THEGRANDNICK" target="_blank" rel="noopener" data-de="GitHub" data-en="GitHub">GitHub</a>
+        <a href="https://linkedin.com/in/nicolasjannekvogt" target="_blank" rel="noopener" data-de="LinkedIn" data-en="LinkedIn">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span data-de="© 2024 Nicolas Vogt. Inspiriert vom Apple Design." data-en="© 2024 Nicolas Vogt. Inspired by the Apple design language.">© 2024 Nicolas Vogt. Inspired by the Apple design language.</span>
+  </footer>
+
+  <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" aria-describedby="projectModalDescription">
+    <div class="modal__content">
+      <button aria-label="Close" class="modal__close" onclick="closeModal()">×</button>
+      <div class="modal__media">
+        <img alt="Detailed view of the Vermögensstruktur VR experience" src="img/project.png" />
+      </div>
+      <div class="modal__copy">
+        <h3 id="projectModalTitle" data-de="Vermögensstruktur VR" data-en="Vermögensstruktur VR">Vermögensstruktur VR</h3>
+        <p class="modal__description" id="projectModalDescription" data-de="Eine hochauflösende XR-Installation, die Finanzwissen fühlbar macht. Level 2 und 3 folgen als placeholders für kommende Iterationen." data-en="A high-fidelity XR installation that makes financial knowledge tangible. Levels 2 and 3 stand as placeholders for upcoming iterations.">A high-fidelity XR installation that makes financial knowledge tangible. Levels 2 and 3 stand as placeholders for upcoming iterations.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const scrollToSection = (id) => {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    document.querySelectorAll('[data-scroll]').forEach((button) => {
+      button.addEventListener('click', () => scrollToSection(button.getAttribute('data-scroll')));
     });
-    langLabel.textContent = currentLang.toUpperCase();
-  });
 
-  const cursor = document.querySelector('.cursor');
-  document.addEventListener('mousemove', e => {
+    document.querySelectorAll('[data-action="resume"]').forEach((button) => {
+      button.addEventListener('click', () => {
+        window.open('resume.pdf', '_blank');
+      });
+    });
+
+    document.getElementById('viewProjects').addEventListener('click', () => scrollToSection('projects'));
+
+    const themeSwitch = document.getElementById('themeSwitch');
+    const themeLabel = document.getElementById('themeLabel');
+    themeSwitch.addEventListener('change', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      themeLabel.textContent = isDark ? 'Jedi' : 'Sith';
+    });
+
+    const langSwitch = document.getElementById('langSwitch');
+    const langLabel = document.getElementById('langLabel');
+    const updateLanguage = (lang) => {
+      document.body.setAttribute('data-lang', lang);
+      document.querySelectorAll('[data-en]').forEach((el) => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) {
+          el.textContent = text;
+        }
+      });
+      langLabel.textContent = lang.toUpperCase();
+    };
+
+    langSwitch.addEventListener('change', () => {
+      const currentLang = document.body.getAttribute('data-lang') === 'de' ? 'en' : 'de';
+      updateLanguage(currentLang);
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    document.querySelectorAll('section[data-animate], header[data-animate]').forEach((section) => observer.observe(section));
+
     const hoverSound = document.getElementById('hoverSound');
-    if (e.target.closest('button, a')) {
-      hoverSound.currentTime = 0;
-      hoverSound.play();
+    const clickSound = document.getElementById('clickSound');
+
+    document.addEventListener('mouseover', (event) => {
+      if (event.target.closest('button, a')) {
+        hoverSound.currentTime = 0;
+        hoverSound.play().catch(() => {});
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (event.target.closest('button, a')) {
+        clickSound.currentTime = 0;
+        clickSound.play().catch(() => {});
+      }
+    });
+
+    const modal = document.getElementById('projectModal');
+
+    function openModal() {
+      modal.style.display = 'flex';
+      requestAnimationFrame(() => {
+        modal.classList.add('show');
+      });
+      clickSound.currentTime = 0;
+      clickSound.play().catch(() => {});
     }
-    cursor.style.left = `${e.clientX - 10}px`;
-    cursor.style.top = `${e.clientY - 10}px`;
-  });
-</script><audio id="hoverSound" preload="auto" src="audio/hover.mp3"></audio><audio id="clickSound" preload="auto" src="audio/click.mp3"></audio><script>
-const hoverSound = document.getElementById('hoverSound');
-const clickSound = document.getElementById('clickSound');
 
-document.addEventListener('mouseover', e => {
-  if (e.target.closest('button, a')) {
-    hoverSound.currentTime = 0;
-    hoverSound.play().catch(() => {});
-  }
-});
+    function closeModal() {
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 350);
+    }
 
-function openModal() {
-  const modal = document.getElementById('projectModal');
-  modal.classList.add('show');
-  modal.style.display = 'flex';
-  clickSound.currentTime = 0;
-  clickSound.play().catch(() => {});
-}
-</script></body></html>
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.querySelectorAll('.project-card').forEach((card) => {
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openModal();
+        }
+      });
+    });
+
+    updateLanguage('en');
+  </script>
+</body>
+</html>
