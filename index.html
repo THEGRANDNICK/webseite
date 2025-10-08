@@ -62,6 +62,18 @@
       display: block;
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     .top-right-controls {
       position: fixed;
       top: 1.25rem;
@@ -676,26 +688,28 @@
   </style>
 </head>
 <body data-lang="en">
-  <audio id="hoverSound" src="audio/hover.mp3" preload="auto"></audio>
-  <audio id="clickSound" src="audio/click.mp3" preload="auto"></audio>
+  <audio id="hoverSound" src="audio/S_Bubble_Hover.mp3" preload="auto"></audio>
+  <audio id="clickSound" src="audio/S_Bubble_Click.mp3" preload="auto"></audio>
 
-  <div class="top-right-controls">
-    <label class="toggle-switch" title="Jedi/Sith Mode">
-      <input id="themeSwitch" type="checkbox" />
-      <span class="slider" id="themeLabel">Jedi</span>
+  <div class="top-right-controls" role="group" aria-label="Site preferences">
+    <label class="toggle-switch" title="Toggle theme">
+      <span class="sr-only" id="themeToggleLabel">Toggle dark mode</span>
+      <input id="themeSwitch" type="checkbox" role="switch" aria-labelledby="themeToggleLabel" />
+      <span class="slider" id="themeLabel" aria-live="polite">Light</span>
     </label>
-    <label class="toggle-switch" title="Language Toggle">
-      <input id="langSwitch" type="checkbox" />
-      <span class="slider" id="langLabel">EN</span>
+    <label class="toggle-switch" title="Switch language">
+      <span class="sr-only" id="languageToggleLabel">Toggle language</span>
+      <input id="langSwitch" type="checkbox" role="switch" aria-labelledby="languageToggleLabel" />
+      <span class="slider" id="langLabel" aria-live="polite">EN</span>
     </label>
   </div>
 
   <nav aria-label="Primary" class="site-nav">
-    <button data-de="Überblick" data-en="About" data-scroll="about">About</button>
-    <button data-de="Erfahrung" data-en="Experience" data-scroll="experience">Experience</button>
-    <button data-de="Projekte" data-en="Projects" data-scroll="projects">Projects</button>
-    <button data-de="Kontakt" data-en="Contact" data-scroll="contact">Contact</button>
-    <button data-action="resume" data-de="Résumé" data-en="Résumé">Résumé</button>
+    <button type="button" data-de="Überblick" data-en="About" data-scroll="about">About</button>
+    <button type="button" data-de="Erfahrung" data-en="Experience" data-scroll="experience">Experience</button>
+    <button type="button" data-de="Projekte" data-en="Projects" data-scroll="projects">Projects</button>
+    <button type="button" data-de="Kontakt" data-en="Contact" data-scroll="contact">Contact</button>
+    <button type="button" data-action="resume" data-de="Résumé" data-en="Résumé">Résumé</button>
   </nav>
 
   <main class="page">
@@ -705,8 +719,8 @@
         <h1 data-de="Nicolas Vogt" data-en="Nicolas Vogt">Nicolas Vogt</h1>
         <p class="hero__lead" data-de="Ich kreiere elegante, eindringliche XR-Erlebnisse für visionäre Marken." data-en="I craft elegant, immersive XR experiences for visionary brands.">I craft elegant, immersive XR experiences for visionary brands.</p>
         <div class="hero__actions">
-          <button class="cta cta--primary" data-de="Projekte ansehen" data-en="Explore Projects" id="viewProjects">Explore Projects</button>
-          <button class="cta cta--ghost" data-de="Résumé herunterladen" data-en="Download Résumé" data-action="resume">Download Résumé</button>
+          <button type="button" class="cta cta--primary" data-de="Projekte ansehen" data-en="Explore Projects" id="viewProjects">Explore Projects</button>
+          <button type="button" class="cta cta--ghost" data-de="Résumé herunterladen" data-en="Download Résumé" data-action="resume">Download Résumé</button>
         </div>
       </div>
       <div class="hero__visual">
@@ -778,7 +792,7 @@
             <p class="project-card__description" data-de="Ein XR-Erlebnis, das komplexe Vermögenslandschaften in eine klare, emotionale Reise verwandelt." data-en="An XR journey translating complex asset landscapes into an emotional, intuitive narrative.">An XR journey translating complex asset landscapes into an emotional, intuitive narrative.</p>
             <ul class="projects-levels">
               <li>
-                <button class="level-chip" data-state="available" onclick="openModal()" data-de="Level 1 • verfügbar" data-en="Level 1 • available">Level 1 • available</button>
+                <button type="button" class="level-chip" data-state="available" onclick="openModal()" data-de="Level 1 • verfügbar" data-en="Level 1 • available">Level 1 • available</button>
               </li>
               <li>
                 <span class="level-chip" data-state="upcoming" data-de="Level 2 • demnächst" data-en="Level 2 • coming soon">Level 2 • coming soon</span>
@@ -840,33 +854,100 @@
       });
     });
 
-    document.getElementById('viewProjects').addEventListener('click', () => scrollToSection('projects'));
+    const viewProjectsCta = document.getElementById('viewProjects');
+    if (viewProjectsCta) {
+      viewProjectsCta.addEventListener('click', () => scrollToSection('projects'));
+    }
 
+    const root = document.documentElement;
     const themeSwitch = document.getElementById('themeSwitch');
     const themeLabel = document.getElementById('themeLabel');
-    themeSwitch.addEventListener('change', () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-      themeLabel.textContent = isDark ? 'Jedi' : 'Sith';
-    });
-
     const langSwitch = document.getElementById('langSwitch');
     const langLabel = document.getElementById('langLabel');
-    const updateLanguage = (lang) => {
-      document.body.setAttribute('data-lang', lang);
-      document.querySelectorAll('[data-en]').forEach((el) => {
-        const text = el.getAttribute(`data-${lang}`);
-        if (text) {
-          el.textContent = text;
-        }
-      });
-      langLabel.textContent = lang.toUpperCase();
+
+    const safeGetItem = (key) => {
+      try {
+        return window.localStorage.getItem(key);
+      } catch (error) {
+        return null;
+      }
     };
 
-    langSwitch.addEventListener('change', () => {
-      const currentLang = document.body.getAttribute('data-lang') === 'de' ? 'en' : 'de';
-      updateLanguage(currentLang);
-    });
+    const safeSetItem = (key, value) => {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (error) {
+        /* noop */
+      }
+    };
+
+    const setTheme = (theme, persist = true) => {
+      const isDark = theme === 'dark';
+      root.setAttribute('data-theme', theme);
+      if (themeSwitch) {
+        themeSwitch.checked = isDark;
+        themeSwitch.setAttribute('aria-checked', isDark ? 'true' : 'false');
+      }
+      if (themeLabel) {
+        themeLabel.textContent = isDark ? 'Dark' : 'Light';
+      }
+      if (persist) {
+        safeSetItem('theme', theme);
+      }
+    };
+
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const storedTheme = safeGetItem('theme');
+    const initialTheme = storedTheme || (prefersDarkScheme.matches ? 'dark' : 'light');
+    setTheme(initialTheme, Boolean(storedTheme));
+
+    if (!storedTheme) {
+      prefersDarkScheme.addEventListener('change', (event) => setTheme(event.matches ? 'dark' : 'light', false));
+    }
+
+    if (themeSwitch) {
+      themeSwitch.addEventListener('change', () => {
+        setTheme(themeSwitch.checked ? 'dark' : 'light');
+      });
+    }
+
+    const updateLanguage = (lang, persist = true) => {
+      const isGerman = lang === 'de';
+      document.body.setAttribute('data-lang', lang);
+      root.setAttribute('lang', lang);
+      root.lang = lang;
+      document.querySelectorAll('[data-en]').forEach((el) => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text !== null) {
+          if ('value' in el) {
+            el.value = text;
+          } else {
+            el.textContent = text;
+          }
+        }
+      });
+      if (langSwitch) {
+        langSwitch.checked = isGerman;
+        langSwitch.setAttribute('aria-checked', isGerman ? 'true' : 'false');
+      }
+      if (langLabel) {
+        langLabel.textContent = lang.toUpperCase();
+      }
+      if (persist) {
+        safeSetItem('language', lang);
+      }
+    };
+
+    const storedLanguage = safeGetItem('language');
+    const initialLanguage = storedLanguage === 'de' ? 'de' : 'en';
+    updateLanguage(initialLanguage, Boolean(storedLanguage));
+
+    if (langSwitch) {
+      langSwitch.addEventListener('change', () => {
+        const nextLanguage = langSwitch.checked ? 'de' : 'en';
+        updateLanguage(nextLanguage);
+      });
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -884,58 +965,86 @@
 
     const hoverSound = document.getElementById('hoverSound');
     const clickSound = document.getElementById('clickSound');
+    const canUseSound =
+      hoverSound &&
+      clickSound &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    document.addEventListener('mouseover', (event) => {
-      if (event.target.closest('button, a')) {
-        hoverSound.currentTime = 0;
-        hoverSound.play().catch(() => {});
+    const playSound = (audio) => {
+      if (!canUseSound || !audio) {
+        return;
       }
-    });
+      audio.currentTime = 0;
+      const playPromise = audio.play();
+      if (playPromise) {
+        playPromise.catch(() => {});
+      }
+    };
 
-    document.addEventListener('click', (event) => {
-      if (event.target.closest('button, a')) {
-        clickSound.currentTime = 0;
-        clickSound.play().catch(() => {});
-      }
-    });
+    if (canUseSound) {
+      let hoverTarget = null;
+
+      document.addEventListener('pointerover', (event) => {
+        const actionable = event.target.closest('button, a');
+        if (!actionable || actionable === hoverTarget) {
+          return;
+        }
+        hoverTarget = actionable;
+        playSound(hoverSound);
+        actionable.addEventListener(
+          'pointerleave',
+          () => {
+            if (hoverTarget === actionable) {
+              hoverTarget = null;
+            }
+          },
+          { once: true }
+        );
+      });
+
+      document.addEventListener('click', (event) => {
+        if (event.target.closest('button, a')) {
+          playSound(clickSound);
+        }
+      });
+    }
 
     const modal = document.getElementById('projectModal');
 
-    function openModal() {
-      modal.style.display = 'flex';
-      requestAnimationFrame(() => {
-        modal.classList.add('show');
-      });
-      clickSound.currentTime = 0;
-      clickSound.play().catch(() => {});
-    }
+    if (modal) {
+      const openModal = () => {
+        modal.style.display = 'flex';
+        requestAnimationFrame(() => {
+          modal.classList.add('show');
+        });
+        playSound(clickSound);
+      };
 
-    function closeModal() {
-      modal.classList.remove('show');
-      setTimeout(() => {
-        modal.style.display = 'none';
-      }, 350);
-    }
+      const closeModal = () => {
+        modal.classList.remove('show');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 350);
+      };
 
-    window.openModal = openModal;
-    window.closeModal = closeModal;
+      window.openModal = openModal;
+      window.closeModal = closeModal;
 
-    modal.addEventListener('click', (event) => {
-      if (event.target === modal) {
-        closeModal();
-      }
-    });
-
-    document.querySelectorAll('.project-card').forEach((card) => {
-      card.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openModal();
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          closeModal();
         }
       });
-    });
 
-    updateLanguage('en');
+      document.querySelectorAll('.project-card').forEach((card) => {
+        card.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openModal();
+          }
+        });
+      });
+    }
   </script>
 </body>
 </html>
