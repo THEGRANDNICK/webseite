@@ -327,23 +327,18 @@
     .retro-admin {
       position: absolute;
       inset: 1.25rem 1.25rem auto 1.25rem;
-      background: rgba(255, 255, 255, 0.82);
-      border-radius: 18px;
-      border: 1px solid var(--glass-button-border);
-      box-shadow: 0 24px 48px rgba(15, 16, 36, 0.24);
-      backdrop-filter: blur(22px) saturate(160%);
+      background: rgba(4, 18, 12, 0.95);
+      border-radius: 14px;
+      border: 1px solid rgba(143, 231, 164, 0.35);
+      box-shadow: inset 0 0 0 1px rgba(143, 231, 164, 0.18);
       padding: 1rem;
       display: none;
       flex-direction: column;
       gap: 0.75rem;
       pointer-events: auto;
       z-index: 2;
-      color: var(--text-primary);
-    }
-
-    [data-theme="dark"] .retro-admin {
-      background: rgba(22, 24, 38, 0.88);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      color: #8fe7a4;
+      font-family: "SF Mono", "Menlo", "Consolas", monospace;
     }
 
     .retro-admin.is-visible {
@@ -352,9 +347,26 @@
 
     .retro-admin label {
       font-size: 0.68rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--text-secondary);
+      color: rgba(143, 231, 164, 0.65);
+    }
+
+    .retro-admin input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(143, 231, 164, 0.4);
+      background: rgba(6, 26, 16, 0.9);
+      padding: 0.55rem 0.75rem;
+      font: inherit;
+      color: #8fe7a4;
+      box-shadow: inset 0 0 0 1px rgba(143, 231, 164, 0.16);
+    }
+
+    .retro-admin input:focus {
+      outline: none;
+      border-color: rgba(143, 231, 164, 0.65);
+      box-shadow: 0 0 0 2px rgba(104, 255, 137, 0.2);
     }
 
     .retro-admin__actions {
@@ -368,20 +380,31 @@
       font-size: 0.7rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
+      background: rgba(6, 26, 16, 0.85);
+      border: 1px solid rgba(143, 231, 164, 0.4);
+      color: #aef7be;
+      box-shadow: none;
+    }
+
+    .retro-admin__actions .glass-button:hover,
+    .retro-admin__actions .glass-button:focus-visible {
+      background: rgba(12, 40, 24, 0.95);
+      border-color: rgba(143, 231, 164, 0.55);
+      color: #c9ffdb;
     }
 
     .retro-admin__status {
       font-size: 0.72rem;
-      color: var(--text-secondary);
+      color: #8fe7a4;
       min-height: 1rem;
     }
 
     .retro-admin__status[data-state='success'] {
-      color: #3d7dff;
+      color: #6dff9c;
     }
 
     .retro-admin__status[data-state='error'] {
-      color: #d36271;
+      color: #ff7a85;
     }
 
     .admin-dock {
@@ -484,8 +507,7 @@
     }
 
     .admin-sheet input,
-    .admin-sheet textarea,
-    .retro-admin input {
+    .admin-sheet textarea {
       width: 100%;
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.28);
@@ -498,8 +520,7 @@
     }
 
     [data-theme="dark"] .admin-sheet input,
-    [data-theme="dark"] .admin-sheet textarea,
-    [data-theme="dark"] .retro-admin input {
+    [data-theme="dark"] .admin-sheet textarea {
       background: rgba(18, 21, 34, 0.72);
       border-color: rgba(143, 148, 191, 0.24);
       color: var(--text-primary);
@@ -507,7 +528,6 @@
 
     .admin-sheet input:focus,
     .admin-sheet textarea:focus,
-    .retro-admin input:focus,
     .contact-link__editor input:focus {
       outline: none;
       border-color: rgba(58, 96, 255, 0.45);
@@ -637,6 +657,51 @@
       50% {
         opacity: 1;
       }
+    }
+
+    .preferences-popover[hidden] {
+      display: none;
+    }
+
+    .preferences-popover {
+      position: fixed;
+      top: clamp(1.5rem, 4vw, 4rem);
+      right: clamp(1.5rem, 4vw, 4rem);
+      width: min(360px, calc(100vw - clamp(1.5rem, 4vw, 4rem) * 2));
+      z-index: 60;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-12px) scale(0.96);
+      transition: var(--transition);
+    }
+
+    .preferences-popover[data-open='true'] {
+      pointer-events: auto;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .preferences-popover__surface {
+      background: var(--surface-panel);
+      border-radius: 28px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(28px) saturate(160%);
+      padding: 1.5rem;
+      display: grid;
+      gap: 1.5rem;
+      outline: none;
+    }
+
+    .preferences-popover__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .preferences-popover__intro h2 {
+      margin: 0;
     }
 
     .preferences-panel__grid {
@@ -791,15 +856,15 @@
       position: sticky;
       top: 1.25rem;
       margin: 0 auto;
-      padding: 0.75rem 1.25rem;
-      max-width: 960px;
+      padding: 0.65rem 0.9rem;
+      width: fit-content;
       border-radius: 9999px;
       background: var(--surface-glass);
       border: 1px solid var(--border-soft);
       backdrop-filter: blur(18px);
-      display: flex;
-      gap: 0.75rem;
-      justify-content: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
       flex-wrap: wrap;
       box-shadow: 0 20px 40px rgba(15, 16, 36, 0.12);
       z-index: 30;
@@ -820,12 +885,13 @@
       position: relative;
       border-radius: var(--panel-radius);
       padding: clamp(3.5rem, 6vw, 5.5rem);
-      background: var(--surface-panel-alt);
+      background: var(--surface-panel);
       color: var(--text-primary);
       overflow: hidden;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(2rem, 4vw, 4rem);
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(2rem, 4vw, 4.5rem);
       box-shadow: var(--shadow-xl);
     }
 
@@ -847,9 +913,16 @@
     }
 
     .hero__content,
-    .hero__visual {
+    .hero__visual,
+    .hero__bio {
       position: relative;
       z-index: 1;
+    }
+
+    .hero__content {
+      display: grid;
+      gap: 1.5rem;
+      justify-items: start;
     }
 
     .hero__eyebrow {
@@ -867,8 +940,13 @@
       letter-spacing: -0.02em;
     }
 
+    .hero__bio {
+      display: grid;
+      gap: 2rem;
+    }
+
     .hero__lead {
-      margin: 1.5rem 0 2.5rem;
+      margin: 0;
       font-size: clamp(1.1rem, 2.4vw, 1.4rem);
       line-height: 1.6;
       max-width: 42ch;
@@ -879,6 +957,7 @@
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
+      justify-content: flex-start;
     }
 
     .cta {
@@ -1016,23 +1095,23 @@
     }
 
     .about-highlights {
-      display: grid;
+      display: flex;
       gap: 1.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
 
     .about-card {
+      flex: 0 0 clamp(260px, 28vw, 320px);
       padding: 1.75rem;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: var(--surface-panel-alt);
+      border-radius: 26px;
+      border: 1px solid var(--border-soft);
       position: relative;
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px) saturate(150%);
+      box-shadow: var(--shadow-lg);
     }
 
     .panel--light .about-card {
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(15, 16, 36, 0.08);
+      background: var(--surface-panel-alt);
     }
 
     .about-card h3 {
@@ -1051,14 +1130,16 @@
     .carousel {
       display: grid;
       gap: 1.5rem;
+      position: relative;
     }
 
     .carousel__viewport {
       overflow: hidden;
+      position: relative;
+      border-radius: 28px;
     }
 
-    .projects-grid,
-    .experience-grid {
+    .carousel__track {
       display: flex;
       gap: 1.5rem;
       transform: translateX(0);
@@ -1066,18 +1147,147 @@
       will-change: transform;
     }
 
-    .projects-grid > *,
-    .experience-grid > * {
-      flex: 0 0 calc(50% - 0.75rem);
-      min-width: clamp(280px, 48%, 520px);
+    .projects-grid {
+      scroll-snap-type: x mandatory;
+      padding-bottom: 0.5rem;
+    }
+
+    .projects-grid > * {
+      flex: 0 0 clamp(280px, 32vw, 360px);
+      min-width: clamp(260px, 32vw, 360px);
+      scroll-snap-align: center;
+    }
+
+    .about-highlights > * {
+      flex: 0 0 clamp(260px, 28vw, 320px);
+      scroll-snap-align: center;
     }
 
     @media (max-width: 780px) {
-      .projects-grid > *,
-      .experience-grid > * {
+      .projects-grid {
+        scroll-snap-type: x mandatory;
+      }
+
+      .projects-grid > * {
         flex-basis: 100%;
         min-width: 0;
       }
+    }
+
+    .timeline {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .timeline__controls {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .timeline__controls input[type='range'] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 160px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(143, 148, 191, 0.3);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .timeline__controls input[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--glass-accent);
+      border: none;
+      box-shadow: 0 6px 16px rgba(46, 123, 255, 0.35);
+    }
+
+    .timeline__controls input[type='range']::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--glass-accent);
+      border: none;
+      box-shadow: 0 6px 16px rgba(46, 123, 255, 0.35);
+    }
+
+    .timeline__viewport {
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .timeline__viewport::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .timeline__viewport::-webkit-scrollbar-thumb {
+      background: rgba(143, 148, 191, 0.28);
+      border-radius: 999px;
+    }
+
+    .timeline__track {
+      position: relative;
+      display: flex;
+      gap: 2rem;
+      padding: 2.5rem 0 1.5rem;
+      align-items: stretch;
+      --timeline-scale: 1;
+      --experience-card-base: clamp(260px, 28vw, 320px);
+    }
+
+    .timeline__track::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1.2rem;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(143, 231, 164, 0.24), rgba(104, 178, 255, 0.3));
+    }
+
+    .carousel__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-button-border);
+      background: var(--glass-button-bg);
+      backdrop-filter: blur(22px) saturate(140%);
+      color: var(--glass-button-text);
+      display: grid;
+      place-items: center;
+      font-size: 1.35rem;
+      font-weight: 600;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      box-shadow: var(--glass-button-shadow);
+    }
+
+    .carousel__arrow.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .carousel__arrow--prev {
+      left: clamp(0.5rem, 2vw, 1.25rem);
+    }
+
+    .carousel__arrow--next {
+      right: clamp(0.5rem, 2vw, 1.25rem);
     }
 
     .carousel__dots {
@@ -1112,26 +1322,41 @@
     }
 
     .experience-card {
+      flex: 0 0 calc(var(--experience-card-base) * var(--timeline-scale));
       padding: 1.75rem;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(18px);
+      border-radius: 26px;
+      background: var(--surface-panel-alt);
+      border: 1px solid var(--border-soft);
+      backdrop-filter: blur(18px) saturate(150%);
       display: grid;
-      gap: 0.5rem;
+      gap: 0.85rem;
       position: relative;
+      box-shadow: var(--shadow-lg);
+      scroll-snap-align: center;
+    }
+
+    .experience-card::before {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      top: -2.2rem;
+      left: 50%;
+      transform: translate(-50%, 0);
+      background: var(--glass-accent);
+      box-shadow: 0 0 0 6px rgba(98, 142, 255, 0.18), 0 18px 26px rgba(15, 16, 36, 0.28);
     }
 
     .panel--light .experience-card {
-      background: rgba(255, 255, 255, 0.75);
-      border: 1px solid rgba(15, 16, 36, 0.08);
+      background: var(--surface-panel-alt);
     }
 
     .experience-card__period {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      opacity: 0.65;
+      opacity: 0.7;
     }
 
     .experience-card__role {
@@ -1150,16 +1375,17 @@
       position: relative;
       border-radius: 28px;
       overflow: hidden;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: var(--surface-panel-alt);
+      border: 1px solid var(--border-soft);
       transition: transform 0.5s ease, box-shadow 0.5s ease;
       display: grid;
       grid-template-rows: auto 1fr;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(18px) saturate(140%);
     }
 
     .panel--light .project-card {
-      background: rgba(255, 255, 255, 0.75);
-      border: 1px solid rgba(15, 16, 36, 0.08);
+      background: var(--surface-panel-alt);
     }
 
     .project-card:hover,
@@ -1376,6 +1602,16 @@
       .retro-pc {
         display: none;
       }
+
+      .hero__content,
+      .hero__bio {
+        justify-items: center;
+        text-align: center;
+      }
+
+      .hero__actions {
+        justify-content: center;
+      }
     }
 
     @media (max-width: 640px) {
@@ -1543,7 +1779,7 @@
   </div>
 
   <nav aria-label="Primary" class="site-nav">
-    <button type="button" class="glass-button glass-button--nav" data-scroll="preferences" data-i18n="nav.preferences">Preferences</button>
+    <button type="button" class="glass-button glass-button--nav" id="preferencesToggle" data-i18n="nav.preferences" aria-expanded="false" aria-controls="preferencesPanel">Preferences</button>
     <button type="button" class="glass-button glass-button--nav" data-scroll="about" data-i18n="nav.about">About</button>
     <button type="button" class="glass-button glass-button--nav" data-scroll="experience" data-i18n="nav.experience">Experience</button>
     <button type="button" class="glass-button glass-button--nav" data-scroll="projects" data-i18n="nav.projects">Projects</button>
@@ -1551,34 +1787,15 @@
     <button type="button" class="glass-button glass-button--nav" data-action="resume" data-i18n="nav.resume">Résumé</button>
   </nav>
 
-  <main class="page">
-    <header class="hero" id="top" data-animate data-admin-zone="hero">
-      <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="hero" aria-pressed="false">Edit</button>
-      <div class="hero__content">
-        <p class="hero__eyebrow" data-i18n="hero.eyebrow">XR developer &amp; lecturer</p>
-        <h1 data-admin-edit="hero.name">Nicolas Jannek Vogt</h1>
-        <p class="hero__lead" data-i18n="hero.lead">I deliver immersive products for Union IT Services and teach Mixed Reality development at SRH Hochschule Heidelberg, blending Unreal Engine craft with a global perspective.</p>
-        <div class="hero__actions">
-          <button type="button" class="glass-button glass-button--primary cta" data-i18n="hero.cta.primary" id="viewProjects">Explore projects</button>
-          <button type="button" class="glass-button glass-button--ghost cta" data-i18n="hero.cta.secondary" data-action="resume">Download résumé</button>
+  <section class="preferences-popover" id="preferencesPanel" role="dialog" aria-modal="false" aria-labelledby="preferencesTitle" hidden>
+    <div class="preferences-popover__surface" tabindex="-1">
+      <header class="preferences-popover__header">
+        <div class="preferences-popover__intro">
+          <h2 id="preferencesTitle" data-i18n="preferences.title">Preferences</h2>
+          <p class="lead" data-i18n="preferences.lead">Match the interface to your device appearance and language.</p>
         </div>
-      </div>
-      <div class="hero__visual">
-        <figure>
-          <img alt="Cinematic rendering of a virtual reality workspace" src="img/background.jpg" />
-        </figure>
-      </div>
-    </header>
-
-    <section class="panel panel--light preferences-panel" data-animate id="preferences">
-      <div class="panel__content">
-        <div class="panel__header">
-          <div class="panel__intro">
-            <h2 data-i18n="preferences.title">Preferences</h2>
-            <p class="lead" data-i18n="preferences.lead">Match the interface to your device appearance and language.</p>
-          </div>
-        </div>
-      </div>
+        <button type="button" class="glass-button glass-button--icon" id="preferencesClose" aria-label="Close preferences" data-i18n-attr="aria-label:preferences.close">×</button>
+      </header>
       <div class="preferences-panel__grid">
         <div class="preferences-panel__section">
           <span class="preferences-panel__label" data-i18n="preferences.theme">Theme</span>
@@ -1602,7 +1819,31 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+
+  <main class="page">
+    <header class="hero" id="top" data-animate data-admin-zone="hero">
+      <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="hero" aria-pressed="false">Edit</button>
+      <div class="hero__content">
+        <p class="hero__eyebrow" data-i18n="hero.eyebrow">XR developer &amp; lecturer</p>
+        <h1 data-admin-edit="hero.name">Nicolas Jannek Vogt</h1>
+      </div>
+      <div class="hero__visual">
+        <figure>
+          <img alt="Cinematic rendering of a virtual reality workspace" src="img/background.jpg" />
+        </figure>
+      </div>
+      <div class="hero__bio">
+        <p class="hero__lead" data-i18n="hero.lead">I deliver immersive products for Union IT Services and teach Mixed Reality development at SRH Hochschule Heidelberg, blending Unreal Engine craft with a global perspective.</p>
+        <div class="hero__actions">
+          <button type="button" class="glass-button glass-button--primary cta" data-i18n="hero.cta.primary" id="viewProjects">Explore projects</button>
+          <button type="button" class="glass-button glass-button--ghost cta" data-i18n="hero.cta.secondary" data-action="resume">Download résumé</button>
+        </div>
+      </div>
+    </header>
+
+    
 
     <section class="panel panel--light" data-animate id="about" data-admin-zone="about">
       <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="about" aria-pressed="false">Edit</button>
@@ -1618,19 +1859,26 @@
           </div>
         </div>
       </div>
-      <div class="panel__grid about-highlights">
-        <div class="about-card">
-          <h3 data-i18n="about.cards.educator.title">Educator &amp; mentor</h3>
-          <p data-i18n="about.cards.educator.body">Lead lecturer for the Mixed Reality Development module at SRH Hochschule Heidelberg, guiding students from concept to deployment-ready experiences.</p>
+      <div class="carousel" data-carousel="about">
+        <div class="carousel__viewport" data-carousel-viewport>
+          <div class="carousel__track about-highlights" id="aboutTrack">
+            <div class="about-card">
+              <h3 data-i18n="about.cards.educator.title">Educator &amp; mentor</h3>
+              <p data-i18n="about.cards.educator.body">Lead lecturer for the Mixed Reality Development module at SRH Hochschule Heidelberg, guiding students from concept to deployment-ready experiences.</p>
+            </div>
+            <div class="about-card">
+              <h3 data-i18n="about.cards.technologist.title">Immersive technologist</h3>
+              <p data-i18n="about.cards.technologist.body">Builds VR and AR prototypes with Unreal Engine, C++, Blueprints, Blender, and Azure DevOps pipelines that scale across teams.</p>
+            </div>
+            <div class="about-card">
+              <h3 data-i18n="about.cards.global.title">Global perspective</h3>
+              <p data-i18n="about.cards.global.body">Raised across Shanghai, Seoul, Jakarta, Detroit, and Heidelberg—comfortable collaborating across cultures and languages.</p>
+            </div>
+          </div>
         </div>
-        <div class="about-card">
-          <h3 data-i18n="about.cards.technologist.title">Immersive technologist</h3>
-          <p data-i18n="about.cards.technologist.body">Builds VR and AR prototypes with Unreal Engine, C++, Blueprints, Blender, and Azure DevOps pipelines that scale across teams.</p>
-        </div>
-        <div class="about-card">
-          <h3 data-i18n="about.cards.global.title">Global perspective</h3>
-          <p data-i18n="about.cards.global.body">Raised across Shanghai, Seoul, Jakarta, Detroit, and Heidelberg—comfortable collaborating across cultures and languages.</p>
-        </div>
+        <button type="button" class="carousel__arrow carousel__arrow--prev" data-carousel-prev="about" aria-label="Show previous highlight">‹</button>
+        <button type="button" class="carousel__arrow carousel__arrow--next" data-carousel-next="about" aria-label="Show next highlight">›</button>
+        <div class="carousel__dots" id="aboutDots" role="tablist" aria-label="About carousel"></div>
       </div>
     </section>
 
@@ -1639,7 +1887,7 @@
       <div class="panel__content">
         <div class="panel__header">
           <div class="panel__intro">
-            <h2 data-i18n="experience.title">Experience</h2>
+            <h2 id="experienceTitle" data-i18n="experience.title">Experience</h2>
             <p class="lead" data-i18n="experience.lead">A timeline that pairs academic leadership with production-grade XR systems for finance, mobility, and culture.</p>
           </div>
           <div class="panel__actions" aria-label="Experience actions">
@@ -1648,9 +1896,13 @@
           </div>
         </div>
       </div>
-      <div class="carousel" data-carousel="experience">
-        <div class="carousel__viewport">
-          <div class="carousel__track experience-grid" id="experienceTrack">
+      <div class="timeline" data-experience-timeline>
+        <div class="timeline__controls">
+          <label for="experienceZoom" data-i18n="experience.zoom">Zoom</label>
+          <input type="range" id="experienceZoom" name="experienceZoom" min="1" max="3" step="0.25" value="1" />
+        </div>
+        <div class="timeline__viewport" id="experienceViewport" tabindex="0" aria-labelledby="experienceTitle">
+          <div class="timeline__track" id="experienceTrack">
             <article class="experience-card" data-experience-key="srhLecturer">
               <span class="experience-card__period" data-i18n="experience.srhLecturer.period">11/2024 – 12/2024</span>
               <h3 class="experience-card__role" data-i18n="experience.srhLecturer.role">Lecturer · SRH Hochschule Heidelberg</h3>
@@ -1678,7 +1930,6 @@
             </article>
           </div>
         </div>
-        <div class="carousel__dots" id="experienceDots" role="tablist" aria-label="Experience timeline"></div>
       </div>
     </section>
 
@@ -1697,7 +1948,7 @@
         </div>
       </div>
       <div class="carousel" data-carousel="projects">
-        <div class="carousel__viewport">
+        <div class="carousel__viewport" data-carousel-viewport>
           <div class="carousel__track projects-grid" id="projectsTrack">
             <article class="project-card" data-project-key="performance" data-modal-image="img/project.png" data-modal-alt-key="projects.performance.alt">
               <img src="img/project.png" alt="Meta Quest performance benchmarking dashboard" data-i18n-attr="alt:projects.performance.alt" />
@@ -1745,6 +1996,8 @@
             </article>
           </div>
         </div>
+        <button type="button" class="carousel__arrow carousel__arrow--prev" data-carousel-prev="projects" aria-label="Show previous project">‹</button>
+        <button type="button" class="carousel__arrow carousel__arrow--next" data-carousel-next="projects" aria-label="Show next project">›</button>
         <div class="carousel__dots" id="projectsDots" role="tablist" aria-label="Projects carousel"></div>
       </div>
     </section>
@@ -1839,6 +2092,7 @@
         'about.cards.global.body': "Raised across Shanghai, Seoul, Jakarta, Detroit, and Heidelberg—comfortable collaborating across cultures and languages.",
         'experience.title': "Experience",
         'experience.lead': "A timeline that pairs academic leadership with production-grade XR systems for finance, mobility, and culture.",
+        'experience.zoom': "Zoom",
         'experience.actions.add': "Add experience",
         'experience.actions.manage': "Manage experiences",
         'experience.srhLecturer.period': "11/2024 – 12/2024",
@@ -1928,6 +2182,7 @@
         'about.cards.global.body': "Aufgewachsen in Shanghai, Seoul, Jakarta, Detroit und Heidelberg – vertraut mit interkultureller Zusammenarbeit.",
         'experience.title': "Erfahrung",
         'experience.lead': "Ein Werdegang, der akademische Führung mit produktionsreifen XR-Systemen für Finanz-, Mobilitäts- und Kulturprojekte verbindet.",
+        'experience.zoom': "Zoom",
         'experience.actions.add': "Erfahrung hinzufügen",
         'experience.actions.manage': "Erfahrungen verwalten",
         'experience.srhLecturer.period': "11/2024 – 12/2024",
@@ -2017,6 +2272,7 @@
         'about.cards.global.body': "Criado en Shanghái, Seúl, Yakarta, Detroit y Heidelberg; cómodo colaborando entre culturas e idiomas.",
         'experience.title': "Experiencia",
         'experience.lead': "Una trayectoria que combina liderazgo académico con sistemas XR listos para producción en finanzas, movilidad y cultura.",
+        'experience.zoom': "Zoom",
         'experience.actions.add': "Añadir experiencia",
         'experience.actions.manage': "Gestionar experiencias",
         'experience.srhLecturer.period': "11/2024 – 12/2024",
@@ -2106,6 +2362,7 @@
         'about.cards.global.body': "A grandi à Shanghai, Séoul, Jakarta, Detroit et Heidelberg – à l’aise dans les collaborations interculturelles.",
         'experience.title': "Expérience",
         'experience.lead': "Un parcours qui marie leadership académique et systèmes XR prêts pour la production dans la finance, la mobilité et la culture.",
+        'experience.zoom': "Zoom",
         'experience.actions.add': "Ajouter une expérience",
         'experience.actions.manage': "Gérer les expériences",
         'experience.srhLecturer.period': "11/2024 – 12/2024",
@@ -2195,6 +2452,7 @@
         'about.cards.global.body': "成长于上海、首尔、雅加达、底特律与海德堡，擅长跨文化协作。",
         'experience.title': "经历",
         'experience.lead': "在金融、交通与文化领域，将学术领导力与可落地的 XR 系统相结合的职业轨迹。",
+        'experience.zoom': "缩放",
         'experience.actions.add': "新增经历",
         'experience.actions.manage': "管理经历",
         'experience.srhLecturer.period': "2024 年 11 月 – 12 月",
@@ -2296,6 +2554,10 @@
 
     const root = document.documentElement;
     const body = document.body;
+    const preferencesToggleButton = document.getElementById('preferencesToggle');
+    const preferencesPanel = document.getElementById('preferencesPanel');
+    const preferencesSurface = preferencesPanel ? preferencesPanel.querySelector('.preferences-popover__surface') : null;
+    const preferencesCloseButton = document.getElementById('preferencesClose');
     const themeButtons = Array.from(document.querySelectorAll('[data-theme-option]'));
     const languageButtons = Array.from(document.querySelectorAll('[data-lang-option]'));
     const retroButton = document.getElementById('retroTerminal');
@@ -2338,11 +2600,15 @@
         adminZones.set(zoneId, zone);
       }
     });
-    const projectsGrid = document.getElementById('projectsTrack');
+    const projectsTrack = document.getElementById('projectsTrack');
     const projectsDots = document.getElementById('projectsDots');
-    const experienceGrid = document.getElementById('experienceTrack');
-    const experienceDots = document.getElementById('experienceDots');
-    const aboutHighlights = document.querySelector('.about-highlights');
+    const projectsCarousel = document.querySelector('[data-carousel="projects"]');
+    const aboutTrack = document.getElementById('aboutTrack');
+    const aboutDots = document.getElementById('aboutDots');
+    const aboutCarousel = document.querySelector('[data-carousel="about"]');
+    const experienceTrack = document.getElementById('experienceTrack');
+    const experienceViewport = document.getElementById('experienceViewport');
+    const experienceZoomInput = document.getElementById('experienceZoom');
     const contactLinkInputs = Array.from(document.querySelectorAll('[data-contact-input]'));
     const contactLinkAnchors = new Map();
     document.querySelectorAll('[data-contact-link]').forEach((anchor) => {
@@ -2361,14 +2627,98 @@
     const modalImage = document.getElementById('projectModalImage');
     const modalClose = projectModal ? projectModal.querySelector('.modal__close') : null;
 
-    const carouselState = {
-      projects: { index: 0, timer: null, slides: 1 },
-      experience: { index: 0, timer: null, slides: 1 }
+    let preferencesVisible = false;
+
+    const openPreferencesPanel = () => {
+      if (!preferencesPanel || preferencesVisible) {
+        return;
+      }
+      preferencesPanel.hidden = false;
+      window.requestAnimationFrame(() => {
+        preferencesPanel.setAttribute('data-open', 'true');
+      });
+      preferencesVisible = true;
+      if (preferencesToggleButton) {
+        preferencesToggleButton.setAttribute('aria-expanded', 'true');
+      }
+      if (preferencesSurface) {
+        window.requestAnimationFrame(() => preferencesSurface.focus());
+      }
+    };
+
+    const closePreferencesPanel = (restoreFocus = false) => {
+      if (!preferencesPanel || !preferencesVisible) {
+        if (restoreFocus && preferencesToggleButton) {
+          preferencesToggleButton.focus();
+        }
+        return;
+      }
+      preferencesPanel.removeAttribute('data-open');
+      preferencesVisible = false;
+      if (preferencesToggleButton) {
+        preferencesToggleButton.setAttribute('aria-expanded', 'false');
+      }
+      window.setTimeout(() => {
+        if (!preferencesVisible && preferencesPanel) {
+          preferencesPanel.hidden = true;
+        }
+      }, 220);
+      if (restoreFocus && preferencesToggleButton) {
+        preferencesToggleButton.focus();
+      }
+    };
+
+    const carouselConfig = {
+      projects: { track: projectsTrack, dots: projectsDots, container: projectsCarousel },
+      about: { track: aboutTrack, dots: aboutDots, container: aboutCarousel }
+    };
+
+    const carouselState = {};
+    Object.keys(carouselConfig).forEach((key) => {
+      carouselState[key] = { index: 0, timer: null, slides: 1 };
+    });
+
+    const carouselLabels = {
+      projects: 'Project',
+      about: 'Highlight'
     };
 
     const carouselBreakpoint = window.matchMedia('(max-width: 780px)');
 
     const getCarouselPerView = () => (carouselBreakpoint.matches ? 1 : 2);
+
+    let experienceScale = 1;
+
+    const applyExperienceScale = (value) => {
+      if (!experienceTrack) {
+        return;
+      }
+      const numeric = Math.min(3, Math.max(1, Number(value) || 1));
+      if (experienceZoomInput && experienceZoomInput.value !== String(numeric)) {
+        experienceZoomInput.value = String(numeric);
+      }
+      const viewport = experienceViewport;
+      let scrollRatio = 0;
+      if (viewport) {
+        const maxScroll = Math.max(1, viewport.scrollWidth - viewport.clientWidth);
+        scrollRatio = maxScroll > 1 ? viewport.scrollLeft / maxScroll : 0;
+      }
+      experienceScale = numeric;
+      experienceTrack.style.setProperty('--timeline-scale', numeric.toString());
+      if (viewport) {
+        window.requestAnimationFrame(() => {
+          const maxScroll = Math.max(1, viewport.scrollWidth - viewport.clientWidth);
+          viewport.scrollLeft = scrollRatio * maxScroll;
+        });
+      }
+    };
+
+    const alignExperienceTimeline = () => {
+      if (!experienceTrack) {
+        return;
+      }
+      applyExperienceScale(experienceScale);
+    };
 
     function stopCarouselAuto(key) {
       const state = carouselState[key];
@@ -2376,6 +2726,16 @@
         window.clearInterval(state.timer);
         state.timer = null;
       }
+    }
+
+    function stepCarousel(key, step) {
+      const state = carouselState[key];
+      if (!state || state.slides <= 0) {
+        return;
+      }
+      const slides = Math.max(1, state.slides);
+      const nextIndex = (state.index + step + slides) % slides;
+      setCarouselIndex(key, nextIndex);
     }
 
     function startCarouselAuto(key) {
@@ -2386,8 +2746,7 @@
       }
       stopCarouselAuto(key);
       state.timer = window.setInterval(() => {
-        const nextIndex = (state.index + 1) % state.slides;
-        setCarouselIndex(key, nextIndex);
+        stepCarousel(key, 1);
       }, 7000);
     }
 
@@ -2395,21 +2754,61 @@
       if (!carousel || carousel.dataset.carouselBound === 'true') {
         return;
       }
+      const viewport = carousel.querySelector('[data-carousel-viewport]');
+      const prevButton = carousel.querySelector(`[data-carousel-prev="${key}"]`);
+      const nextButton = carousel.querySelector(`[data-carousel-next="${key}"]`);
+      const showArrow = (button, visible) => {
+        if (!button) {
+          return;
+        }
+        button.classList.toggle('is-visible', visible);
+      };
       const resume = () => startCarouselAuto(key);
       carousel.addEventListener('mouseenter', () => stopCarouselAuto(key));
       carousel.addEventListener('focusin', () => stopCarouselAuto(key));
       carousel.addEventListener('mouseleave', resume);
-      carousel.addEventListener('focusout', resume);
+      carousel.addEventListener('focusout', (event) => {
+        if (carousel.contains(event.relatedTarget)) {
+          return;
+        }
+        resume();
+      });
+      if (viewport) {
+        viewport.addEventListener('pointermove', (event) => {
+          const rect = viewport.getBoundingClientRect();
+          const offset = event.clientX - rect.left;
+          const threshold = Math.min(140, rect.width / 2);
+          showArrow(prevButton, offset <= threshold);
+          showArrow(nextButton, rect.width - offset <= threshold);
+        });
+        viewport.addEventListener('pointerleave', () => {
+          showArrow(prevButton, false);
+          showArrow(nextButton, false);
+        });
+      }
+      [prevButton, nextButton].forEach((button) => {
+        if (!button) {
+          return;
+        }
+        button.addEventListener('focus', () => showArrow(button, true));
+        button.addEventListener('blur', () => showArrow(button, false));
+      });
+      if (prevButton) {
+        prevButton.addEventListener('click', () => stepCarousel(key, -1));
+      }
+      if (nextButton) {
+        nextButton.addEventListener('click', () => stepCarousel(key, 1));
+      }
       carousel.dataset.carouselBound = 'true';
     };
 
     function refreshCarousel(key) {
+      const config = carouselConfig[key];
       const state = carouselState[key];
-      if (!state) {
+      if (!config || !state) {
         return;
       }
-      const track = key === 'projects' ? projectsGrid : experienceGrid;
-      const dots = key === 'projects' ? projectsDots : experienceDots;
+      const { track, dots, container } = config;
       if (!track) {
         stopCarouselAuto(key);
         return;
@@ -2431,7 +2830,7 @@
             const dot = document.createElement('button');
             dot.type = 'button';
             dot.dataset.carouselIndex = String(i);
-            dot.setAttribute('aria-label', `${key === 'projects' ? 'Project' : 'Experience'} ${i + 1}`);
+            dot.setAttribute('aria-label', `${carouselLabels[key] || 'Slide'} ${i + 1}`);
             dot.setAttribute('aria-current', i === state.index ? 'true' : 'false');
             dot.addEventListener('click', () => setCarouselIndex(key, i));
             dots.appendChild(dot);
@@ -2439,8 +2838,7 @@
         }
         dots.hidden = state.slides <= 1;
       }
-      const carousel = track.closest('.carousel');
-      ensureCarouselBindings(key, carousel);
+      ensureCarouselBindings(key, container);
       stopCarouselAuto(key);
       if (state.slides > 1) {
         startCarouselAuto(key);
@@ -2458,8 +2856,7 @@
     }
 
     function refreshAllCarousels() {
-      refreshCarousel('projects');
-      refreshCarousel('experience');
+      Object.keys(carouselConfig).forEach((key) => refreshCarousel(key));
     }
 
     carouselBreakpoint.addEventListener('change', refreshAllCarousels);
@@ -2467,8 +2864,17 @@
     let carouselResizeTimer = null;
     window.addEventListener('resize', () => {
       window.clearTimeout(carouselResizeTimer);
-      carouselResizeTimer = window.setTimeout(() => refreshAllCarousels(), 150);
+      carouselResizeTimer = window.setTimeout(() => {
+        refreshAllCarousels();
+        alignExperienceTimeline();
+      }, 150);
     });
+
+    if (experienceZoomInput) {
+      experienceZoomInput.addEventListener('input', (event) => {
+        applyExperienceScale(event.target.value);
+      });
+    }
 
     const safeGetItem = (key) => {
       try {
@@ -2876,16 +3282,17 @@
     };
 
     const renderDynamicAboutHighlights = () => {
-      if (!aboutHighlights) {
+      if (!aboutTrack) {
         return;
       }
-      aboutHighlights.querySelectorAll('[data-admin-about]').forEach((card) => card.remove());
+      aboutTrack.querySelectorAll('[data-admin-about]').forEach((card) => card.remove());
       adminAboutHighlights.forEach((highlight) => {
         const card = createAboutCard(highlight);
         if (card) {
-          aboutHighlights.appendChild(card);
+          aboutTrack.appendChild(card);
         }
       });
+      refreshCarousel('about');
     };
 
     const renderAdminAboutList = () => {
@@ -2925,7 +3332,7 @@
     };
 
     const createProjectCard = (project) => {
-      if (!projectsGrid) {
+      if (!projectsTrack) {
         return null;
       }
       const article = document.createElement('article');
@@ -2996,15 +3403,15 @@
     };
 
     const renderDynamicProjects = () => {
-      if (!projectsGrid) {
+      if (!projectsTrack) {
         return;
       }
-      projectsGrid.querySelectorAll('[data-admin-project]').forEach((card) => card.remove());
+      projectsTrack.querySelectorAll('[data-admin-project]').forEach((card) => card.remove());
       adminProjects.forEach((project) => {
         registerProjectDetail(project);
         const card = createProjectCard(project);
         if (card) {
-          projectsGrid.appendChild(card);
+          projectsTrack.appendChild(card);
           const launchButton = card.querySelector('[data-project-launch]');
           attachProjectLaunch(launchButton);
         }
@@ -3086,7 +3493,7 @@
     };
 
     const createExperienceCard = (experience) => {
-      if (!experienceGrid) {
+      if (!experienceTrack) {
         return null;
       }
       const article = document.createElement('article');
@@ -3126,17 +3533,17 @@
     };
 
     const renderDynamicExperiences = () => {
-      if (!experienceGrid) {
+      if (!experienceTrack) {
         return;
       }
-      experienceGrid.querySelectorAll('[data-admin-experience]').forEach((card) => card.remove());
+      experienceTrack.querySelectorAll('[data-admin-experience]').forEach((card) => card.remove());
       adminExperiences.forEach((experience) => {
         const card = createExperienceCard(experience);
         if (card) {
-          experienceGrid.appendChild(card);
+          experienceTrack.appendChild(card);
         }
       });
-      refreshCarousel('experience');
+      alignExperienceTimeline();
     };
 
     const renderAdminExperiencesList = () => {
@@ -3372,6 +3779,30 @@
       }, 350);
     };
 
+    if (preferencesToggleButton) {
+      preferencesToggleButton.addEventListener('click', () => {
+        if (preferencesVisible) {
+          closePreferencesPanel(true);
+        } else {
+          openPreferencesPanel();
+        }
+      });
+    }
+
+    if (preferencesCloseButton) {
+      preferencesCloseButton.addEventListener('click', () => closePreferencesPanel(true));
+    }
+
+    document.addEventListener('pointerdown', (event) => {
+      if (!preferencesVisible || !preferencesPanel) {
+        return;
+      }
+      if (preferencesPanel.contains(event.target) || event.target === preferencesToggleButton) {
+        return;
+      }
+      closePreferencesPanel();
+    });
+
     if (modalClose) {
       modalClose.addEventListener('click', closeModal);
     }
@@ -3396,6 +3827,10 @@
         setSheetVisible(openSheet, false);
         return;
       }
+      if (preferencesVisible) {
+        closePreferencesPanel(true);
+        return;
+      }
       if (editingZones.size > 0) {
         closeAllZones();
         return;
@@ -3407,6 +3842,7 @@
       closeModal();
     });
 
+    applyExperienceScale(experienceZoomInput ? experienceZoomInput.value : experienceScale);
     renderDynamicAboutHighlights();
     renderAdminAboutList();
     renderDynamicProjects();
@@ -3416,6 +3852,7 @@
     applyContactLinks();
     syncContactInputs();
     refreshAllCarousels();
+    alignExperienceTimeline();
 
     document.querySelectorAll('[data-project-launch]').forEach((button) => attachProjectLaunch(button));
 
@@ -3435,6 +3872,7 @@
       }
       updateRetroScreen(lang, true);
       refreshAllCarousels();
+      alignExperienceTimeline();
       if (persist) {
         safeSetItem('language', lang);
       }
@@ -3601,8 +4039,8 @@
       });
     }
 
-    if (projectsGrid) {
-      projectsGrid.addEventListener('click', (event) => {
+    if (projectsTrack) {
+      projectsTrack.addEventListener('click', (event) => {
         const removeButton = event.target.closest('button[data-remove-project]');
         if (!removeButton) {
           return;
@@ -3617,8 +4055,8 @@
       });
     }
 
-    if (experienceGrid) {
-      experienceGrid.addEventListener('click', (event) => {
+    if (experienceTrack) {
+      experienceTrack.addEventListener('click', (event) => {
         const removeButton = event.target.closest('button[data-remove-experience]');
         if (!removeButton) {
           return;
@@ -3632,8 +4070,8 @@
       });
     }
 
-    if (aboutHighlights) {
-      aboutHighlights.addEventListener('click', (event) => {
+    if (aboutTrack) {
+      aboutTrack.addEventListener('click', (event) => {
         const removeButton = event.target.closest('button[data-remove-about]');
         if (!removeButton) {
           return;
