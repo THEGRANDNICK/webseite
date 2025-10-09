@@ -19,6 +19,17 @@
       --shadow-xl: 0 48px 120px rgba(12, 14, 32, 0.35);
       --panel-radius: 36px;
       --transition: all 0.35s ease;
+      --glass-button-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.54), rgba(229, 233, 255, 0.24));
+      --glass-button-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.64), rgba(229, 233, 255, 0.35));
+      --glass-button-active: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(229, 233, 255, 0.45));
+      --glass-button-border: rgba(255, 255, 255, 0.55);
+      --glass-button-shadow: 0 24px 48px rgba(15, 16, 36, 0.18);
+      --glass-button-hover-shadow: 0 28px 56px rgba(15, 16, 36, 0.24);
+      --glass-button-text: var(--text-primary);
+      --glass-accent: linear-gradient(135deg, rgba(46, 123, 255, 0.85), rgba(145, 190, 255, 0.9));
+      --glass-accent-hover: linear-gradient(135deg, rgba(62, 139, 255, 0.95), rgba(161, 204, 255, 0.95));
+      --glass-danger: linear-gradient(135deg, rgba(255, 99, 132, 0.22), rgba(255, 99, 132, 0.1));
+      --glass-danger-hover: linear-gradient(135deg, rgba(255, 99, 132, 0.32), rgba(255, 99, 132, 0.16));
     }
 
     [data-theme="dark"] {
@@ -33,6 +44,17 @@
       --border-soft: rgba(255, 255, 255, 0.08);
       --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.45);
       --shadow-xl: 0 48px 120px rgba(0, 0, 0, 0.55);
+      --glass-button-bg: linear-gradient(135deg, rgba(34, 38, 58, 0.68), rgba(18, 21, 34, 0.58));
+      --glass-button-hover: linear-gradient(135deg, rgba(46, 52, 76, 0.78), rgba(26, 29, 44, 0.66));
+      --glass-button-active: linear-gradient(135deg, rgba(62, 69, 96, 0.88), rgba(28, 30, 46, 0.72));
+      --glass-button-border: rgba(143, 148, 191, 0.55);
+      --glass-button-shadow: 0 24px 48px rgba(0, 0, 0, 0.42);
+      --glass-button-hover-shadow: 0 28px 56px rgba(0, 0, 0, 0.5);
+      --glass-button-text: var(--text-primary);
+      --glass-accent: linear-gradient(135deg, rgba(92, 135, 255, 0.85), rgba(44, 90, 255, 0.95));
+      --glass-accent-hover: linear-gradient(135deg, rgba(112, 155, 255, 0.95), rgba(64, 110, 255, 0.98));
+      --glass-danger: linear-gradient(135deg, rgba(255, 99, 132, 0.28), rgba(173, 35, 57, 0.28));
+      --glass-danger-hover: linear-gradient(135deg, rgba(255, 132, 160, 0.38), rgba(214, 56, 83, 0.36));
     }
 
     [data-theme="contrast"] {
@@ -47,6 +69,17 @@
       --border-soft: rgba(5, 5, 5, 0.18);
       --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.55);
       --shadow-xl: 0 48px 120px rgba(0, 0, 0, 0.65);
+      --glass-button-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(225, 225, 225, 0.48));
+      --glass-button-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(225, 225, 225, 0.56));
+      --glass-button-active: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(225, 225, 225, 0.62));
+      --glass-button-border: rgba(5, 5, 5, 0.24);
+      --glass-button-shadow: 0 24px 48px rgba(0, 0, 0, 0.32);
+      --glass-button-hover-shadow: 0 28px 56px rgba(0, 0, 0, 0.42);
+      --glass-button-text: var(--text-primary);
+      --glass-accent: linear-gradient(135deg, rgba(32, 32, 32, 0.92), rgba(5, 5, 5, 0.92));
+      --glass-accent-hover: linear-gradient(135deg, rgba(0, 0, 0, 0.98), rgba(48, 48, 48, 0.95));
+      --glass-danger: linear-gradient(135deg, rgba(255, 99, 132, 0.28), rgba(120, 0, 21, 0.18));
+      --glass-danger-hover: linear-gradient(135deg, rgba(255, 120, 150, 0.36), rgba(140, 0, 34, 0.24));
     }
 
     * {
@@ -88,6 +121,142 @@
       border: 0;
     }
 
+    button {
+      font: inherit;
+      color: inherit;
+    }
+
+    .glass-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.6rem 1.35rem;
+      border-radius: 18px;
+      border: 1px solid var(--glass-button-border);
+      background: var(--glass-button-bg);
+      color: var(--glass-button-text);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      backdrop-filter: blur(28px) saturate(140%);
+      box-shadow: var(--glass-button-shadow);
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .glass-button::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0));
+      opacity: 0;
+      transition: var(--transition);
+      z-index: -1;
+    }
+
+    .glass-button:hover,
+    .glass-button:focus-visible {
+      transform: translateY(-2px);
+      background: var(--glass-button-hover);
+      box-shadow: var(--glass-button-hover-shadow);
+      outline: none;
+    }
+
+    .glass-button:hover::after,
+    .glass-button:focus-visible::after {
+      opacity: 1;
+    }
+
+    .glass-button:active {
+      transform: translateY(0);
+      background: var(--glass-button-active);
+      box-shadow: var(--glass-button-shadow);
+    }
+
+    .glass-button--primary {
+      background: var(--glass-accent);
+      color: #fff;
+    }
+
+    .glass-button--primary:hover,
+    .glass-button--primary:focus-visible {
+      background: var(--glass-accent-hover);
+      color: #fff;
+    }
+
+    .glass-button--ghost {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.28);
+      color: inherit;
+    }
+
+    .glass-button--ghost:hover,
+    .glass-button--ghost:focus-visible {
+      background: rgba(255, 255, 255, 0.24);
+      border-color: rgba(255, 255, 255, 0.36);
+    }
+
+    .glass-button--danger {
+      background: var(--glass-danger);
+      color: #8c1b2c;
+    }
+
+    .glass-button--danger:hover,
+    .glass-button--danger:focus-visible {
+      background: var(--glass-danger-hover);
+      color: #5c0f1d;
+    }
+
+    .glass-button--icon {
+      padding: 0.45rem 0.6rem;
+      border-radius: 999px;
+      min-width: 2.2rem;
+      height: 2.2rem;
+      font-size: 0.85rem;
+    }
+
+    .glass-button--slim {
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .glass-button--segment {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .glass-button--nav {
+      padding: 0.55rem 1.35rem;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      font-size: 0.82rem;
+    }
+
+    .glass-button[aria-pressed="true"],
+    .glass-button[aria-checked="true"] {
+      background: var(--glass-accent);
+      color: #fff;
+      box-shadow: 0 20px 40px rgba(46, 123, 255, 0.35);
+    }
+
+    .glass-button[aria-pressed="true"]:hover,
+    .glass-button[aria-pressed="true"]:focus-visible,
+    .glass-button[aria-checked="true"]:hover,
+    .glass-button[aria-checked="true"]:focus-visible {
+      background: var(--glass-accent-hover);
+    }
+
     .control-panel {
       position: fixed;
       top: 1.25rem;
@@ -100,30 +269,9 @@
     }
 
     .control-panel__toggle {
-      border: none;
-      background: var(--surface-glass);
-      border-radius: 9999px;
-      padding: 0.55rem 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      font-size: 0.7rem;
-      color: var(--text-primary);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 14px 30px rgba(15, 16, 36, 0.16);
-      border: 1px solid var(--border-soft);
-      cursor: pointer;
-      backdrop-filter: blur(18px);
-      transition: var(--transition);
-    }
-
-    .control-panel__toggle:hover,
-    .control-panel__toggle:focus-visible {
-      transform: translateY(-2px);
-      outline: none;
-      box-shadow: 0 18px 36px rgba(15, 16, 36, 0.2);
     }
 
     .control-panel__content {
@@ -163,22 +311,7 @@
     }
 
     .control-panel__close {
-      border: none;
-      background: rgba(15, 16, 36, 0.08);
-      border-radius: 9999px;
-      width: 32px;
-      height: 32px;
       font-size: 1.1rem;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .control-panel__close:hover,
-    .control-panel__close:focus-visible {
-      background: rgba(15, 16, 36, 0.16);
-      outline: none;
     }
 
     .control-panel__section {
@@ -207,30 +340,45 @@
       position: relative;
       width: 100%;
       padding: 1.25rem 1rem 2.5rem;
-      border: none;
-      border-radius: 18px 18px 12px 12px;
-      background: linear-gradient(160deg, rgba(36, 40, 52, 0.88), rgba(18, 20, 30, 0.92));
-      box-shadow: 0 24px 60px rgba(12, 14, 32, 0.35);
+      border-radius: 24px 24px 18px 18px;
+      border: 1px solid var(--glass-button-border);
+      background: var(--glass-button-bg);
+      box-shadow: var(--glass-button-shadow);
+      backdrop-filter: blur(28px) saturate(160%);
       display: block;
       cursor: pointer;
       pointer-events: auto;
       overflow: hidden;
-      transition: transform 0.45s ease, box-shadow 0.45s ease;
+      transition: var(--transition);
+      isolation: isolate;
+    }
+
+    .retro-pc__button::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.24), rgba(229, 233, 255, 0.12));
+      mix-blend-mode: screen;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .retro-pc__button:hover,
     .retro-pc__button:focus-visible {
       transform: translateY(-6px);
-      box-shadow: 0 32px 80px rgba(12, 14, 32, 0.45);
+      box-shadow: var(--glass-button-hover-shadow);
       outline: none;
     }
 
     .retro-pc__button.is-active {
       transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 36px 90px rgba(12, 14, 32, 0.55);
+      box-shadow: 0 36px 90px rgba(12, 14, 32, 0.45);
     }
 
     .retro-pc__screen {
+      position: relative;
+      z-index: 1;
       display: block;
       font-family: "SF Mono", "Menlo", "Consolas", monospace;
       font-size: 0.85rem;
@@ -255,6 +403,7 @@
       right: 1.1rem;
       box-shadow: 0 0 8px rgba(104, 255, 137, 0.6);
       animation: pulse 2.8s ease-in-out infinite;
+      z-index: 2;
     }
 
     .retro-pc__base {
@@ -266,21 +415,29 @@
       border-radius: 10px;
       background: linear-gradient(90deg, rgba(68, 74, 88, 0.9), rgba(28, 30, 40, 0.9));
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      z-index: 1;
     }
 
     .retro-admin {
       position: absolute;
       inset: 1.25rem 1.25rem auto 1.25rem;
-      background: rgba(5, 18, 12, 0.92);
-      border-radius: 12px;
-      border: 1px solid rgba(143, 231, 164, 0.25);
-      box-shadow: inset 0 0 0 1px rgba(143, 231, 164, 0.18);
-      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.82);
+      border-radius: 18px;
+      border: 1px solid var(--glass-button-border);
+      box-shadow: 0 24px 48px rgba(15, 16, 36, 0.24);
+      backdrop-filter: blur(22px) saturate(160%);
+      padding: 1rem;
       display: none;
       flex-direction: column;
-      gap: 0.65rem;
+      gap: 0.75rem;
       pointer-events: auto;
       z-index: 2;
+      color: var(--text-primary);
+    }
+
+    [data-theme="dark"] .retro-admin {
+      background: rgba(22, 24, 38, 0.88);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
     }
 
     .retro-admin.is-visible {
@@ -288,21 +445,10 @@
     }
 
     .retro-admin label {
-      font-family: "SF Mono", "Menlo", "Consolas", monospace;
-      font-size: 0.8rem;
-      text-transform: lowercase;
-      color: #8fe7a4;
-    }
-
-    .retro-admin input {
-      background: rgba(12, 24, 18, 0.95);
-      border: 1px solid rgba(143, 231, 164, 0.4);
-      border-radius: 8px;
-      color: #8fe7a4;
-      font-family: "SF Mono", "Menlo", "Consolas", monospace;
-      font-size: 0.8rem;
-      padding: 0.35rem 0.5rem;
-      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.45);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
     }
 
     .retro-admin__actions {
@@ -310,177 +456,172 @@
       gap: 0.5rem;
     }
 
-    .retro-admin__actions button {
+    .retro-admin__actions .glass-button {
       flex: 1;
-      border: 1px solid rgba(143, 231, 164, 0.35);
-      border-radius: 8px;
-      background: rgba(16, 36, 28, 0.85);
-      color: #8fe7a4;
-      font-family: "SF Mono", "Menlo", "Consolas", monospace;
-      font-size: 0.75rem;
-      padding: 0.35rem 0.5rem;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .retro-admin__actions button:hover,
-    .retro-admin__actions button:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 0 12px rgba(143, 231, 164, 0.38);
-      outline: none;
-    }
-
-    .retro-admin__status {
+      padding: 0.45rem 0.75rem;
       font-size: 0.7rem;
-      color: #68ff89;
-      min-height: 1rem;
-    }
-
-    .admin-panel {
-      position: fixed;
-      right: 2rem;
-      bottom: 2rem;
-      width: min(360px, 90vw);
-      padding: 1.75rem;
-      border-radius: 28px;
-      background: var(--surface-panel-alt);
-      border: 1px solid var(--border-soft);
-      box-shadow: 0 32px 80px rgba(15, 16, 36, 0.28);
-      display: none;
-      flex-direction: column;
-      gap: 1.25rem;
-      z-index: 60;
-    }
-
-    .admin-panel.is-visible {
-      display: flex;
-    }
-
-    .admin-panel__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .admin-panel__title {
-      margin: 0;
-      font-size: 1rem;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .admin-panel__close {
-      border: none;
-      background: rgba(15, 16, 36, 0.12);
-      border-radius: 9999px;
-      width: 36px;
-      height: 36px;
+    .retro-admin__status {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      min-height: 1rem;
+    }
+
+    .retro-admin__status[data-state='success'] {
+      color: #3d7dff;
+    }
+
+    .retro-admin__status[data-state='error'] {
+      color: #d36271;
+    }
+
+    .admin-dock {
+      position: fixed;
+      top: 6.5rem;
+      right: 1.5rem;
+      width: min(280px, 85vw);
+      padding: 1.1rem 1.25rem;
+      border-radius: 22px;
+      background: var(--surface-glass);
+      border: 1px solid var(--border-soft);
+      backdrop-filter: blur(24px);
+      box-shadow: 0 28px 60px rgba(15, 16, 36, 0.22);
+      display: none;
+      flex-direction: column;
+      gap: 0.85rem;
+      z-index: 70;
+    }
+
+    .admin-dock.is-visible {
+      display: flex;
+    }
+
+    .admin-dock__title {
+      margin: 0;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .admin-dock__buttons {
       display: grid;
-      place-items: center;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: var(--transition);
+      gap: 0.5rem;
     }
 
-    .admin-panel__close:hover,
-    .admin-panel__close:focus-visible {
-      background: rgba(15, 16, 36, 0.2);
-      outline: none;
+    .admin-dock__buttons .glass-button {
+      width: 100%;
     }
 
-    .admin-panel__section {
-      display: grid;
-      gap: 0.75rem;
-      padding: 1rem;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.16);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    .admin-dock__hint {
+      font-size: 0.72rem;
+      line-height: 1.4;
+      color: var(--text-secondary);
     }
 
-    .admin-panel__section h3 {
+    .admin-sheet {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: min(420px, 90vw);
+      max-height: min(80vh, 640px);
+      padding: 1.5rem;
+      border-radius: 28px;
+      background: var(--surface-panel-alt);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 40px 90px rgba(15, 16, 36, 0.32);
+      backdrop-filter: blur(28px);
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 75;
+    }
+
+    .admin-sheet.is-visible {
+      display: flex;
+    }
+
+    .admin-sheet__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .admin-sheet__title {
       margin: 0;
       font-size: 0.85rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .admin-panel__section p {
-      margin: 0;
-      font-size: 0.8rem;
+    .admin-sheet__body {
+      display: grid;
+      gap: 1rem;
+      overflow-y: auto;
+      padding-right: 0.35rem;
+    }
+
+    .admin-sheet form {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .admin-sheet label {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
       color: var(--text-secondary);
     }
 
-    .admin-panel button,
-    .admin-panel input,
-    .admin-panel textarea {
-      font: inherit;
-    }
-
-    .admin-panel button {
-      border: none;
-      border-radius: 9999px;
-      padding: 0.55rem 1.1rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      background: rgba(15, 16, 36, 0.12);
-      color: var(--text-primary);
-      transition: var(--transition);
-    }
-
-    .admin-panel button:hover,
-    .admin-panel button:focus-visible {
-      background: rgba(15, 16, 36, 0.18);
-      transform: translateY(-2px);
-      outline: none;
-    }
-
-    .admin-panel button.admin-panel__danger {
-      background: rgba(200, 40, 40, 0.18);
-      color: #a00;
-    }
-
-    .admin-panel button.admin-panel__danger:hover,
-    .admin-panel button.admin-panel__danger:focus-visible {
-      background: rgba(200, 40, 40, 0.26);
-      color: #600;
-    }
-
-    .admin-panel textarea,
-    .admin-panel input[type="url"],
-    .admin-panel input[type="text"] {
+    .admin-sheet input,
+    .admin-sheet textarea,
+    .retro-admin input {
       width: 100%;
-      border-radius: 14px;
-      border: 1px solid rgba(15, 16, 36, 0.12);
-      padding: 0.65rem 0.85rem;
-      background: rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.68);
+      padding: 0.65rem 1rem;
+      font: inherit;
       color: var(--text-primary);
       transition: var(--transition);
       resize: vertical;
     }
 
-    .admin-panel textarea:focus,
-    .admin-panel input[type="url"]:focus,
-    .admin-panel input[type="text"]:focus {
+    [data-theme="dark"] .admin-sheet input,
+    [data-theme="dark"] .admin-sheet textarea,
+    [data-theme="dark"] .retro-admin input {
+      background: rgba(18, 21, 34, 0.72);
+      border-color: rgba(143, 148, 191, 0.24);
+      color: var(--text-primary);
+    }
+
+    .admin-sheet input:focus,
+    .admin-sheet textarea:focus,
+    .retro-admin input:focus {
       outline: none;
-      border-color: rgba(15, 16, 36, 0.3);
-      box-shadow: 0 0 0 2px rgba(15, 16, 36, 0.12);
+      border-color: rgba(58, 96, 255, 0.45);
+      box-shadow: 0 0 0 2px rgba(58, 96, 255, 0.2);
     }
 
-    .admin-panel__actions {
+    .admin-sheet__actions {
       display: flex;
-      flex-wrap: wrap;
       gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
-    .admin-panel__projects {
+    .admin-projects {
       display: grid;
       gap: 0.75rem;
+      max-height: 240px;
+      overflow-y: auto;
+      padding-right: 0.35rem;
     }
 
-    .admin-panel__empty {
+    .admin-projects__empty {
       font-size: 0.78rem;
       color: var(--text-secondary);
     }
@@ -490,17 +631,23 @@
       justify-content: space-between;
       align-items: center;
       gap: 0.75rem;
-      padding: 0.65rem 0.75rem;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.6);
+      padding: 0.75rem 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
       border: 1px solid rgba(15, 16, 36, 0.08);
+      box-shadow: 0 12px 24px rgba(15, 16, 36, 0.12);
+    }
+
+    [data-theme="dark"] .admin-project {
+      background: rgba(25, 28, 42, 0.85);
+      border-color: rgba(143, 148, 191, 0.2);
     }
 
     .admin-project__meta {
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
-      font-size: 0.8rem;
+      gap: 0.25rem;
+      font-size: 0.82rem;
     }
 
     .admin-project__meta span {
@@ -510,11 +657,38 @@
       text-transform: uppercase;
     }
 
+    [data-admin-zone] {
+      position: relative;
+    }
+
+    .admin-edit-button {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      display: none;
+      z-index: 10;
+    }
+
+    body.admin-enabled .admin-edit-button {
+      display: inline-flex;
+    }
+
+    .admin-edit-button.is-active {
+      background: var(--glass-accent);
+      color: #fff;
+    }
+
+    .admin-zone--editing {
+      outline: 2px dashed rgba(58, 96, 255, 0.45);
+      outline-offset: 6px;
+    }
+
     [data-admin-edit].is-editable,
     [data-i18n].is-editable {
-      outline: 2px dashed rgba(58, 96, 255, 0.6);
-      outline-offset: 4px;
-      background: rgba(58, 96, 255, 0.08);
+      outline: none;
+      background: rgba(58, 96, 255, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(58, 96, 255, 0.2);
+      border-radius: 12px;
     }
 
     @keyframes pulse {
@@ -532,34 +706,28 @@
       gap: 0.35rem;
       padding: 0.35rem;
       border-radius: 9999px;
-      background: var(--surface-glass);
+      background: rgba(255, 255, 255, 0.12);
       border: 1px solid var(--border-soft);
       backdrop-filter: blur(18px);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
     }
 
-    .preference button {
-      border: none;
+    .preference .glass-button {
+      border-color: transparent;
+      box-shadow: none;
       background: transparent;
-      border-radius: 9999px;
-      padding: 0.35rem 0.85rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .preference .glass-button:hover,
+    .preference .glass-button:focus-visible {
+      background: rgba(255, 255, 255, 0.16);
+      box-shadow: none;
       color: var(--text-primary);
-      cursor: pointer;
-      transition: var(--transition);
     }
 
-    .preference button[aria-checked="true"] {
-      background: rgba(255, 255, 255, 0.28);
-      box-shadow: 0 8px 20px rgba(12, 14, 32, 0.15);
-    }
-
-    .preference button:focus-visible {
-      outline: 2px solid rgba(255, 255, 255, 0.6);
-      outline-offset: 2px;
+    .preference .glass-button[aria-checked="true"] {
+      border-color: transparent;
+      color: #fff;
     }
 
     nav.site-nav {
@@ -580,23 +748,8 @@
       z-index: 30;
     }
 
-    nav.site-nav button {
-      border: none;
-      background: transparent;
-      border-radius: 9999px;
-      padding: 0.6rem 1.4rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      transition: var(--transition);
-      cursor: pointer;
-    }
-
-    nav.site-nav button:hover,
-    nav.site-nav button:focus-visible {
-      background: rgba(255, 255, 255, 0.35);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-      outline: none;
+    nav.site-nav .glass-button {
+      font-weight: 600;
     }
 
     main.page {
@@ -672,39 +825,10 @@
     }
 
     .cta {
-      border: none;
-      border-radius: 9999px;
-      padding: 0.85rem 2.4rem;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-    }
-
-    .cta--primary {
-      background: linear-gradient(135deg, #0071e3, #559dff);
-      color: #fff;
-      box-shadow: 0 24px 48px rgba(0, 113, 227, 0.35);
-    }
-
-    .cta--primary:hover,
-    .cta--primary:focus-visible {
-      transform: translateY(-4px);
-      box-shadow: 0 32px 64px rgba(0, 113, 227, 0.42);
-      outline: none;
-    }
-
-    .cta--ghost {
-      background: rgba(255, 255, 255, 0.16);
-      color: #f5f5f7;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
-    }
-
-    .cta--ghost:hover,
-    .cta--ghost:focus-visible {
-      background: rgba(255, 255, 255, 0.24);
-      transform: translateY(-4px);
-      outline: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     .hero__visual {
@@ -764,6 +888,48 @@
     .panel__visual {
       position: relative;
       z-index: 1;
+    }
+
+    .panel__header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+
+    .panel__intro {
+      display: grid;
+      gap: 1rem;
+      max-width: 680px;
+    }
+
+    .panel__actions {
+      display: none;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+      max-width: 100%;
+    }
+
+    .panel__actions::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .panel__actions::-webkit-scrollbar-thumb {
+      background: rgba(143, 148, 191, 0.32);
+      border-radius: 999px;
+    }
+
+    body.admin-enabled .panel__actions {
+      display: flex;
+    }
+
+    .panel__actions .glass-button {
+      flex: 0 0 auto;
+      white-space: nowrap;
     }
 
     section[data-animate] {
@@ -938,16 +1104,19 @@
       align-items: center;
       gap: 0.35rem;
       border-radius: 9999px;
-      padding: 0.4rem 1.1rem;
-      font-size: 0.85rem;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.26);
-      transition: background 0.3s ease, border-color 0.3s ease;
+      padding: 0.45rem 1.2rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--glass-button-bg);
+      border: 1px solid var(--glass-button-border);
+      backdrop-filter: blur(18px) saturate(120%);
+      box-shadow: 0 14px 30px rgba(15, 16, 36, 0.16);
+      transition: var(--transition);
+      text-decoration: none;
     }
 
     .panel--light .level-chip {
-      background: rgba(15, 16, 36, 0.08);
-      border: 1px solid rgba(15, 16, 36, 0.12);
+      color: var(--text-primary);
     }
 
     .level-chip[data-state="available"] {
@@ -956,9 +1125,10 @@
 
     .level-chip[data-state="available"]:hover,
     .level-chip[data-state="available"]:focus-visible {
-      background: rgba(255, 255, 255, 0.22);
-      border-color: rgba(255, 255, 255, 0.4);
+      background: var(--glass-button-hover);
+      box-shadow: var(--glass-button-hover-shadow);
       outline: none;
+      transform: translateY(-2px);
     }
 
     .contact-cta {
@@ -967,34 +1137,18 @@
       gap: 1rem;
     }
 
-    .contact-cta a {
-      display: inline-flex;
-      align-items: center;
+    .contact-cta .glass-button {
+      flex: 1 1 200px;
       justify-content: center;
-      border-radius: 9999px;
-      padding: 0.75rem 2rem;
-      font-size: 1rem;
-      font-weight: 500;
-      text-decoration: none;
-      color: inherit;
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      transition: var(--transition);
+      font-size: 0.95rem;
     }
 
-    .panel--light .contact-cta a {
-      background: rgba(15, 16, 36, 0.08);
-      border: 1px solid rgba(15, 16, 36, 0.16);
-    }
-
-    .contact-cta a:hover,
-    .contact-cta a:focus-visible {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.26);
-      outline: none;
+    .panel--light .contact-cta .glass-button {
+      color: var(--text-primary);
     }
 
     footer {
+      position: relative;
       text-align: center;
       padding: 2rem 1rem 3rem;
       color: var(--text-secondary);
@@ -1035,22 +1189,7 @@
       position: absolute;
       top: 1rem;
       right: 1rem;
-      border: none;
-      background: rgba(15, 16, 36, 0.08);
-      border-radius: 9999px;
-      width: 36px;
-      height: 36px;
-      font-size: 1.35rem;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      transition: var(--transition);
-    }
-
-    .modal__close:hover,
-    .modal__close:focus-visible {
-      background: rgba(15, 16, 36, 0.16);
-      outline: none;
+      font-size: 1.2rem;
     }
 
     .modal__media img {
@@ -1134,8 +1273,8 @@
         <label for="adminPassword" id="retroAdminLabel">admin pw:</label>
         <input type="password" id="adminPassword" name="adminPassword" autocomplete="current-password" required />
         <div class="retro-admin__actions">
-          <button type="submit">enter</button>
-          <button type="button" id="adminCancel">cancel</button>
+          <button type="submit" class="glass-button glass-button--slim">Enter</button>
+          <button type="button" class="glass-button glass-button--slim glass-button--ghost" id="adminCancel">Cancel</button>
         </div>
         <p class="retro-admin__status" id="adminStatus" aria-live="polite"></p>
       </form>
@@ -1143,106 +1282,113 @@
   </aside>
 
   <div class="control-panel" id="preferencePanel" data-open="false">
-    <button type="button" class="control-panel__toggle" id="preferenceToggle" aria-expanded="false" aria-controls="preferencePanelContent" data-i18n="preferences.open">Preferences</button>
+    <button type="button" class="glass-button glass-button--slim control-panel__toggle" id="preferenceToggle" aria-expanded="false" aria-controls="preferencePanelContent" data-i18n="preferences.open">Preferences</button>
     <div class="control-panel__content" id="preferencePanelContent">
       <div class="control-panel__header">
         <h2 class="control-panel__title" data-i18n="preferences.title">Preferences</h2>
-        <button type="button" class="control-panel__close" id="preferenceClose" data-i18n-attr="aria-label:preferences.close" aria-label="Close preferences">×</button>
+        <button type="button" class="glass-button glass-button--icon control-panel__close" id="preferenceClose" data-i18n-attr="aria-label:preferences.close" aria-label="Close preferences">×</button>
       </div>
       <div class="control-panel__section">
         <span class="control-panel__label" data-i18n="preferences.theme">Theme</span>
         <div class="preference" id="themePreferences" role="radiogroup" aria-labelledby="themePreferenceLabel">
           <span class="sr-only" id="themePreferenceLabel" data-i18n="preferences.theme">Theme</span>
-          <button type="button" role="radio" aria-checked="true" data-theme-option="light" data-i18n="theme.light">Light</button>
-          <button type="button" role="radio" aria-checked="false" data-theme-option="dark" data-i18n="theme.dark">Dark</button>
-          <button type="button" role="radio" aria-checked="false" data-theme-option="contrast" data-i18n="theme.contrast">Contrast</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="true" data-theme-option="light" data-i18n="theme.light">Light</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="dark" data-i18n="theme.dark">Dark</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="contrast" data-i18n="theme.contrast">Contrast</button>
         </div>
       </div>
       <div class="control-panel__section">
         <span class="control-panel__label" data-i18n="preferences.language">Language</span>
         <div class="preference" id="languagePreferences" role="radiogroup" aria-labelledby="languagePreferenceLabel">
           <span class="sr-only" id="languagePreferenceLabel" data-i18n="preferences.language">Language</span>
-          <button type="button" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
-          <button type="button" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
-          <button type="button" role="radio" aria-checked="false" data-lang-option="es" data-i18n="lang.es">Español</button>
-          <button type="button" role="radio" aria-checked="false" data-lang-option="fr" data-i18n="lang.fr">Français</button>
-          <button type="button" role="radio" aria-checked="false" data-lang-option="zh" data-i18n="lang.zh">中文</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-lang-option="es" data-i18n="lang.es">Español</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-lang-option="fr" data-i18n="lang.fr">Français</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-lang-option="zh" data-i18n="lang.zh">中文</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="admin-panel" id="adminPanel" hidden>
-    <div class="admin-panel__header">
-      <h2 class="admin-panel__title">Admin console</h2>
-      <button type="button" class="admin-panel__close" id="adminClose" aria-label="Close admin console">×</button>
+  <div class="admin-dock" id="adminDock" hidden>
+    <p class="admin-dock__title">Admin tools</p>
+    <div class="admin-dock__buttons">
+      <button type="button" class="glass-button glass-button--slim" id="saveTextChanges">Save text</button>
+      <button type="button" class="glass-button glass-button--slim" id="resetTextChanges">Reset language</button>
+      <button type="button" class="glass-button glass-button--slim" id="resetStaticChanges">Reset names</button>
+      <button type="button" class="glass-button glass-button--slim" id="toggleResumeSheet" aria-expanded="false">Résumé link</button>
+      <button type="button" class="glass-button glass-button--slim" id="toggleProjectSheet" aria-expanded="false">Projects</button>
     </div>
-    <div class="admin-panel__section">
-      <h3>On-page editing</h3>
-      <p>Edit visible text for the current language, then save or reset when you are happy with the changes.</p>
-      <div class="admin-panel__actions">
-        <button type="button" id="toggleEditMode">Enable editing</button>
-        <button type="button" id="saveTextChanges">Save text</button>
-        <button type="button" class="admin-panel__danger" id="resetTextChanges">Reset language</button>
-        <button type="button" class="admin-panel__danger" id="resetStaticChanges">Reset names</button>
-      </div>
+    <p class="admin-dock__hint">Use the edit buttons on each section to make inline changes.</p>
+  </div>
+
+  <div class="admin-sheet" id="resumeSheet" hidden>
+    <div class="admin-sheet__header">
+      <h2 class="admin-sheet__title">Résumé link</h2>
+      <button type="button" class="glass-button glass-button--icon" data-sheet-close="resumeSheet" aria-label="Close résumé settings">×</button>
     </div>
-    <div class="admin-panel__section">
-      <h3>Résumé link</h3>
-      <p>Point the résumé CTA to any URL or hosted document.</p>
+    <div class="admin-sheet__body">
       <form id="resumeForm">
-        <label class="control-panel__label" for="resumeUrl">URL</label>
+        <label for="resumeUrl">URL</label>
         <input type="url" id="resumeUrl" name="resumeUrl" placeholder="https://example.com/resume.pdf" />
-        <div class="admin-panel__actions">
-          <button type="submit">Save résumé link</button>
+        <div class="admin-sheet__actions">
+          <button type="submit" class="glass-button glass-button--primary">Save résumé link</button>
         </div>
       </form>
     </div>
-    <div class="admin-panel__section">
-      <h3>Projects</h3>
+  </div>
+
+  <div class="admin-sheet" id="projectSheet" hidden>
+    <div class="admin-sheet__header">
+      <h2 class="admin-sheet__title">Projects</h2>
+      <button type="button" class="glass-button glass-button--icon" data-sheet-close="projectSheet" aria-label="Close projects panel">×</button>
+    </div>
+    <div class="admin-sheet__body">
       <p>Add custom case studies. They will appear after the existing projects.</p>
-      <form id="projectForm" class="admin-panel__projects">
-        <label class="control-panel__label" for="projectTitle">Title</label>
+      <form id="projectForm">
+        <label for="projectTitle">Title</label>
         <input type="text" id="projectTitle" name="projectTitle" required />
-        <label class="control-panel__label" for="projectMetaPrimary">Tag 1</label>
+        <label for="projectMetaPrimary">Tag 1</label>
         <input type="text" id="projectMetaPrimary" name="projectMetaPrimary" />
-        <label class="control-panel__label" for="projectMetaSecondary">Tag 2</label>
+        <label for="projectMetaSecondary">Tag 2</label>
         <input type="text" id="projectMetaSecondary" name="projectMetaSecondary" />
-        <label class="control-panel__label" for="projectDescription">Description</label>
+        <label for="projectDescription">Description</label>
         <textarea id="projectDescription" name="projectDescription" rows="3"></textarea>
-        <label class="control-panel__label" for="projectImage">Image URL</label>
+        <label for="projectImage">Image URL</label>
         <input type="url" id="projectImage" name="projectImage" placeholder="img/project.png" />
-        <label class="control-panel__label" for="projectAlt">Image alt text</label>
+        <label for="projectAlt">Image alt text</label>
         <input type="text" id="projectAlt" name="projectAlt" />
-        <label class="control-panel__label" for="projectModalDescription">Modal description</label>
+        <label for="projectModalDescription">Modal description</label>
         <textarea id="projectModalDescription" name="projectModalDescription" rows="3"></textarea>
-        <label class="control-panel__label" for="projectActionLabel">Button label</label>
+        <label for="projectActionLabel">Button label</label>
         <input type="text" id="projectActionLabel" name="projectActionLabel" placeholder="View details" />
-        <div class="admin-panel__actions">
-          <button type="submit">Add project</button>
+        <div class="admin-sheet__actions">
+          <button type="submit" class="glass-button glass-button--primary">Add project</button>
         </div>
       </form>
-      <div class="admin-panel__projects" id="adminProjectsList"></div>
+      <div class="admin-projects" id="adminProjectsList" tabindex="-1"></div>
     </div>
   </div>
 
   <nav aria-label="Primary" class="site-nav">
-    <button type="button" data-scroll="about" data-i18n="nav.about">About</button>
-    <button type="button" data-scroll="experience" data-i18n="nav.experience">Experience</button>
-    <button type="button" data-scroll="projects" data-i18n="nav.projects">Projects</button>
-    <button type="button" data-scroll="contact" data-i18n="nav.contact">Contact</button>
-    <button type="button" data-action="resume" data-i18n="nav.resume">Résumé</button>
+    <button type="button" class="glass-button glass-button--nav" data-scroll="about" data-i18n="nav.about">About</button>
+    <button type="button" class="glass-button glass-button--nav" data-scroll="experience" data-i18n="nav.experience">Experience</button>
+    <button type="button" class="glass-button glass-button--nav" data-scroll="projects" data-i18n="nav.projects">Projects</button>
+    <button type="button" class="glass-button glass-button--nav" data-scroll="contact" data-i18n="nav.contact">Contact</button>
+    <button type="button" class="glass-button glass-button--nav" data-action="resume" data-i18n="nav.resume">Résumé</button>
   </nav>
 
   <main class="page">
-    <header class="hero" id="top" data-animate>
+    <header class="hero" id="top" data-animate data-admin-zone="hero">
+      <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="hero" aria-pressed="false">Edit</button>
       <div class="hero__content">
         <p class="hero__eyebrow" data-i18n="hero.eyebrow">XR developer &amp; lecturer</p>
         <h1 data-admin-edit="hero.name">Nicolas Jannek Vogt</h1>
         <p class="hero__lead" data-i18n="hero.lead">I deliver immersive products for Union IT Services and teach Mixed Reality development at SRH Hochschule Heidelberg, blending Unreal Engine craft with a global perspective.</p>
         <div class="hero__actions">
-          <button type="button" class="cta cta--primary" data-i18n="hero.cta.primary" id="viewProjects">Explore projects</button>
-          <button type="button" class="cta cta--ghost" data-i18n="hero.cta.secondary" data-action="resume">Download résumé</button>
+          <button type="button" class="glass-button glass-button--primary cta" data-i18n="hero.cta.primary" id="viewProjects">Explore projects</button>
+          <button type="button" class="glass-button glass-button--ghost cta" data-i18n="hero.cta.secondary" data-action="resume">Download résumé</button>
         </div>
       </div>
       <div class="hero__visual">
@@ -1252,7 +1398,8 @@
       </div>
     </header>
 
-    <section class="panel panel--light" data-animate id="about">
+    <section class="panel panel--light" data-animate id="about" data-admin-zone="about">
+      <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="about" aria-pressed="false">Edit</button>
       <div class="panel__content">
         <h2 data-i18n="about.title">About me</h2>
         <p class="lead" data-i18n="about.lead">Heidelberg-based XR engineer currently pursuing a Master in Virtual and Augmented Realities while shipping Unreal Engine solutions for finance and education.</p>
@@ -1273,7 +1420,8 @@
       </div>
     </section>
 
-    <section class="panel" data-animate id="experience">
+    <section class="panel" data-animate id="experience" data-admin-zone="experience">
+      <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="experience" aria-pressed="false">Edit</button>
       <div class="panel__content">
         <h2 data-i18n="experience.title">Experience</h2>
         <p class="lead" data-i18n="experience.lead">A timeline that pairs academic leadership with production-grade XR systems for finance, mobility, and culture.</p>
@@ -1307,10 +1455,19 @@
       </ul>
     </section>
 
-    <section class="panel" data-animate id="projects">
+    <section class="panel" data-animate id="projects" data-admin-zone="projects">
+      <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="projects" aria-pressed="false">Edit</button>
       <div class="panel__content">
-        <h2 data-i18n="projects.title">Projects</h2>
-        <p class="lead" data-i18n="projects.lead">Selected case studies that translate research, curriculum design, and enterprise innovation into tangible XR outcomes.</p>
+        <div class="panel__header">
+          <div class="panel__intro">
+            <h2 data-i18n="projects.title">Projects</h2>
+            <p class="lead" data-i18n="projects.lead">Selected case studies that translate research, curriculum design, and enterprise innovation into tangible XR outcomes.</p>
+          </div>
+          <div class="panel__actions" aria-label="Project actions">
+            <button type="button" class="glass-button glass-button--slim" data-sheet-open="projectSheet" data-focus="projectTitle" data-i18n="projects.actions.add" aria-haspopup="dialog" aria-controls="projectSheet">Add project</button>
+            <button type="button" class="glass-button glass-button--slim" data-sheet-open="projectSheet" data-focus="adminProjectsList" data-i18n="projects.actions.manage" aria-haspopup="dialog" aria-controls="projectSheet">Manage custom projects</button>
+          </div>
+        </div>
       </div>
       <div class="projects-grid">
         <article class="project-card" data-project-key="performance" data-modal-image="img/project.png" data-modal-alt-key="projects.performance.alt">
@@ -1324,7 +1481,7 @@
             <p class="project-card__description" data-i18n="projects.performance.description">Built a benchmarking pipeline for standalone VR headsets, profiling Unreal Engine scenes and optimizing frame budgets for Meta Quest deployments.</p>
             <ul class="projects-levels">
               <li>
-                <button type="button" class="level-chip" data-state="available" data-project-launch="performance" data-i18n="projects.performance.level1">Open performance toolkit</button>
+              <button type="button" class="glass-button level-chip" data-state="available" data-project-launch="performance" data-i18n="projects.performance.level1">Open performance toolkit</button>
               </li>
               <li>
                 <span class="level-chip" data-state="upcoming" data-i18n="projects.performance.level2">Design system case study</span>
@@ -1346,7 +1503,7 @@
             <p class="project-card__description" data-i18n="projects.mixedReality.description">Authored and delivered a semester-long Mixed Reality Development module, covering Unreal Engine tooling, performance budgets, and collaborative delivery.</p>
             <ul class="projects-levels">
               <li>
-                <button type="button" class="level-chip" data-state="available" data-project-launch="mixedReality" data-i18n="projects.mixedReality.level1">View module outline</button>
+              <button type="button" class="glass-button level-chip" data-state="available" data-project-launch="mixedReality" data-i18n="projects.mixedReality.level1">View module outline</button>
               </li>
               <li>
                 <span class="level-chip" data-state="upcoming" data-i18n="projects.mixedReality.level2">Workshop templates</span>
@@ -1360,26 +1517,28 @@
       </div>
     </section>
 
-    <section class="panel panel--light" data-animate id="contact">
+    <section class="panel panel--light" data-animate id="contact" data-admin-zone="contact">
+      <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="contact" aria-pressed="false">Edit</button>
       <div class="panel__content">
         <h2 data-i18n="contact.title">Contact</h2>
         <p class="lead" data-i18n="contact.lead">Let’s collaborate on spatial products, research partnerships, or guest lectureships across Europe and beyond.</p>
       </div>
       <div class="panel__grid contact-cta">
-        <a href="mailto:nicovogt56@gmail.com" data-i18n="contact.email">Email</a>
-        <a href="https://github.com/THEGRANDNICK" target="_blank" rel="noopener" data-i18n="contact.github">GitHub</a>
-        <a href="https://linkedin.com/in/nicolasjannekvogt" target="_blank" rel="noopener" data-i18n="contact.linkedin">LinkedIn</a>
+        <a class="glass-button glass-button--ghost" href="mailto:nicovogt56@gmail.com" data-i18n="contact.email">Email</a>
+        <a class="glass-button glass-button--ghost" href="https://github.com/THEGRANDNICK" target="_blank" rel="noopener" data-i18n="contact.github">GitHub</a>
+        <a class="glass-button glass-button--ghost" href="https://linkedin.com/in/nicolasjannekvogt" target="_blank" rel="noopener" data-i18n="contact.linkedin">LinkedIn</a>
       </div>
     </section>
   </main>
 
-  <footer>
+  <footer data-admin-zone="footer">
+    <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="footer" aria-pressed="false">Edit</button>
     <span data-i18n="footer.copy">© 2024 Nicolas Jannek Vogt. Crafted with an Apple-inspired lens.</span>
   </footer>
 
   <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" aria-describedby="projectModalDescription">
     <div class="modal__content">
-      <button class="modal__close" data-i18n-attr="aria-label:modal.close">×</button>
+      <button class="glass-button glass-button--icon modal__close" data-i18n-attr="aria-label:modal.close">×</button>
       <div class="modal__media">
         <img id="projectModalImage" src="img/project.png" alt="Meta Quest performance benchmarking dashboard" />
       </div>
@@ -1442,6 +1601,8 @@
         'experience.early.description': "Hands-on service, automotive, and community roles at Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf, and Kinder- und Jugendtreff Hasenleiser.",
         'projects.title': "Projects",
         'projects.lead': "Selected case studies that translate research, curriculum design, and enterprise innovation into tangible XR outcomes.",
+        'projects.actions.add': "Add project",
+        'projects.actions.manage': "Manage custom projects",
         'projects.performance.title': "Meta Quest performance lab",
         'projects.performance.meta.0': "Research",
         'projects.performance.meta.1': "Unreal Engine",
@@ -1521,6 +1682,8 @@
         'experience.early.description': "Operative Einsätze in Service, Automotive und Jugendarbeit bei Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf und Kinder- und Jugendtreff Hasenleiser.",
         'projects.title': "Projekte",
         'projects.lead': "Ausgewählte Case-Studies, die Forschung, Curriculumsdesign und Unternehmensinnovation in greifbare XR-Ergebnisse übersetzen.",
+        'projects.actions.add': "Projekt hinzufügen",
+        'projects.actions.manage': "Eigene Projekte verwalten",
         'projects.performance.title': "Meta-Quest Performance-Lab",
         'projects.performance.meta.0': "Forschung",
         'projects.performance.meta.1': "Unreal Engine",
@@ -1600,6 +1763,8 @@
         'experience.early.description': "Trabajo práctico en servicios, automoción y comunidad en Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf y Kinder- und Jugendtreff Hasenleiser.",
         'projects.title': "Proyectos",
         'projects.lead': "Casos destacados que convierten la investigación, el diseño curricular y la innovación empresarial en resultados XR tangibles.",
+        'projects.actions.add': "Agregar proyecto",
+        'projects.actions.manage': "Gestionar proyectos personalizados",
         'projects.performance.title': "Laboratorio de rendimiento Meta Quest",
         'projects.performance.meta.0': "Investigación",
         'projects.performance.meta.1': "Unreal Engine",
@@ -1679,6 +1844,8 @@
         'experience.early.description': "Missions terrain dans les services, l’automobile et l’animation jeunesse chez Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf et Kinder- und Jugendtreff Hasenleiser.",
         'projects.title': "Projets",
         'projects.lead': "Des études de cas transformant la recherche, le design pédagogique et l’innovation en résultats XR tangibles.",
+        'projects.actions.add': "Ajouter un projet",
+        'projects.actions.manage': "Gérer les projets personnalisés",
         'projects.performance.title': "Laboratoire de performance Meta Quest",
         'projects.performance.meta.0': "Recherche",
         'projects.performance.meta.1': "Unreal Engine",
@@ -1758,6 +1925,8 @@
         'experience.early.description': "在 Luxor FTB Englert、Daimler AG、Restaurant zum güldenen Schaf 与 Kinder- und Jugendtreff Hasenleiser 的服务、汽车与社区岗位中积累一线经验。",
         'projects.title': "项目",
         'projects.lead': "将科研、课程设计与企业创新转化为可感知 XR 成果的精选案例。",
+        'projects.actions.add': "添加项目",
+        'projects.actions.manage': "管理自定义项目",
         'projects.performance.title': "Meta Quest 性能实验室",
         'projects.performance.meta.0': "研究",
         'projects.performance.meta.1': "Unreal Engine",
@@ -1849,9 +2018,6 @@
     const preferencePanel = document.getElementById('preferencePanel');
     const preferenceToggle = document.getElementById('preferenceToggle');
     const preferenceClose = document.getElementById('preferenceClose');
-    const adminPanel = document.getElementById('adminPanel');
-    const adminClose = document.getElementById('adminClose');
-    const toggleEditModeButton = document.getElementById('toggleEditMode');
     const saveTextButton = document.getElementById('saveTextChanges');
     const resetTextButton = document.getElementById('resetTextChanges');
     const resetStaticButton = document.getElementById('resetStaticChanges');
@@ -1859,6 +2025,22 @@
     const resumeUrlInput = document.getElementById('resumeUrl');
     const projectForm = document.getElementById('projectForm');
     const adminProjectsList = document.getElementById('adminProjectsList');
+    const adminDock = document.getElementById('adminDock');
+    const resumeSheet = document.getElementById('resumeSheet');
+    const projectSheet = document.getElementById('projectSheet');
+    const projectTitleInput = document.getElementById('projectTitle');
+    const toggleResumeSheetButton = document.getElementById('toggleResumeSheet');
+    const toggleProjectSheetButton = document.getElementById('toggleProjectSheet');
+    const sheetOpenButtons = Array.from(document.querySelectorAll('[data-sheet-open]'));
+    const sheetCloseButtons = Array.from(document.querySelectorAll('[data-sheet-close]'));
+    const adminEditButtons = Array.from(document.querySelectorAll('.admin-edit-button'));
+    const adminZones = new Map();
+    document.querySelectorAll('[data-admin-zone]').forEach((zone) => {
+      const zoneId = zone.dataset.adminZone;
+      if (zoneId) {
+        adminZones.set(zoneId, zone);
+      }
+    });
     const projectsGrid = document.querySelector('.projects-grid');
     const hoverSound = document.getElementById('hoverSound');
     const clickSound = document.getElementById('clickSound');
@@ -1913,11 +2095,23 @@
       }
     });
 
+    const zoneButtons = new Map();
+    adminEditButtons.forEach((button) => {
+      const zoneId = button.dataset.adminToggle;
+      if (zoneId) {
+        zoneButtons.set(zoneId, button);
+        button.setAttribute('aria-pressed', 'false');
+      }
+    });
+
     const boundProjectButtons = new WeakSet();
     const ADMIN_PASSWORD = 'xr-console';
     let adminMode = false;
     let adminPromptVisible = false;
-    let editMode = false;
+    const editingZones = new Set();
+    let adminDockVisible = false;
+    let openSheet = null;
+    let pendingSheetFocus = null;
 
     const translate = (lang, key) => {
       const overrides = adminOverrides && adminOverrides[lang];
@@ -1947,7 +2141,7 @@
       if (!element) {
         return false;
       }
-      if (element.closest('.admin-panel') || element.closest('.control-panel') || element.closest('.retro-admin')) {
+      if (element.closest('.admin-dock') || element.closest('.admin-sheet') || element.closest('.control-panel') || element.closest('.retro-admin')) {
         return false;
       }
       if (element.dataset && element.dataset.i18nAttr) {
@@ -1963,32 +2157,59 @@
     const getEditableElements = () =>
       Array.from(document.querySelectorAll('[data-i18n], [data-admin-edit]')).filter((element) => isEditableElement(element));
 
-    const setEditMode = (state) => {
-      editMode = Boolean(state);
-      const elements = getEditableElements();
+    const getZoneEditableElements = (zoneId) => {
+      const zone = adminZones.get(zoneId);
+      if (!zone) {
+        return [];
+      }
+      return Array.from(zone.querySelectorAll('[data-i18n], [data-admin-edit]')).filter((element) => isEditableElement(element));
+    };
+
+    const updateBodyEditingState = () => {
+      body.classList.toggle('admin-editing', editingZones.size > 0);
+    };
+
+    const setZoneEditing = (zoneId, enable) => {
+      const zone = adminZones.get(zoneId);
+      const button = zoneButtons.get(zoneId);
+      if (!zone) {
+        return;
+      }
+      const shouldEnable = Boolean(enable);
+      const elements = getZoneEditableElements(zoneId);
       elements.forEach((element) => {
-        if (!isEditableElement(element)) {
-          return;
-        }
-        element.contentEditable = editMode ? 'true' : 'false';
-        element.classList.toggle('is-editable', editMode);
-        if (editMode) {
+        element.contentEditable = shouldEnable ? 'true' : 'false';
+        element.classList.toggle('is-editable', shouldEnable);
+        if (shouldEnable) {
           element.setAttribute('spellcheck', 'false');
         } else {
           element.removeAttribute('spellcheck');
         }
       });
-      if (toggleEditModeButton) {
-        toggleEditModeButton.textContent = editMode ? 'Disable editing' : 'Enable editing';
+      zone.classList.toggle('admin-zone--editing', shouldEnable);
+      if (shouldEnable) {
+        editingZones.add(zoneId);
+      } else {
+        editingZones.delete(zoneId);
       }
-      body.classList.toggle('admin-editing', editMode);
+      if (button) {
+        button.classList.toggle('is-active', shouldEnable);
+        button.setAttribute('aria-pressed', shouldEnable ? 'true' : 'false');
+        button.textContent = shouldEnable ? 'Done' : 'Edit';
+      }
+      updateBodyEditingState();
     };
 
-    const disableEditMode = () => {
-      if (!editMode) {
+    const toggleZoneEditing = (zoneId) => {
+      if (!zoneId) {
         return;
       }
-      setEditMode(false);
+      const isActive = editingZones.has(zoneId);
+      setZoneEditing(zoneId, !isActive);
+    };
+
+    const closeAllZones = () => {
+      Array.from(editingZones).forEach((zoneId) => setZoneEditing(zoneId, false));
     };
 
     const retroIndices = {};
@@ -2087,7 +2308,7 @@
         if (!key) {
           return;
         }
-        if (editMode && element.isContentEditable) {
+        if (element.isContentEditable) {
           return;
         }
         const value = translate(lang, key);
@@ -2214,7 +2435,7 @@
       const levelItem = document.createElement('li');
       const actionButton = document.createElement('button');
       actionButton.type = 'button';
-      actionButton.className = 'level-chip';
+      actionButton.className = 'glass-button level-chip';
       actionButton.dataset.state = 'available';
       actionButton.setAttribute('data-project-launch', project.id);
       actionButton.textContent = project.actionLabel || 'View details';
@@ -2249,7 +2470,7 @@
       adminProjectsList.innerHTML = '';
       if (adminProjects.length === 0) {
         const emptyState = document.createElement('p');
-        emptyState.className = 'admin-panel__empty';
+        emptyState.className = 'admin-projects__empty';
         emptyState.textContent = 'No custom projects yet.';
         adminProjectsList.appendChild(emptyState);
         return;
@@ -2271,7 +2492,7 @@
         item.appendChild(meta);
         const remove = document.createElement('button');
         remove.type = 'button';
-        remove.className = 'admin-panel__danger';
+        remove.className = 'glass-button glass-button--slim glass-button--danger';
         remove.dataset.projectId = project.id;
         remove.textContent = 'Remove';
         item.appendChild(remove);
@@ -2296,7 +2517,7 @@
       adminOverrides[currentLanguage] = overrides;
       saveJSON('admin.overrides', adminOverrides);
       saveJSON('admin.static', staticOverrides);
-      setEditMode(false);
+      closeAllZones();
       applyLanguage(currentLanguage, false);
       applyStaticOverrides();
     };
@@ -2307,12 +2528,14 @@
         saveJSON('admin.overrides', adminOverrides);
       }
       applyLanguage(currentLanguage, false);
+      closeAllZones();
     };
 
     const resetStaticOverrides = () => {
       staticOverrides = {};
       saveJSON('admin.static', staticOverrides);
       applyStaticOverrides();
+      closeAllZones();
     };
 
     const setPreferencePanelOpen = (open) => {
@@ -2325,16 +2548,68 @@
       }
     };
 
-    const setAdminPanelVisible = (visible) => {
-      if (!adminPanel) {
+    const adminSheets = new Map([
+      ['resumeSheet', resumeSheet],
+      ['projectSheet', projectSheet]
+    ].filter(([, sheet]) => Boolean(sheet)));
+
+    const setSheetVisible = (id, visible) => {
+      const sheet = adminSheets.get(id);
+      if (!sheet) {
         return;
       }
-      adminPanel.classList.toggle('is-visible', visible);
-      adminPanel.toggleAttribute('hidden', !visible);
-      if (!visible) {
-        disableEditMode();
+      const shouldShow = Boolean(visible);
+      sheet.classList.toggle('is-visible', shouldShow);
+      sheet.toggleAttribute('hidden', !shouldShow);
+      if (shouldShow) {
+        openSheet = id;
+        const focusId = pendingSheetFocus;
+        pendingSheetFocus = null;
+        const focusTarget = focusId ? document.getElementById(focusId) : null;
+        const defaultFocus = id === 'projectSheet' ? projectTitleInput : null;
+        const target = focusTarget || defaultFocus;
+        if (target && typeof target.focus === 'function') {
+          requestAnimationFrame(() => target.focus());
+        }
+      } else if (openSheet === id) {
+        openSheet = null;
       }
-      body.classList.toggle('admin-visible', visible);
+      if (id === 'resumeSheet' && toggleResumeSheetButton) {
+        toggleResumeSheetButton.setAttribute('aria-expanded', shouldShow ? 'true' : 'false');
+      }
+      if (id === 'projectSheet' && toggleProjectSheetButton) {
+        toggleProjectSheetButton.setAttribute('aria-expanded', shouldShow ? 'true' : 'false');
+      }
+    };
+
+    const closeAllSheets = () => {
+      adminSheets.forEach((_, id) => setSheetVisible(id, false));
+    };
+
+    const setAdminDockVisible = (visible) => {
+      if (!adminDock) {
+        return;
+      }
+      adminDockVisible = Boolean(visible);
+      adminDock.classList.toggle('is-visible', adminDockVisible);
+      adminDock.toggleAttribute('hidden', !adminDockVisible);
+      body.classList.toggle('admin-visible', adminDockVisible);
+      if (!adminDockVisible) {
+        closeAllZones();
+        closeAllSheets();
+      }
+    };
+
+    const toggleSheet = (id) => {
+      if (!id) {
+        return;
+      }
+      if (openSheet === id) {
+        setSheetVisible(id, false);
+      } else {
+        closeAllSheets();
+        setSheetVisible(id, true);
+      }
     };
 
     const showAdminPrompt = () => {
@@ -2366,6 +2641,7 @@
       }
       if (adminStatus) {
         adminStatus.textContent = '';
+        adminStatus.removeAttribute('data-state');
       }
       if (!adminMode) {
         updateRetroScreen(currentLanguage, true);
@@ -2379,7 +2655,7 @@
       if (retroScreen) {
         retroScreen.textContent = translate(currentLanguage, 'retro.adminGranted');
       }
-      setAdminPanelVisible(true);
+      setAdminDockVisible(true);
     };
 
     function playSound(audio) {
@@ -2438,8 +2714,16 @@
         hideAdminPrompt();
         return;
       }
-      if (adminMode && adminPanel && !adminPanel.hasAttribute('hidden')) {
-        setAdminPanelVisible(false);
+      if (openSheet) {
+        setSheetVisible(openSheet, false);
+        return;
+      }
+      if (editingZones.size > 0) {
+        closeAllZones();
+        return;
+      }
+      if (adminMode && adminDockVisible) {
+        setAdminDockVisible(false);
         return;
       }
       if (preferencePanel && preferencePanel.dataset.open === 'true') {
@@ -2458,6 +2742,7 @@
       if (!languages.includes(lang)) {
         lang = 'en';
       }
+      closeAllZones();
       currentLanguage = lang;
       body.setAttribute('data-lang', lang);
       root.setAttribute('lang', lang);
@@ -2576,10 +2861,6 @@
       });
     }
 
-    if (toggleEditModeButton) {
-      toggleEditModeButton.addEventListener('click', () => setEditMode(!editMode));
-    }
-
     if (saveTextButton) {
       saveTextButton.addEventListener('click', saveLanguageOverrides);
     }
@@ -2587,19 +2868,60 @@
     if (resetTextButton) {
       resetTextButton.addEventListener('click', () => {
         resetLanguageOverrides();
-        disableEditMode();
       });
     }
 
     if (resetStaticButton) {
       resetStaticButton.addEventListener('click', () => {
         resetStaticOverrides();
-        disableEditMode();
       });
     }
 
-    if (adminClose) {
-      adminClose.addEventListener('click', () => setAdminPanelVisible(false));
+    adminEditButtons.forEach((button) => {
+      button.addEventListener('click', () => toggleZoneEditing(button.dataset.adminToggle));
+    });
+
+    if (toggleResumeSheetButton) {
+      toggleResumeSheetButton.addEventListener('click', () => toggleSheet('resumeSheet'));
+    }
+
+    if (toggleProjectSheetButton) {
+      toggleProjectSheetButton.addEventListener('click', () => toggleSheet('projectSheet'));
+    }
+
+    sheetOpenButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const targetId = button.dataset.sheetOpen;
+        if (!targetId) {
+          return;
+        }
+        if (!adminMode) {
+          showAdminPrompt();
+          return;
+        }
+        pendingSheetFocus = button.dataset.focus || null;
+        if (!adminDockVisible) {
+          setAdminDockVisible(true);
+        }
+        closeAllSheets();
+        setSheetVisible(targetId, true);
+      });
+    });
+
+    sheetCloseButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const targetId = button.dataset.sheetClose;
+        if (targetId) {
+          setSheetVisible(targetId, false);
+        }
+      });
+    });
+
+    if (adminPasswordInput && adminStatus) {
+      adminPasswordInput.addEventListener('input', () => {
+        adminStatus.textContent = '';
+        adminStatus.removeAttribute('data-state');
+      });
     }
 
     if (retroAdminForm) {
@@ -2609,11 +2931,13 @@
         if (value === ADMIN_PASSWORD) {
           if (adminStatus) {
             adminStatus.textContent = 'access granted';
+            adminStatus.dataset.state = 'success';
           }
           activateAdminMode();
         } else {
           if (adminStatus) {
             adminStatus.textContent = 'access denied';
+            adminStatus.dataset.state = 'error';
           }
           if (retroScreen) {
             retroScreen.textContent = 'access denied';
@@ -2687,8 +3011,8 @@
     if (retroButton) {
       retroButton.addEventListener('click', () => {
         if (adminMode) {
-          const visible = adminPanel && !adminPanel.hasAttribute('hidden');
-          setAdminPanelVisible(!visible);
+          const visible = adminDockVisible;
+          setAdminDockVisible(!visible);
           playSound(clickSound);
           return;
         }
