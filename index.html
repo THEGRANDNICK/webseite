@@ -232,76 +232,6 @@
       background: var(--glass-accent-hover);
     }
 
-    .control-panel {
-      position: fixed;
-      top: clamp(1rem, 4vw, 2.5rem);
-      right: clamp(1rem, 4vw, 3rem);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.75rem;
-      z-index: 50;
-      max-width: min(360px, calc(100vw - 2rem));
-    }
-
-    .control-panel__toggle {
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .control-panel__content {
-      width: min(360px, calc(100vw - 2rem));
-      padding: 1.25rem 1.5rem 1.4rem;
-      border-radius: 24px;
-      background: var(--surface-glass);
-      border: 1px solid var(--border-soft);
-      box-shadow: 0 28px 60px rgba(15, 16, 36, 0.2);
-      backdrop-filter: blur(18px);
-      display: grid;
-      gap: 1.25rem;
-      opacity: 0;
-      transform: translateY(-12px);
-      pointer-events: none;
-      transition: var(--transition);
-    }
-
-    .control-panel[data-open="true"] .control-panel__content {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .control-panel__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .control-panel__title {
-      font-size: 0.95rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin: 0;
-    }
-
-    .control-panel__close {
-      font-size: 1.1rem;
-    }
-
-    .control-panel__section {
-      display: grid;
-      gap: 0.65rem;
-    }
-
-    .control-panel__label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-    }
 
     .retro-pc {
       position: fixed;
@@ -709,59 +639,117 @@
       }
     }
 
+    .preferences-panel__grid {
+      display: grid;
+      gap: clamp(1.75rem, 4vw, 2.5rem);
+    }
+
+    .preferences-panel__section {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .preferences-panel__label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-secondary);
+    }
+
+    .preferences-panel__hint {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      opacity: 0.75;
+    }
+
+    @media (min-width: 900px) {
+      .preferences-panel__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+    }
+
     .preference {
-      display: flex;
-      gap: 0.5rem;
+      display: grid;
+      gap: 0.6rem;
       width: 100%;
     }
 
     .preference--segments {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.4rem;
-      border-radius: 9999px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.6rem;
+      padding: 0.85rem;
+      border-radius: 28px;
       background: var(--surface-glass);
       border: 1px solid var(--border-soft);
-      backdrop-filter: blur(18px);
-      width: auto;
+      backdrop-filter: blur(22px);
     }
 
     .preference--segments .glass-button {
-      border-color: transparent;
+      border-color: rgba(255, 255, 255, 0.18);
       box-shadow: none;
-      background: transparent;
+      background: rgba(255, 255, 255, 0.08);
       color: var(--text-secondary);
+      border-radius: 18px;
+      padding: 0.75rem 1.1rem;
+      justify-content: center;
+      position: relative;
     }
 
     .preference--segments .glass-button:hover,
     .preference--segments .glass-button:focus-visible {
       background: rgba(255, 255, 255, 0.16);
-      box-shadow: none;
       color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.26);
     }
 
-    .preference--segments .glass-button[aria-checked="true"] {
-      border-color: transparent;
+    .preference--segments .glass-button[data-active="true"] {
+      background: var(--glass-accent);
       color: #fff;
+      border-color: transparent;
+      box-shadow: 0 24px 50px rgba(46, 123, 255, 0.35);
+    }
+
+    .preference--segments .glass-button[data-active="true"]::before {
+      content: "";
+      position: absolute;
+      top: 0.6rem;
+      right: 0.75rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18);
+    }
+
+    .preference--segments .glass-button[data-active="true"]::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      pointer-events: none;
     }
 
     .preference--list {
+      display: flex;
       flex-wrap: wrap;
       align-items: stretch;
-      padding: 0.75rem;
-      border-radius: 24px;
+      padding: 0.85rem;
+      border-radius: 28px;
       background: var(--surface-glass);
       border: 1px solid var(--border-soft);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(22px);
       max-height: 12.5rem;
       overflow-y: auto;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
     .preference--list .glass-button {
       justify-content: flex-start;
-      flex: 1 1 calc(50% - 0.5rem);
+      flex: 1 1 calc(50% - 0.6rem);
       min-width: 140px;
       padding: 0.65rem 1rem;
       background: rgba(255, 255, 255, 0.06);
@@ -832,8 +820,8 @@
       position: relative;
       border-radius: var(--panel-radius);
       padding: clamp(3.5rem, 6vw, 5.5rem);
-      background: var(--surface-hero);
-      color: #f5f5f7;
+      background: var(--surface-panel-alt);
+      color: var(--text-primary);
       overflow: hidden;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -845,7 +833,7 @@
       content: "";
       position: absolute;
       inset: -20% -10% 10% 40%;
-      background: radial-gradient(circle at top left, rgba(105, 158, 255, 0.55), transparent 55%);
+      background: radial-gradient(circle at top left, rgba(105, 158, 255, 0.35), transparent 60%);
       transform: translate3d(0, 0, 0);
       z-index: 0;
     }
@@ -854,7 +842,7 @@
       content: "";
       position: absolute;
       inset: 30% -15% -40% 20%;
-      background: radial-gradient(circle at bottom right, rgba(255, 120, 60, 0.45), transparent 60%);
+      background: radial-gradient(circle at bottom right, rgba(255, 180, 120, 0.25), transparent 65%);
       z-index: 0;
     }
 
@@ -884,7 +872,7 @@
       font-size: clamp(1.1rem, 2.4vw, 1.4rem);
       line-height: 1.6;
       max-width: 42ch;
-      color: rgba(245, 245, 247, 0.82);
+      color: var(--text-secondary);
     }
 
     .hero__actions {
@@ -1038,6 +1026,7 @@
       background: rgba(255, 255, 255, 0.08);
       border-radius: 28px;
       border: 1px solid rgba(255, 255, 255, 0.14);
+      position: relative;
       backdrop-filter: blur(18px);
     }
 
@@ -1059,31 +1048,67 @@
       opacity: 0.85;
     }
 
+    .carousel {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .carousel__viewport {
+      overflow: hidden;
+    }
+
     .projects-grid,
     .experience-grid {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(clamp(320px, 50%, 520px), 1fr);
+      display: flex;
       gap: 1.5rem;
-      overflow-x: auto;
-      padding-bottom: 0.75rem;
-      scroll-snap-type: x mandatory;
-    }
-
-    .projects-grid::-webkit-scrollbar,
-    .experience-grid::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .projects-grid::-webkit-scrollbar-thumb,
-    .experience-grid::-webkit-scrollbar-thumb {
-      background: rgba(143, 148, 191, 0.3);
-      border-radius: 999px;
+      transform: translateX(0);
+      transition: transform 0.6s ease;
+      will-change: transform;
     }
 
     .projects-grid > *,
     .experience-grid > * {
-      scroll-snap-align: start;
+      flex: 0 0 calc(50% - 0.75rem);
+      min-width: clamp(280px, 48%, 520px);
+    }
+
+    @media (max-width: 780px) {
+      .projects-grid > *,
+      .experience-grid > * {
+        flex-basis: 100%;
+        min-width: 0;
+      }
+    }
+
+    .carousel__dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .carousel__dots button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(143, 148, 191, 0.45);
+      background: rgba(255, 255, 255, 0.35);
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    [data-theme="dark"] .carousel__dots button {
+      background: rgba(46, 52, 76, 0.6);
+      border-color: rgba(143, 148, 191, 0.35);
+    }
+
+    .carousel__dots button[aria-current="true"] {
+      background: var(--glass-accent);
+      border-color: transparent;
+      box-shadow: 0 0 0 6px rgba(46, 123, 255, 0.18);
     }
 
     .experience-card {
@@ -1348,16 +1373,6 @@
         position: static;
       }
 
-      .control-panel {
-        top: 1rem;
-        right: 1rem;
-      }
-
-      .projects-grid,
-      .experience-grid {
-        grid-auto-columns: minmax(100%, 1fr);
-      }
-
       .retro-pc {
         display: none;
       }
@@ -1419,35 +1434,7 @@
     </div>
   </aside>
 
-  <div class="control-panel" id="preferencePanel" data-open="false">
-    <button type="button" class="glass-button glass-button--slim control-panel__toggle" id="preferenceToggle" aria-expanded="false" aria-controls="preferencePanelContent" data-i18n="preferences.open">Preferences</button>
-    <div class="control-panel__content" id="preferencePanelContent">
-      <div class="control-panel__header">
-        <h2 class="control-panel__title" data-i18n="preferences.title">Preferences</h2>
-        <button type="button" class="glass-button glass-button--icon control-panel__close" id="preferenceClose" data-i18n-attr="aria-label:preferences.close" aria-label="Close preferences">×</button>
-      </div>
-      <div class="control-panel__section">
-        <span class="control-panel__label" data-i18n="preferences.theme">Theme</span>
-        <div class="preference preference--segments" id="themePreferences" role="radiogroup" aria-labelledby="themePreferenceLabel">
-          <span class="sr-only" id="themePreferenceLabel" data-i18n="preferences.theme">Theme</span>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="true" data-theme-option="system" data-i18n="theme.system">System</button>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="light" data-i18n="theme.light">Light</button>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="dark" data-i18n="theme.dark">Dark</button>
-        </div>
-      </div>
-      <div class="control-panel__section">
-        <span class="control-panel__label" data-i18n="preferences.language">Language</span>
-        <div class="preference preference--list" id="languagePreferences" role="radiogroup" aria-labelledby="languagePreferenceLabel">
-          <span class="sr-only" id="languagePreferenceLabel" data-i18n="preferences.language">Language</span>
-          <button type="button" class="glass-button" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
-          <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
-          <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="es" data-i18n="lang.es">Español</button>
-          <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="fr" data-i18n="lang.fr">Français</button>
-          <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="zh" data-i18n="lang.zh">中文</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <div class="admin-dock" id="adminDock" hidden>
     <p class="admin-dock__title">Admin tools</p>
@@ -1456,6 +1443,7 @@
       <button type="button" class="glass-button glass-button--slim" id="resetTextChanges">Reset language</button>
       <button type="button" class="glass-button glass-button--slim" id="resetStaticChanges">Reset names</button>
       <button type="button" class="glass-button glass-button--slim" id="toggleResumeSheet" aria-expanded="false">Résumé link</button>
+      <button type="button" class="glass-button glass-button--slim" id="toggleAboutSheet" aria-expanded="false">About</button>
       <button type="button" class="glass-button glass-button--slim" id="toggleProjectSheet" aria-expanded="false">Projects</button>
       <button type="button" class="glass-button glass-button--slim" id="toggleExperienceSheet" aria-expanded="false">Experience</button>
     </div>
@@ -1475,6 +1463,26 @@
           <button type="submit" class="glass-button glass-button--primary">Save résumé link</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <div class="admin-sheet" id="aboutSheet" hidden>
+    <div class="admin-sheet__header">
+      <h2 class="admin-sheet__title">About highlights</h2>
+      <button type="button" class="glass-button glass-button--icon" data-sheet-close="aboutSheet" aria-label="Close about panel">×</button>
+    </div>
+    <div class="admin-sheet__body">
+      <p>Capture additional achievements to surface inside the About section.</p>
+      <form id="aboutForm">
+        <label for="aboutTitle">Title</label>
+        <input type="text" id="aboutTitle" name="aboutTitle" required />
+        <label for="aboutDescription">Description</label>
+        <textarea id="aboutDescription" name="aboutDescription" rows="3"></textarea>
+        <div class="admin-sheet__actions">
+          <button type="submit" class="glass-button glass-button--primary">Add highlight</button>
+        </div>
+      </form>
+      <div class="admin-projects" id="adminAboutList" tabindex="-1"></div>
     </div>
   </div>
 
@@ -1535,6 +1543,7 @@
   </div>
 
   <nav aria-label="Primary" class="site-nav">
+    <button type="button" class="glass-button glass-button--nav" data-scroll="preferences" data-i18n="nav.preferences">Preferences</button>
     <button type="button" class="glass-button glass-button--nav" data-scroll="about" data-i18n="nav.about">About</button>
     <button type="button" class="glass-button glass-button--nav" data-scroll="experience" data-i18n="nav.experience">Experience</button>
     <button type="button" class="glass-button glass-button--nav" data-scroll="projects" data-i18n="nav.projects">Projects</button>
@@ -1561,11 +1570,53 @@
       </div>
     </header>
 
+    <section class="panel panel--light preferences-panel" data-animate id="preferences">
+      <div class="panel__content">
+        <div class="panel__header">
+          <div class="panel__intro">
+            <h2 data-i18n="preferences.title">Preferences</h2>
+            <p class="lead" data-i18n="preferences.lead">Match the interface to your device appearance and language.</p>
+          </div>
+        </div>
+      </div>
+      <div class="preferences-panel__grid">
+        <div class="preferences-panel__section">
+          <span class="preferences-panel__label" data-i18n="preferences.theme">Theme</span>
+          <div class="preference preference--segments" id="themePreferences" role="radiogroup" aria-labelledby="themePreferenceLabel">
+            <span class="sr-only" id="themePreferenceLabel" data-i18n="preferences.theme">Theme</span>
+            <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="true" data-theme-option="system" data-i18n="theme.system">System</button>
+            <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="light" data-i18n="theme.light">Light</button>
+            <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="dark" data-i18n="theme.dark">Dark</button>
+          </div>
+          <p class="preferences-panel__hint" data-i18n="preferences.themeHint">System keeps light and dark in sync with your device.</p>
+        </div>
+        <div class="preferences-panel__section">
+          <span class="preferences-panel__label" data-i18n="preferences.language">Language</span>
+          <div class="preference preference--list" id="languagePreferences" role="radiogroup" aria-labelledby="languagePreferenceLabel">
+            <span class="sr-only" id="languagePreferenceLabel" data-i18n="preferences.language">Language</span>
+            <button type="button" class="glass-button" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
+            <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
+            <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="es" data-i18n="lang.es">Español</button>
+            <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="fr" data-i18n="lang.fr">Français</button>
+            <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="zh" data-i18n="lang.zh">中文</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="panel panel--light" data-animate id="about" data-admin-zone="about">
       <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="about" aria-pressed="false">Edit</button>
       <div class="panel__content">
-        <h2 data-i18n="about.title">About me</h2>
-        <p class="lead" data-i18n="about.lead">Heidelberg-based XR engineer currently pursuing a Master in Virtual and Augmented Realities while shipping Unreal Engine solutions for finance and education.</p>
+        <div class="panel__header">
+          <div class="panel__intro">
+            <h2 data-i18n="about.title">About me</h2>
+            <p class="lead" data-i18n="about.lead">Heidelberg-based XR engineer currently pursuing a Master in Virtual and Augmented Realities while shipping Unreal Engine solutions for finance and education.</p>
+          </div>
+          <div class="panel__actions" aria-label="About actions">
+            <button type="button" class="glass-button glass-button--slim" data-sheet-open="aboutSheet" data-focus="aboutTitle" data-i18n="about.actions.add" aria-haspopup="dialog" aria-controls="aboutSheet">Add highlight</button>
+            <button type="button" class="glass-button glass-button--slim" data-sheet-open="aboutSheet" data-focus="adminAboutList" data-i18n="about.actions.manage" aria-haspopup="dialog" aria-controls="aboutSheet">Manage highlights</button>
+          </div>
+        </div>
       </div>
       <div class="panel__grid about-highlights">
         <div class="about-card">
@@ -1597,32 +1648,37 @@
           </div>
         </div>
       </div>
-      <div class="experience-grid">
-        <article class="experience-card" data-experience-key="srhLecturer">
-          <span class="experience-card__period" data-i18n="experience.srhLecturer.period">11/2024 – 12/2024</span>
-          <h3 class="experience-card__role" data-i18n="experience.srhLecturer.role">Lecturer · SRH Hochschule Heidelberg</h3>
-          <p class="experience-card__description" data-i18n="experience.srhLecturer.description">Designed and delivered the Mixed Reality Development module, mentoring student teams on Unreal Engine workflows, performance budgets, and XR storytelling.</p>
-        </article>
-        <article class="experience-card" data-experience-key="unionStudent">
-          <span class="experience-card__period" data-i18n="experience.unionStudent.period">09/2023 – 12/2024</span>
-          <h3 class="experience-card__role" data-i18n="experience.unionStudent.role">Working student XR · Union IT Services GmbH</h3>
-          <p class="experience-card__description" data-i18n="experience.unionStudent.description">Implemented VR and AR prototypes for Union Investment’s innovation lab, integrating Azure DevOps, GitHub, and optimized 3D assets into client-ready demos.</p>
-        </article>
-        <article class="experience-card" data-experience-key="unionIntern">
-          <span class="experience-card__period" data-i18n="experience.unionIntern.period">04/2023 – 08/2023</span>
-          <h3 class="experience-card__role" data-i18n="experience.unionIntern.role">XR intern · Union IT Services GmbH</h3>
-          <p class="experience-card__description" data-i18n="experience.unionIntern.description">Accelerated digital transformation initiatives with Design Thinking sprints and rapid Unreal Engine prototypes supporting internal process digitization.</p>
-        </article>
-        <article class="experience-card" data-experience-key="srhAssistant">
-          <span class="experience-card__period" data-i18n="experience.srhAssistant.period">10/2021 – 03/2022</span>
-          <h3 class="experience-card__role" data-i18n="experience.srhAssistant.role">Research assistant · SRH Hochschule Heidelberg</h3>
-          <p class="experience-card__description" data-i18n="experience.srhAssistant.description">Supported the rectorate with digital learning strategy, academic communications, and cross-faculty project coordination.</p>
-        </article>
-        <article class="experience-card" data-experience-key="early">
-          <span class="experience-card__period" data-i18n="experience.early.period">2018 – 2020</span>
-          <h3 class="experience-card__role" data-i18n="experience.early.role">Early industry exposure</h3>
-          <p class="experience-card__description" data-i18n="experience.early.description">Hands-on service, automotive, and community roles at Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf, and Kinder- und Jugendtreff Hasenleiser.</p>
-        </article>
+      <div class="carousel" data-carousel="experience">
+        <div class="carousel__viewport">
+          <div class="carousel__track experience-grid" id="experienceTrack">
+            <article class="experience-card" data-experience-key="srhLecturer">
+              <span class="experience-card__period" data-i18n="experience.srhLecturer.period">11/2024 – 12/2024</span>
+              <h3 class="experience-card__role" data-i18n="experience.srhLecturer.role">Lecturer · SRH Hochschule Heidelberg</h3>
+              <p class="experience-card__description" data-i18n="experience.srhLecturer.description">Designed and delivered the Mixed Reality Development module, mentoring student teams on Unreal Engine workflows, performance budgets, and XR storytelling.</p>
+            </article>
+            <article class="experience-card" data-experience-key="unionStudent">
+              <span class="experience-card__period" data-i18n="experience.unionStudent.period">09/2023 – 12/2024</span>
+              <h3 class="experience-card__role" data-i18n="experience.unionStudent.role">Working student XR · Union IT Services GmbH</h3>
+              <p class="experience-card__description" data-i18n="experience.unionStudent.description">Implemented VR and AR prototypes for Union Investment’s innovation lab, integrating Azure DevOps, GitHub, and optimized 3D assets into client-ready demos.</p>
+            </article>
+            <article class="experience-card" data-experience-key="unionIntern">
+              <span class="experience-card__period" data-i18n="experience.unionIntern.period">04/2023 – 08/2023</span>
+              <h3 class="experience-card__role" data-i18n="experience.unionIntern.role">XR intern · Union IT Services GmbH</h3>
+              <p class="experience-card__description" data-i18n="experience.unionIntern.description">Accelerated digital transformation initiatives with Design Thinking sprints and rapid Unreal Engine prototypes supporting internal process digitization.</p>
+            </article>
+            <article class="experience-card" data-experience-key="srhAssistant">
+              <span class="experience-card__period" data-i18n="experience.srhAssistant.period">10/2021 – 03/2022</span>
+              <h3 class="experience-card__role" data-i18n="experience.srhAssistant.role">Research assistant · SRH Hochschule Heidelberg</h3>
+              <p class="experience-card__description" data-i18n="experience.srhAssistant.description">Supported the rectorate with digital learning strategy, academic communications, and cross-faculty project coordination.</p>
+            </article>
+            <article class="experience-card" data-experience-key="early">
+              <span class="experience-card__period" data-i18n="experience.early.period">2018 – 2020</span>
+              <h3 class="experience-card__role" data-i18n="experience.early.role">Early industry exposure</h3>
+              <p class="experience-card__description" data-i18n="experience.early.description">Hands-on service, automotive, and community roles at Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf, and Kinder- und Jugendtreff Hasenleiser.</p>
+            </article>
+          </div>
+        </div>
+        <div class="carousel__dots" id="experienceDots" role="tablist" aria-label="Experience timeline"></div>
       </div>
     </section>
 
@@ -1640,51 +1696,56 @@
           </div>
         </div>
       </div>
-      <div class="projects-grid">
-        <article class="project-card" data-project-key="performance" data-modal-image="img/project.png" data-modal-alt-key="projects.performance.alt">
-          <img src="img/project.png" alt="Meta Quest performance benchmarking dashboard" data-i18n-attr="alt:projects.performance.alt" />
-          <div class="project-card__body">
-            <h3 class="project-card__title" data-i18n="projects.performance.title">Meta Quest performance lab</h3>
-            <div class="project-card__meta">
-              <span data-i18n="projects.performance.meta.0">Research</span>
-              <span data-i18n="projects.performance.meta.1">Unreal Engine</span>
-            </div>
-            <p class="project-card__description" data-i18n="projects.performance.description">Built a benchmarking pipeline for standalone VR headsets, profiling Unreal Engine scenes and optimizing frame budgets for Meta Quest deployments.</p>
-            <ul class="projects-levels">
-              <li>
-              <button type="button" class="glass-button level-chip" data-state="available" data-project-launch="performance" data-i18n="projects.performance.level1">Open performance toolkit</button>
-              </li>
-              <li>
-                <span class="level-chip" data-state="upcoming" data-i18n="projects.performance.level2">Design system case study</span>
-              </li>
-              <li>
-                <span class="level-chip" data-state="upcoming" data-i18n="projects.performance.level3">Optimization playbook</span>
-              </li>
-            </ul>
+      <div class="carousel" data-carousel="projects">
+        <div class="carousel__viewport">
+          <div class="carousel__track projects-grid" id="projectsTrack">
+            <article class="project-card" data-project-key="performance" data-modal-image="img/project.png" data-modal-alt-key="projects.performance.alt">
+              <img src="img/project.png" alt="Meta Quest performance benchmarking dashboard" data-i18n-attr="alt:projects.performance.alt" />
+              <div class="project-card__body">
+                <h3 class="project-card__title" data-i18n="projects.performance.title">Meta Quest performance lab</h3>
+                <div class="project-card__meta">
+                  <span data-i18n="projects.performance.meta.0">Research</span>
+                  <span data-i18n="projects.performance.meta.1">Unreal Engine</span>
+                </div>
+                <p class="project-card__description" data-i18n="projects.performance.description">Built a benchmarking pipeline for standalone VR headsets, profiling Unreal Engine scenes and optimizing frame budgets for Meta Quest deployments.</p>
+                <ul class="projects-levels">
+                  <li>
+                    <button type="button" class="glass-button level-chip" data-state="available" data-project-launch="performance" data-i18n="projects.performance.level1">Open performance toolkit</button>
+                  </li>
+                  <li>
+                    <span class="level-chip" data-state="upcoming" data-i18n="projects.performance.level2">Design system case study</span>
+                  </li>
+                  <li>
+                    <span class="level-chip" data-state="upcoming" data-i18n="projects.performance.level3">Optimization playbook</span>
+                  </li>
+                </ul>
+              </div>
+            </article>
+            <article class="project-card" data-project-key="mixedReality" data-modal-image="img/background.jpg" data-modal-alt-key="projects.mixedReality.alt">
+              <img src="img/background.jpg" alt="Students collaborating inside a mixed reality studio" data-i18n-attr="alt:projects.mixedReality.alt" />
+              <div class="project-card__body">
+                <h3 class="project-card__title" data-i18n="projects.mixedReality.title">Mixed Reality studio syllabus</h3>
+                <div class="project-card__meta">
+                  <span data-i18n="projects.mixedReality.meta.0">Education</span>
+                  <span data-i18n="projects.mixedReality.meta.1">Curriculum design</span>
+                </div>
+                <p class="project-card__description" data-i18n="projects.mixedReality.description">Authored and delivered a semester-long Mixed Reality Development module, covering Unreal Engine tooling, performance budgets, and collaborative delivery.</p>
+                <ul class="projects-levels">
+                  <li>
+                    <button type="button" class="glass-button level-chip" data-state="available" data-project-launch="mixedReality" data-i18n="projects.mixedReality.level1">View module outline</button>
+                  </li>
+                  <li>
+                    <span class="level-chip" data-state="upcoming" data-i18n="projects.mixedReality.level2">Workshop templates</span>
+                  </li>
+                  <li>
+                    <span class="level-chip" data-state="upcoming" data-i18n="projects.mixedReality.level3">Student outcomes</span>
+                  </li>
+                </ul>
+              </div>
+            </article>
           </div>
-        </article>
-        <article class="project-card" data-project-key="mixedReality" data-modal-image="img/background.jpg" data-modal-alt-key="projects.mixedReality.alt">
-          <img src="img/background.jpg" alt="Students collaborating inside a mixed reality studio" data-i18n-attr="alt:projects.mixedReality.alt" />
-          <div class="project-card__body">
-            <h3 class="project-card__title" data-i18n="projects.mixedReality.title">Mixed Reality studio syllabus</h3>
-            <div class="project-card__meta">
-              <span data-i18n="projects.mixedReality.meta.0">Education</span>
-              <span data-i18n="projects.mixedReality.meta.1">Curriculum design</span>
-            </div>
-            <p class="project-card__description" data-i18n="projects.mixedReality.description">Authored and delivered a semester-long Mixed Reality Development module, covering Unreal Engine tooling, performance budgets, and collaborative delivery.</p>
-            <ul class="projects-levels">
-              <li>
-              <button type="button" class="glass-button level-chip" data-state="available" data-project-launch="mixedReality" data-i18n="projects.mixedReality.level1">View module outline</button>
-              </li>
-              <li>
-                <span class="level-chip" data-state="upcoming" data-i18n="projects.mixedReality.level2">Workshop templates</span>
-              </li>
-              <li>
-                <span class="level-chip" data-state="upcoming" data-i18n="projects.mixedReality.level3">Student outcomes</span>
-              </li>
-            </ul>
-          </div>
-        </article>
+        </div>
+        <div class="carousel__dots" id="projectsDots" role="tablist" aria-label="Projects carousel"></div>
       </div>
     </section>
 
@@ -1746,6 +1807,8 @@
         'preferences.close': "Close",
         'preferences.theme': "Theme",
         'preferences.language': "Language",
+        'preferences.lead': "Match the interface to your device appearance and language.",
+        'preferences.themeHint': "System keeps light and dark in sync with your device.",
         'theme.system': "System",
         'theme.light': "Light",
         'theme.dark': "Dark",
@@ -1754,6 +1817,7 @@
         'lang.es': "Español",
         'lang.fr': "Français",
         'lang.zh': "中文",
+        'nav.preferences': "Preferences",
         'nav.about': "About",
         'nav.experience': "Experience",
         'nav.projects': "Projects",
@@ -1765,6 +1829,8 @@
         'hero.cta.secondary': "Download résumé",
         'about.title': "About me",
         'about.lead': "Heidelberg-based XR engineer currently pursuing a Master in Virtual and Augmented Realities while shipping Unreal Engine solutions for finance and education.",
+        'about.actions.add': "Add highlight",
+        'about.actions.manage': "Manage highlights",
         'about.cards.educator.title': "Educator & mentor",
         'about.cards.educator.body': "Lead lecturer for the Mixed Reality Development module at SRH Hochschule Heidelberg, guiding students from concept to deployment-ready experiences.",
         'about.cards.technologist.title': "Immersive technologist",
@@ -1830,6 +1896,8 @@
         'preferences.close': "Schließen",
         'preferences.theme': "Darstellung",
         'preferences.language': "Sprache",
+        'preferences.lead': "Passe Oberfläche und Sprache an dein Gerät an.",
+        'preferences.themeHint': "System hält Hell- und Dunkelmodus mit deinem Gerät synchron.",
         'theme.system': "System",
         'theme.light': "Hell",
         'theme.dark': "Dunkel",
@@ -1838,6 +1906,7 @@
         'lang.es': "Spanisch",
         'lang.fr': "Französisch",
         'lang.zh': "Chinesisch",
+        'nav.preferences': "Einstellungen",
         'nav.about': "Über mich",
         'nav.experience': "Erfahrung",
         'nav.projects': "Projekte",
@@ -1849,6 +1918,8 @@
         'hero.cta.secondary': "Lebenslauf herunterladen",
         'about.title': "Über mich",
         'about.lead': "XR-Ingenieur aus Heidelberg, der einen Master in Virtuellen und Augmentierten Realitäten absolviert und parallel Unreal-Engine-Lösungen für Finanzen und Bildung realisiert.",
+        'about.actions.add': "Highlight hinzufügen",
+        'about.actions.manage': "Highlights verwalten",
         'about.cards.educator.title': "Dozent & Mentor",
         'about.cards.educator.body': "Leitender Dozent des Moduls Mixed Reality Development an der SRH Hochschule Heidelberg und Begleiter von Studierenden vom Konzept bis zum marktreifen Erlebnis.",
         'about.cards.technologist.title': "Immersive Technologe",
@@ -1914,6 +1985,8 @@
         'preferences.close': "Cerrar",
         'preferences.theme': "Tema",
         'preferences.language': "Idioma",
+        'preferences.lead': "Alinea la interfaz con la apariencia y el idioma de tu dispositivo.",
+        'preferences.themeHint': "Sistema mantiene el modo claro y oscuro sincronizado con tu dispositivo.",
         'theme.system': "Sistema",
         'theme.light': "Claro",
         'theme.dark': "Oscuro",
@@ -1922,6 +1995,7 @@
         'lang.es': "Español",
         'lang.fr': "Francés",
         'lang.zh': "Chino",
+        'nav.preferences': "Preferencias",
         'nav.about': "Sobre mí",
         'nav.experience': "Experiencia",
         'nav.projects': "Proyectos",
@@ -1933,6 +2007,8 @@
         'hero.cta.secondary': "Descargar currículum",
         'about.title': "Sobre mí",
         'about.lead': "Ingeniero XR con base en Heidelberg que cursa un máster en Realidades Virtuales y Aumentadas mientras entrega soluciones con Unreal Engine para finanzas y educación.",
+        'about.actions.add': "Añadir destacado",
+        'about.actions.manage': "Gestionar destacados",
         'about.cards.educator.title': "Educador y mentor",
         'about.cards.educator.body': "Docente principal del módulo Mixed Reality Development en la SRH Hochschule Heidelberg, guiando al alumnado desde el concepto hasta experiencias listas para producción.",
         'about.cards.technologist.title': "Tecnólogo inmersivo",
@@ -1998,6 +2074,8 @@
         'preferences.close': "Fermer",
         'preferences.theme': "Thème",
         'preferences.language': "Langue",
+        'preferences.lead': "Adaptez l’interface à l’apparence et à la langue de votre appareil.",
+        'preferences.themeHint': "Le mode Système suit automatiquement le clair et le sombre de votre appareil.",
         'theme.system': "Système",
         'theme.light': "Clair",
         'theme.dark': "Sombre",
@@ -2006,6 +2084,7 @@
         'lang.es': "Espagnol",
         'lang.fr': "Français",
         'lang.zh': "Chinois",
+        'nav.preferences': "Préférences",
         'nav.about': "À propos",
         'nav.experience': "Expérience",
         'nav.projects': "Projets",
@@ -2017,6 +2096,8 @@
         'hero.cta.secondary': "Télécharger le CV",
         'about.title': "À propos de moi",
         'about.lead': "Ingénieur XR basé à Heidelberg, en master de Réalités virtuelle et augmentée, livrant des solutions Unreal Engine pour la finance et l’éducation.",
+        'about.actions.add': "Ajouter un point fort",
+        'about.actions.manage': "Gérer les points forts",
         'about.cards.educator.title': "Formateur & mentor",
         'about.cards.educator.body': "Responsable du module Mixed Reality Development à la SRH Hochschule Heidelberg, accompagnant les étudiants du concept à la mise en production.",
         'about.cards.technologist.title': "Technologue immersif",
@@ -2082,6 +2163,8 @@
         'preferences.close': "关闭",
         'preferences.theme': "主题",
         'preferences.language': "语言",
+        'preferences.lead': "让界面匹配设备的外观与语言。",
+        'preferences.themeHint': "选择系统可与您的设备亮暗模式保持同步。",
         'theme.system': "系统",
         'theme.light': "亮色",
         'theme.dark': "暗色",
@@ -2090,6 +2173,7 @@
         'lang.es': "西班牙语",
         'lang.fr': "法语",
         'lang.zh': "中文",
+        'nav.preferences': "偏好设置",
         'nav.about': "关于我",
         'nav.experience': "经历",
         'nav.projects': "项目",
@@ -2101,6 +2185,8 @@
         'hero.cta.secondary': "下载简历",
         'about.title': "关于我",
         'about.lead': "常驻海德堡的 XR 工程师，攻读虚拟与增强现实硕士，同时为金融与教育领域交付 Unreal Engine 解决方案。",
+        'about.actions.add': "新增亮点",
+        'about.actions.manage': "管理亮点",
         'about.cards.educator.title': "教育者与导师",
         'about.cards.educator.body': "担任 SRH Hochschule Heidelberg 混合现实开发课程负责人，引导学生从概念走向可交付体验。",
         'about.cards.technologist.title': "沉浸式技术专家",
@@ -2219,25 +2305,27 @@
     const adminPasswordInput = document.getElementById('adminPassword');
     const adminStatus = document.getElementById('adminStatus');
     const adminCancel = document.getElementById('adminCancel');
-    const preferencePanel = document.getElementById('preferencePanel');
-    const preferenceToggle = document.getElementById('preferenceToggle');
-    const preferenceClose = document.getElementById('preferenceClose');
     const saveTextButton = document.getElementById('saveTextChanges');
     const resetTextButton = document.getElementById('resetTextChanges');
     const resetStaticButton = document.getElementById('resetStaticChanges');
     const resumeForm = document.getElementById('resumeForm');
     const resumeUrlInput = document.getElementById('resumeUrl');
+    const aboutForm = document.getElementById('aboutForm');
+    const adminAboutList = document.getElementById('adminAboutList');
     const projectForm = document.getElementById('projectForm');
     const adminProjectsList = document.getElementById('adminProjectsList');
     const experienceForm = document.getElementById('experienceForm');
     const adminExperiencesList = document.getElementById('adminExperiencesList');
     const adminDock = document.getElementById('adminDock');
     const resumeSheet = document.getElementById('resumeSheet');
+    const aboutSheet = document.getElementById('aboutSheet');
     const projectSheet = document.getElementById('projectSheet');
     const experienceSheet = document.getElementById('experienceSheet');
     const projectTitleInput = document.getElementById('projectTitle');
+    const aboutTitleInput = document.getElementById('aboutTitle');
     const experienceRoleInput = document.getElementById('experienceRole');
     const toggleResumeSheetButton = document.getElementById('toggleResumeSheet');
+    const toggleAboutSheetButton = document.getElementById('toggleAboutSheet');
     const toggleProjectSheetButton = document.getElementById('toggleProjectSheet');
     const toggleExperienceSheetButton = document.getElementById('toggleExperienceSheet');
     const sheetOpenButtons = Array.from(document.querySelectorAll('[data-sheet-open]'));
@@ -2250,8 +2338,11 @@
         adminZones.set(zoneId, zone);
       }
     });
-    const projectsGrid = document.querySelector('.projects-grid');
-    const experienceGrid = document.querySelector('.experience-grid');
+    const projectsGrid = document.getElementById('projectsTrack');
+    const projectsDots = document.getElementById('projectsDots');
+    const experienceGrid = document.getElementById('experienceTrack');
+    const experienceDots = document.getElementById('experienceDots');
+    const aboutHighlights = document.querySelector('.about-highlights');
     const contactLinkInputs = Array.from(document.querySelectorAll('[data-contact-input]'));
     const contactLinkAnchors = new Map();
     document.querySelectorAll('[data-contact-link]').forEach((anchor) => {
@@ -2269,6 +2360,115 @@
     const modalDescription = document.getElementById('projectModalDescription');
     const modalImage = document.getElementById('projectModalImage');
     const modalClose = projectModal ? projectModal.querySelector('.modal__close') : null;
+
+    const carouselState = {
+      projects: { index: 0, timer: null, slides: 1 },
+      experience: { index: 0, timer: null, slides: 1 }
+    };
+
+    const carouselBreakpoint = window.matchMedia('(max-width: 780px)');
+
+    const getCarouselPerView = () => (carouselBreakpoint.matches ? 1 : 2);
+
+    function stopCarouselAuto(key) {
+      const state = carouselState[key];
+      if (state && state.timer) {
+        window.clearInterval(state.timer);
+        state.timer = null;
+      }
+    }
+
+    function startCarouselAuto(key) {
+      const state = carouselState[key];
+      if (!state || state.slides <= 1) {
+        stopCarouselAuto(key);
+        return;
+      }
+      stopCarouselAuto(key);
+      state.timer = window.setInterval(() => {
+        const nextIndex = (state.index + 1) % state.slides;
+        setCarouselIndex(key, nextIndex);
+      }, 7000);
+    }
+
+    const ensureCarouselBindings = (key, carousel) => {
+      if (!carousel || carousel.dataset.carouselBound === 'true') {
+        return;
+      }
+      const resume = () => startCarouselAuto(key);
+      carousel.addEventListener('mouseenter', () => stopCarouselAuto(key));
+      carousel.addEventListener('focusin', () => stopCarouselAuto(key));
+      carousel.addEventListener('mouseleave', resume);
+      carousel.addEventListener('focusout', resume);
+      carousel.dataset.carouselBound = 'true';
+    };
+
+    function refreshCarousel(key) {
+      const state = carouselState[key];
+      if (!state) {
+        return;
+      }
+      const track = key === 'projects' ? projectsGrid : experienceGrid;
+      const dots = key === 'projects' ? projectsDots : experienceDots;
+      if (!track) {
+        stopCarouselAuto(key);
+        return;
+      }
+      const items = Array.from(track.children);
+      const perView = Math.max(1, getCarouselPerView());
+      const slides = items.length > 0 ? Math.max(1, items.length - perView + 1) : 1;
+      state.slides = slides;
+      if (state.index >= slides) {
+        state.index = slides - 1;
+      }
+      const activeItem = items[state.index];
+      const offset = activeItem ? activeItem.offsetLeft : 0;
+      track.style.transform = `translateX(${-offset}px)`;
+      if (dots) {
+        dots.innerHTML = '';
+        if (items.length > 0) {
+          for (let i = 0; i < slides; i += 1) {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.dataset.carouselIndex = String(i);
+            dot.setAttribute('aria-label', `${key === 'projects' ? 'Project' : 'Experience'} ${i + 1}`);
+            dot.setAttribute('aria-current', i === state.index ? 'true' : 'false');
+            dot.addEventListener('click', () => setCarouselIndex(key, i));
+            dots.appendChild(dot);
+          }
+        }
+        dots.hidden = state.slides <= 1;
+      }
+      const carousel = track.closest('.carousel');
+      ensureCarouselBindings(key, carousel);
+      stopCarouselAuto(key);
+      if (state.slides > 1) {
+        startCarouselAuto(key);
+      }
+    }
+
+    function setCarouselIndex(key, index) {
+      const state = carouselState[key];
+      if (!state) {
+        return;
+      }
+      const clamped = Math.max(0, Math.min(index, Math.max(0, state.slides - 1)));
+      state.index = clamped;
+      refreshCarousel(key);
+    }
+
+    function refreshAllCarousels() {
+      refreshCarousel('projects');
+      refreshCarousel('experience');
+    }
+
+    carouselBreakpoint.addEventListener('change', refreshAllCarousels);
+
+    let carouselResizeTimer = null;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(carouselResizeTimer);
+      carouselResizeTimer = window.setTimeout(() => refreshAllCarousels(), 150);
+    });
 
     const safeGetItem = (key) => {
       try {
@@ -2311,6 +2511,7 @@
     let staticOverrides = loadJSON('admin.static', {});
     let adminProjects = loadJSON('admin.projects', []);
     let adminExperiences = loadJSON('admin.experiences', []);
+    let adminAboutHighlights = loadJSON('admin.about', []);
     let contactLinkOverrides = loadJSON('admin.contactLinks', {});
     const storedResume = safeGetItem('admin.resumeLink');
     let resumeLink = storedResume && storedResume.trim() ? storedResume.trim() : 'resume.pdf';
@@ -2369,7 +2570,7 @@
       if (!element) {
         return false;
       }
-      if (element.closest('.admin-dock') || element.closest('.admin-sheet') || element.closest('.control-panel') || element.closest('.retro-admin')) {
+      if (element.closest('.admin-dock') || element.closest('.admin-sheet') || element.closest('.retro-admin')) {
         return false;
       }
       if (element.dataset && element.dataset.i18nAttr) {
@@ -2451,6 +2652,7 @@
       themeButtons.forEach((button) => {
         const isActive = button.dataset.themeOption === preference;
         button.setAttribute('aria-checked', isActive ? 'true' : 'false');
+        button.setAttribute('data-active', isActive ? 'true' : 'false');
       });
     };
 
@@ -2509,7 +2711,6 @@
       button.addEventListener('click', () => {
         const preference = button.dataset.themeOption || 'system';
         applyThemePreference(preference);
-        setPreferencePanelOpen(false);
       });
     });
 
@@ -2644,6 +2845,85 @@
       };
     };
 
+    const createAboutCard = (highlight) => {
+      if (!highlight) {
+        return null;
+      }
+      const card = document.createElement('div');
+      card.className = 'about-card';
+      card.dataset.adminAbout = highlight.id;
+
+      const title = document.createElement('h3');
+      title.textContent = highlight.title || 'Highlight';
+      card.appendChild(title);
+
+      if (highlight.description) {
+        const body = document.createElement('p');
+        body.textContent = highlight.description;
+        card.appendChild(body);
+      }
+
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'glass-button glass-button--icon admin-card-remove';
+      removeButton.dataset.removeAbout = highlight.id;
+      removeButton.setAttribute('aria-label', `Delete ${highlight.title || 'highlight'}`);
+      removeButton.title = `Delete ${highlight.title || 'highlight'}`;
+      removeButton.textContent = '×';
+      card.appendChild(removeButton);
+
+      return card;
+    };
+
+    const renderDynamicAboutHighlights = () => {
+      if (!aboutHighlights) {
+        return;
+      }
+      aboutHighlights.querySelectorAll('[data-admin-about]').forEach((card) => card.remove());
+      adminAboutHighlights.forEach((highlight) => {
+        const card = createAboutCard(highlight);
+        if (card) {
+          aboutHighlights.appendChild(card);
+        }
+      });
+    };
+
+    const renderAdminAboutList = () => {
+      if (!adminAboutList) {
+        return;
+      }
+      adminAboutList.innerHTML = '';
+      if (adminAboutHighlights.length === 0) {
+        const emptyState = document.createElement('p');
+        emptyState.className = 'admin-projects__empty';
+        emptyState.textContent = 'No custom highlights yet.';
+        adminAboutList.appendChild(emptyState);
+        return;
+      }
+      adminAboutHighlights.forEach((highlight) => {
+        const item = document.createElement('div');
+        item.className = 'admin-project';
+        const meta = document.createElement('div');
+        meta.className = 'admin-project__meta';
+        const title = document.createElement('strong');
+        title.textContent = highlight.title || 'Highlight';
+        meta.appendChild(title);
+        if (highlight.description) {
+          const description = document.createElement('span');
+          description.textContent = highlight.description;
+          meta.appendChild(description);
+        }
+        item.appendChild(meta);
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'glass-button glass-button--slim glass-button--danger';
+        remove.dataset.aboutId = highlight.id;
+        remove.textContent = 'Delete';
+        item.appendChild(remove);
+        adminAboutList.appendChild(item);
+      });
+    };
+
     const createProjectCard = (project) => {
       if (!projectsGrid) {
         return null;
@@ -2729,6 +3009,7 @@
           attachProjectLaunch(launchButton);
         }
       });
+      refreshCarousel('projects');
     };
 
     const renderAdminProjectsList = () => {
@@ -2855,6 +3136,7 @@
           experienceGrid.appendChild(card);
         }
       });
+      refreshCarousel('experience');
     };
 
     const renderAdminExperiencesList = () => {
@@ -2932,18 +3214,9 @@
       closeAllZones();
     };
 
-    const setPreferencePanelOpen = (open) => {
-      if (!preferencePanel) {
-        return;
-      }
-      preferencePanel.dataset.open = open ? 'true' : 'false';
-      if (preferenceToggle) {
-        preferenceToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      }
-    };
-
     const adminSheets = new Map([
       ['resumeSheet', resumeSheet],
+      ['aboutSheet', aboutSheet],
       ['projectSheet', projectSheet],
       ['experienceSheet', experienceSheet]
     ].filter(([, sheet]) => Boolean(sheet)));
@@ -2965,6 +3238,8 @@
           ? projectTitleInput
           : id === 'experienceSheet'
           ? experienceRoleInput
+          : id === 'aboutSheet'
+          ? aboutTitleInput
           : null;
         const target = focusTarget || defaultFocus;
         if (target && typeof target.focus === 'function') {
@@ -2975,6 +3250,9 @@
       }
       if (id === 'resumeSheet' && toggleResumeSheetButton) {
         toggleResumeSheetButton.setAttribute('aria-expanded', shouldShow ? 'true' : 'false');
+      }
+      if (id === 'aboutSheet' && toggleAboutSheetButton) {
+        toggleAboutSheetButton.setAttribute('aria-expanded', shouldShow ? 'true' : 'false');
       }
       if (id === 'projectSheet' && toggleProjectSheetButton) {
         toggleProjectSheetButton.setAttribute('aria-expanded', shouldShow ? 'true' : 'false');
@@ -3126,19 +3404,18 @@
         setAdminDockVisible(false);
         return;
       }
-      if (preferencePanel && preferencePanel.dataset.open === 'true') {
-        setPreferencePanelOpen(false);
-        return;
-      }
       closeModal();
     });
 
+    renderDynamicAboutHighlights();
+    renderAdminAboutList();
     renderDynamicProjects();
     renderAdminProjectsList();
     renderDynamicExperiences();
     renderAdminExperiencesList();
     applyContactLinks();
     syncContactInputs();
+    refreshAllCarousels();
 
     document.querySelectorAll('[data-project-launch]').forEach((button) => attachProjectLaunch(button));
 
@@ -3157,6 +3434,7 @@
         updateModalContent(activeProject, lang);
       }
       updateRetroScreen(lang, true);
+      refreshAllCarousels();
       if (persist) {
         safeSetItem('language', lang);
       }
@@ -3166,30 +3444,7 @@
       button.addEventListener('click', () => {
         const lang = button.dataset.langOption || 'en';
         applyLanguage(lang);
-        setPreferencePanelOpen(false);
       });
-    });
-
-    if (preferenceToggle) {
-      preferenceToggle.addEventListener('click', () => {
-        const isOpen = preferencePanel && preferencePanel.dataset.open === 'true';
-        setPreferencePanelOpen(!isOpen);
-      });
-    }
-
-    if (preferenceClose) {
-      preferenceClose.addEventListener('click', () => setPreferencePanelOpen(false));
-    }
-
-    document.addEventListener('click', (event) => {
-      if (!preferencePanel || preferencePanel.dataset.open !== 'true') {
-        return;
-      }
-      const target = event.target;
-      const clickedToggle = preferenceToggle && preferenceToggle.contains(target);
-      if (!clickedToggle && !preferencePanel.contains(target)) {
-        setPreferencePanelOpen(false);
-      }
     });
 
     const storedLanguage = safeGetItem('language');
@@ -3228,6 +3483,28 @@
         event.preventDefault();
         resumeLink = resumeUrlInput.value.trim() || 'resume.pdf';
         safeSetItem('admin.resumeLink', resumeLink);
+      });
+    }
+
+    if (aboutForm) {
+      aboutForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(aboutForm);
+        const title = (formData.get('aboutTitle') || '').toString().trim();
+        if (!title) {
+          return;
+        }
+        const description = (formData.get('aboutDescription') || '').toString().trim();
+        const highlight = {
+          id: `about-${Date.now()}`,
+          title,
+          description
+        };
+        adminAboutHighlights.push(highlight);
+        saveJSON('admin.about', adminAboutHighlights);
+        aboutForm.reset();
+        renderDynamicAboutHighlights();
+        renderAdminAboutList();
       });
     }
 
@@ -3296,6 +3573,20 @@
       });
     }
 
+    if (adminAboutList) {
+      adminAboutList.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-about-id]');
+        if (!button) {
+          return;
+        }
+        const aboutId = button.dataset.aboutId;
+        adminAboutHighlights = adminAboutHighlights.filter((highlight) => highlight.id !== aboutId);
+        saveJSON('admin.about', adminAboutHighlights);
+        renderDynamicAboutHighlights();
+        renderAdminAboutList();
+      });
+    }
+
     if (adminExperiencesList) {
       adminExperiencesList.addEventListener('click', (event) => {
         const button = event.target.closest('button[data-experience-id]');
@@ -3341,6 +3632,21 @@
       });
     }
 
+    if (aboutHighlights) {
+      aboutHighlights.addEventListener('click', (event) => {
+        const removeButton = event.target.closest('button[data-remove-about]');
+        if (!removeButton) {
+          return;
+        }
+        event.stopPropagation();
+        const aboutId = removeButton.dataset.removeAbout;
+        adminAboutHighlights = adminAboutHighlights.filter((highlight) => highlight.id !== aboutId);
+        saveJSON('admin.about', adminAboutHighlights);
+        renderDynamicAboutHighlights();
+        renderAdminAboutList();
+      });
+    }
+
     contactLinkInputs.forEach((input) => {
       input.addEventListener('input', () => {
         if (input.disabled) {
@@ -3383,6 +3689,10 @@
 
     if (toggleResumeSheetButton) {
       toggleResumeSheetButton.addEventListener('click', () => toggleSheet('resumeSheet'));
+    }
+
+    if (toggleAboutSheetButton) {
+      toggleAboutSheetButton.addEventListener('click', () => toggleSheet('aboutSheet'));
     }
 
     if (toggleProjectSheetButton) {
