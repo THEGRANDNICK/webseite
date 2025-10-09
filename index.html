@@ -10,10 +10,10 @@
       --body-bg: radial-gradient(140% 160% at 20% 10%, #f7f8fa 0%, #f0f2f8 32%, #dbe0f5 100%);
       --text-primary: #0b0c11;
       --text-secondary: rgba(17, 18, 25, 0.68);
-      --surface-glass: rgba(255, 255, 255, 0.7);
-      --surface-hero: linear-gradient(135deg, rgba(12, 12, 20, 0.92), rgba(22, 24, 40, 0.72));
-      --surface-panel: linear-gradient(135deg, rgba(24, 26, 44, 0.85), rgba(10, 10, 16, 0.82));
-      --surface-panel-alt: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(245, 245, 247, 0.9));
+      --surface-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(42, 48, 82, 0.24));
+      --surface-hero: linear-gradient(135deg, rgba(18, 20, 36, 0.92), rgba(38, 44, 72, 0.72));
+      --surface-panel: linear-gradient(135deg, rgba(32, 36, 64, 0.88), rgba(14, 16, 28, 0.82));
+      --surface-panel-alt: linear-gradient(135deg, rgba(250, 250, 255, 0.58), rgba(46, 54, 96, 0.26));
       --border-soft: rgba(255, 255, 255, 0.4);
       --shadow-lg: 0 40px 80px rgba(15, 16, 36, 0.2);
       --shadow-xl: 0 48px 120px rgba(12, 14, 32, 0.35);
@@ -55,31 +55,6 @@
       --glass-accent-hover: linear-gradient(135deg, rgba(112, 155, 255, 0.95), rgba(64, 110, 255, 0.98));
       --glass-danger: linear-gradient(135deg, rgba(255, 99, 132, 0.28), rgba(173, 35, 57, 0.28));
       --glass-danger-hover: linear-gradient(135deg, rgba(255, 132, 160, 0.38), rgba(214, 56, 83, 0.36));
-    }
-
-    [data-theme="contrast"] {
-      color-scheme: light;
-      --body-bg: linear-gradient(145deg, #ffffff 0%, #f1f1f1 45%, #dcdcdc 100%);
-      --text-primary: #050505;
-      --text-secondary: rgba(5, 5, 5, 0.75);
-      --surface-glass: rgba(255, 255, 255, 0.95);
-      --surface-hero: linear-gradient(135deg, #0a0a0a, #222222);
-      --surface-panel: linear-gradient(135deg, #111111, #1a1a1a);
-      --surface-panel-alt: linear-gradient(135deg, #ffffff, #ebebeb);
-      --border-soft: rgba(5, 5, 5, 0.18);
-      --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.55);
-      --shadow-xl: 0 48px 120px rgba(0, 0, 0, 0.65);
-      --glass-button-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(225, 225, 225, 0.48));
-      --glass-button-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(225, 225, 225, 0.56));
-      --glass-button-active: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(225, 225, 225, 0.62));
-      --glass-button-border: rgba(5, 5, 5, 0.24);
-      --glass-button-shadow: 0 24px 48px rgba(0, 0, 0, 0.32);
-      --glass-button-hover-shadow: 0 28px 56px rgba(0, 0, 0, 0.42);
-      --glass-button-text: var(--text-primary);
-      --glass-accent: linear-gradient(135deg, rgba(32, 32, 32, 0.92), rgba(5, 5, 5, 0.92));
-      --glass-accent-hover: linear-gradient(135deg, rgba(0, 0, 0, 0.98), rgba(48, 48, 48, 0.95));
-      --glass-danger: linear-gradient(135deg, rgba(255, 99, 132, 0.28), rgba(120, 0, 21, 0.18));
-      --glass-danger-hover: linear-gradient(135deg, rgba(255, 120, 150, 0.36), rgba(140, 0, 34, 0.24));
     }
 
     * {
@@ -259,13 +234,14 @@
 
     .control-panel {
       position: fixed;
-      top: 1.25rem;
-      right: 1.25rem;
+      top: clamp(1rem, 4vw, 2.5rem);
+      right: clamp(1rem, 4vw, 3rem);
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       gap: 0.75rem;
       z-index: 50;
+      max-width: min(360px, calc(100vw - 2.5rem));
     }
 
     .control-panel__toggle {
@@ -275,7 +251,7 @@
     }
 
     .control-panel__content {
-      width: min(320px, 80vw);
+      width: min(360px, 80vw);
       padding: 1.25rem 1.5rem 1.4rem;
       border-radius: 24px;
       background: var(--surface-glass);
@@ -601,7 +577,8 @@
 
     .admin-sheet input:focus,
     .admin-sheet textarea:focus,
-    .retro-admin input:focus {
+    .retro-admin input:focus,
+    .contact-link__editor input:focus {
       outline: none;
       border-color: rgba(58, 96, 255, 0.45);
       box-shadow: 0 0 0 2px rgba(58, 96, 255, 0.2);
@@ -613,7 +590,8 @@
       flex-wrap: wrap;
     }
 
-    .admin-projects {
+    .admin-projects,
+    .admin-experiences {
       display: grid;
       gap: 0.75rem;
       max-height: 240px;
@@ -626,7 +604,8 @@
       color: var(--text-secondary);
     }
 
-    .admin-project {
+    .admin-project,
+    .admin-experience {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -638,19 +617,22 @@
       box-shadow: 0 12px 24px rgba(15, 16, 36, 0.12);
     }
 
-    [data-theme="dark"] .admin-project {
+    [data-theme="dark"] .admin-project,
+    [data-theme="dark"] .admin-experience {
       background: rgba(25, 28, 42, 0.85);
       border-color: rgba(143, 148, 191, 0.2);
     }
 
-    .admin-project__meta {
+    .admin-project__meta,
+    .admin-experience__meta {
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
       font-size: 0.82rem;
     }
 
-    .admin-project__meta span {
+    .admin-project__meta span,
+    .admin-experience__meta span {
       color: var(--text-secondary);
       font-size: 0.7rem;
       letter-spacing: 0.08em;
@@ -728,6 +710,20 @@
     .preference .glass-button[aria-checked="true"] {
       border-color: transparent;
       color: #fff;
+    }
+
+    .preference--list {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      max-height: 11rem;
+      overflow-y: auto;
+      padding-right: 0.35rem;
+      gap: 0.35rem;
+    }
+
+    .preference--list .glass-button {
+      justify-content: flex-start;
+      width: 100%;
     }
 
     nav.site-nav {
@@ -990,47 +986,65 @@
       opacity: 0.85;
     }
 
-    .experience-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    .projects-grid,
+    .experience-grid {
       display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(clamp(320px, 50%, 520px), 1fr);
       gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.75rem;
+      scroll-snap-type: x mandatory;
     }
 
-    .experience-item {
+    .projects-grid::-webkit-scrollbar,
+    .experience-grid::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .projects-grid::-webkit-scrollbar-thumb,
+    .experience-grid::-webkit-scrollbar-thumb {
+      background: rgba(143, 148, 191, 0.3);
+      border-radius: 999px;
+    }
+
+    .projects-grid > *,
+    .experience-grid > * {
+      scroll-snap-align: start;
+    }
+
+    .experience-card {
       padding: 1.75rem;
       border-radius: 28px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(18px);
       display: grid;
-      gap: 0.4rem;
+      gap: 0.5rem;
     }
 
-    .experience-item span {
+    .panel--light .experience-card {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(15, 16, 36, 0.08);
+    }
+
+    .experience-card__period {
       font-size: 0.9rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       opacity: 0.65;
     }
 
-    .experience-item h3 {
+    .experience-card__role {
       margin: 0;
       font-size: 1.25rem;
     }
 
-    .experience-item p {
+    .experience-card__description {
       margin: 0;
       color: inherit;
-      opacity: 0.8;
+      opacity: 0.85;
       line-height: 1.6;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
     }
 
     .project-card {
@@ -1137,10 +1151,58 @@
       gap: 1rem;
     }
 
-    .contact-cta .glass-button {
+    .contact-link {
       flex: 1 1 200px;
+      min-width: min(260px, 100%);
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .contact-link .glass-button {
+      width: 100%;
       justify-content: center;
       font-size: 0.95rem;
+    }
+
+    .contact-link__editor {
+      display: none;
+      padding: 0.75rem 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(12px);
+      gap: 0.35rem;
+    }
+
+    .contact-link__editor label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .contact-link__editor input {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 12px;
+      padding: 0.55rem 0.75rem;
+      background: rgba(15, 16, 36, 0.08);
+      color: inherit;
+      font: inherit;
+    }
+
+    .panel--light .contact-link__editor {
+      background: rgba(255, 255, 255, 0.75);
+      border-color: rgba(15, 16, 36, 0.12);
+    }
+
+    .panel--light .contact-link__editor input {
+      background: rgba(15, 16, 36, 0.04);
+      border-color: rgba(15, 16, 36, 0.12);
+    }
+
+    .admin-zone--editing .contact-link__editor {
+      display: grid;
     }
 
     .panel--light .contact-cta .glass-button {
@@ -1217,6 +1279,11 @@
         right: 1rem;
       }
 
+      .projects-grid,
+      .experience-grid {
+        grid-auto-columns: minmax(100%, 1fr);
+      }
+
       .retro-pc {
         display: none;
       }
@@ -1258,11 +1325,8 @@
   </style>
 </head>
 <body data-lang="en">
-  <audio id="hoverSound" src="audio/S_Bubble_Hover.mp3" preload="auto"></audio>
-  <audio id="clickSound" src="audio/S_Bubble_Click.mp3" preload="auto"></audio>
-
   <aside class="retro-pc" aria-live="polite">
-    <button type="button" class="retro-pc__button" id="retroTerminal" data-sound="click" aria-labelledby="retroLabel" data-i18n-attr="aria-label:retro.action">
+    <button type="button" class="retro-pc__button" id="retroTerminal" aria-labelledby="retroLabel" data-i18n-attr="aria-label:retro.action">
       <span class="retro-pc__screen" id="retroScreen" data-i18n="retro.default">Booting XR console…</span>
       <span class="retro-pc__indicator" aria-hidden="true"></span>
       <span class="retro-pc__base" aria-hidden="true"></span>
@@ -1292,14 +1356,14 @@
         <span class="control-panel__label" data-i18n="preferences.theme">Theme</span>
         <div class="preference" id="themePreferences" role="radiogroup" aria-labelledby="themePreferenceLabel">
           <span class="sr-only" id="themePreferenceLabel" data-i18n="preferences.theme">Theme</span>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="true" data-theme-option="light" data-i18n="theme.light">Light</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="true" data-theme-option="system" data-i18n="theme.system">System</button>
+          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="light" data-i18n="theme.light">Light</button>
           <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="dark" data-i18n="theme.dark">Dark</button>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="contrast" data-i18n="theme.contrast">Contrast</button>
         </div>
       </div>
       <div class="control-panel__section">
         <span class="control-panel__label" data-i18n="preferences.language">Language</span>
-        <div class="preference" id="languagePreferences" role="radiogroup" aria-labelledby="languagePreferenceLabel">
+        <div class="preference preference--list" id="languagePreferences" role="radiogroup" aria-labelledby="languagePreferenceLabel">
           <span class="sr-only" id="languagePreferenceLabel" data-i18n="preferences.language">Language</span>
           <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
           <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
@@ -1319,8 +1383,9 @@
       <button type="button" class="glass-button glass-button--slim" id="resetStaticChanges">Reset names</button>
       <button type="button" class="glass-button glass-button--slim" id="toggleResumeSheet" aria-expanded="false">Résumé link</button>
       <button type="button" class="glass-button glass-button--slim" id="toggleProjectSheet" aria-expanded="false">Projects</button>
+      <button type="button" class="glass-button glass-button--slim" id="toggleExperienceSheet" aria-expanded="false">Experience</button>
     </div>
-    <p class="admin-dock__hint">Use the edit buttons on each section to make inline changes.</p>
+    <p class="admin-dock__hint">Use the edit buttons on each section to adjust copy, projects, and experience entries.</p>
   </div>
 
   <div class="admin-sheet" id="resumeSheet" hidden>
@@ -1368,6 +1433,30 @@
         </div>
       </form>
       <div class="admin-projects" id="adminProjectsList" tabindex="-1"></div>
+    </div>
+  </div>
+
+  <div class="admin-sheet" id="experienceSheet" hidden>
+    <div class="admin-sheet__header">
+      <h2 class="admin-sheet__title">Experience</h2>
+      <button type="button" class="glass-button glass-button--icon" data-sheet-close="experienceSheet" aria-label="Close experience panel">×</button>
+    </div>
+    <div class="admin-sheet__body">
+      <p>Add additional roles. They will appear after the existing experience cards.</p>
+      <form id="experienceForm">
+        <label for="experienceRole">Role</label>
+        <input type="text" id="experienceRole" name="experienceRole" required />
+        <label for="experienceCompany">Organisation</label>
+        <input type="text" id="experienceCompany" name="experienceCompany" />
+        <label for="experiencePeriod">Period</label>
+        <input type="text" id="experiencePeriod" name="experiencePeriod" placeholder="01/2024 – 06/2024" />
+        <label for="experienceDescription">Description</label>
+        <textarea id="experienceDescription" name="experienceDescription" rows="3"></textarea>
+        <div class="admin-sheet__actions">
+          <button type="submit" class="glass-button glass-button--primary">Add experience</button>
+        </div>
+      </form>
+      <div class="admin-experiences" id="adminExperiencesList" tabindex="-1"></div>
     </div>
   </div>
 
@@ -1423,36 +1512,44 @@
     <section class="panel" data-animate id="experience" data-admin-zone="experience">
       <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="experience" aria-pressed="false">Edit</button>
       <div class="panel__content">
-        <h2 data-i18n="experience.title">Experience</h2>
-        <p class="lead" data-i18n="experience.lead">A timeline that pairs academic leadership with production-grade XR systems for finance, mobility, and culture.</p>
+        <div class="panel__header">
+          <div class="panel__intro">
+            <h2 data-i18n="experience.title">Experience</h2>
+            <p class="lead" data-i18n="experience.lead">A timeline that pairs academic leadership with production-grade XR systems for finance, mobility, and culture.</p>
+          </div>
+          <div class="panel__actions" aria-label="Experience actions">
+            <button type="button" class="glass-button glass-button--slim" data-sheet-open="experienceSheet" data-focus="experienceRole" data-i18n="experience.actions.add" aria-haspopup="dialog" aria-controls="experienceSheet">Add experience</button>
+            <button type="button" class="glass-button glass-button--slim" data-sheet-open="experienceSheet" data-focus="adminExperiencesList" data-i18n="experience.actions.manage" aria-haspopup="dialog" aria-controls="experienceSheet">Manage experiences</button>
+          </div>
+        </div>
       </div>
-      <ul class="experience-list">
-        <li class="experience-item">
-          <span data-i18n="experience.srhLecturer.period">11/2024 – 12/2024</span>
-          <h3 data-i18n="experience.srhLecturer.role">Lecturer · SRH Hochschule Heidelberg</h3>
-          <p data-i18n="experience.srhLecturer.description">Designed and delivered the Mixed Reality Development module, mentoring student teams on Unreal Engine workflows, performance budgets, and XR storytelling.</p>
-        </li>
-        <li class="experience-item">
-          <span data-i18n="experience.unionStudent.period">09/2023 – 12/2024</span>
-          <h3 data-i18n="experience.unionStudent.role">Working student XR · Union IT Services GmbH</h3>
-          <p data-i18n="experience.unionStudent.description">Implemented VR and AR prototypes for Union Investment’s innovation lab, integrating Azure DevOps, GitHub, and optimized 3D assets into client-ready demos.</p>
-        </li>
-        <li class="experience-item">
-          <span data-i18n="experience.unionIntern.period">04/2023 – 08/2023</span>
-          <h3 data-i18n="experience.unionIntern.role">XR intern · Union IT Services GmbH</h3>
-          <p data-i18n="experience.unionIntern.description">Accelerated digital transformation initiatives with Design Thinking sprints and rapid Unreal Engine prototypes supporting internal process digitization.</p>
-        </li>
-        <li class="experience-item">
-          <span data-i18n="experience.srhAssistant.period">10/2021 – 03/2022</span>
-          <h3 data-i18n="experience.srhAssistant.role">Research assistant · SRH Hochschule Heidelberg</h3>
-          <p data-i18n="experience.srhAssistant.description">Supported the rectorate with digital learning strategy, academic communications, and cross-faculty project coordination.</p>
-        </li>
-        <li class="experience-item">
-          <span data-i18n="experience.early.period">2018 – 2020</span>
-          <h3 data-i18n="experience.early.role">Early industry exposure</h3>
-          <p data-i18n="experience.early.description">Hands-on service, automotive, and community roles at Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf, and Kinder- und Jugendtreff Hasenleiser.</p>
-        </li>
-      </ul>
+      <div class="experience-grid">
+        <article class="experience-card" data-experience-key="srhLecturer">
+          <span class="experience-card__period" data-i18n="experience.srhLecturer.period">11/2024 – 12/2024</span>
+          <h3 class="experience-card__role" data-i18n="experience.srhLecturer.role">Lecturer · SRH Hochschule Heidelberg</h3>
+          <p class="experience-card__description" data-i18n="experience.srhLecturer.description">Designed and delivered the Mixed Reality Development module, mentoring student teams on Unreal Engine workflows, performance budgets, and XR storytelling.</p>
+        </article>
+        <article class="experience-card" data-experience-key="unionStudent">
+          <span class="experience-card__period" data-i18n="experience.unionStudent.period">09/2023 – 12/2024</span>
+          <h3 class="experience-card__role" data-i18n="experience.unionStudent.role">Working student XR · Union IT Services GmbH</h3>
+          <p class="experience-card__description" data-i18n="experience.unionStudent.description">Implemented VR and AR prototypes for Union Investment’s innovation lab, integrating Azure DevOps, GitHub, and optimized 3D assets into client-ready demos.</p>
+        </article>
+        <article class="experience-card" data-experience-key="unionIntern">
+          <span class="experience-card__period" data-i18n="experience.unionIntern.period">04/2023 – 08/2023</span>
+          <h3 class="experience-card__role" data-i18n="experience.unionIntern.role">XR intern · Union IT Services GmbH</h3>
+          <p class="experience-card__description" data-i18n="experience.unionIntern.description">Accelerated digital transformation initiatives with Design Thinking sprints and rapid Unreal Engine prototypes supporting internal process digitization.</p>
+        </article>
+        <article class="experience-card" data-experience-key="srhAssistant">
+          <span class="experience-card__period" data-i18n="experience.srhAssistant.period">10/2021 – 03/2022</span>
+          <h3 class="experience-card__role" data-i18n="experience.srhAssistant.role">Research assistant · SRH Hochschule Heidelberg</h3>
+          <p class="experience-card__description" data-i18n="experience.srhAssistant.description">Supported the rectorate with digital learning strategy, academic communications, and cross-faculty project coordination.</p>
+        </article>
+        <article class="experience-card" data-experience-key="early">
+          <span class="experience-card__period" data-i18n="experience.early.period">2018 – 2020</span>
+          <h3 class="experience-card__role" data-i18n="experience.early.role">Early industry exposure</h3>
+          <p class="experience-card__description" data-i18n="experience.early.description">Hands-on service, automotive, and community roles at Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf, and Kinder- und Jugendtreff Hasenleiser.</p>
+        </article>
+      </div>
     </section>
 
     <section class="panel" data-animate id="projects" data-admin-zone="projects">
@@ -1524,9 +1621,27 @@
         <p class="lead" data-i18n="contact.lead">Let’s collaborate on spatial products, research partnerships, or guest lectureships across Europe and beyond.</p>
       </div>
       <div class="panel__grid contact-cta">
-        <a class="glass-button glass-button--ghost" href="mailto:nicovogt56@gmail.com" data-i18n="contact.email">Email</a>
-        <a class="glass-button glass-button--ghost" href="https://github.com/THEGRANDNICK" target="_blank" rel="noopener" data-i18n="contact.github">GitHub</a>
-        <a class="glass-button glass-button--ghost" href="https://linkedin.com/in/nicolasjannekvogt" target="_blank" rel="noopener" data-i18n="contact.linkedin">LinkedIn</a>
+        <div class="contact-link">
+          <a class="glass-button glass-button--ghost" href="mailto:nicovogt56@gmail.com" data-contact-link="email" data-default-href="mailto:nicovogt56@gmail.com" data-i18n="contact.email">Email</a>
+          <div class="contact-link__editor" aria-hidden="true">
+            <label for="contactEmailUrl">Email link</label>
+            <input type="text" id="contactEmailUrl" name="contactEmailUrl" data-contact-input="email" placeholder="mailto:hello@example.com" />
+          </div>
+        </div>
+        <div class="contact-link">
+          <a class="glass-button glass-button--ghost" href="https://github.com/THEGRANDNICK" target="_blank" rel="noopener" data-contact-link="github" data-default-href="https://github.com/THEGRANDNICK" data-i18n="contact.github">GitHub</a>
+          <div class="contact-link__editor" aria-hidden="true">
+            <label for="contactGithubUrl">GitHub link</label>
+            <input type="text" id="contactGithubUrl" name="contactGithubUrl" data-contact-input="github" placeholder="https://github.com/username" />
+          </div>
+        </div>
+        <div class="contact-link">
+          <a class="glass-button glass-button--ghost" href="https://linkedin.com/in/nicolasjannekvogt" target="_blank" rel="noopener" data-contact-link="linkedin" data-default-href="https://linkedin.com/in/nicolasjannekvogt" data-i18n="contact.linkedin">LinkedIn</a>
+          <div class="contact-link__editor" aria-hidden="true">
+            <label for="contactLinkedinUrl">LinkedIn link</label>
+            <input type="text" id="contactLinkedinUrl" name="contactLinkedinUrl" data-contact-input="linkedin" placeholder="https://linkedin.com/in/username" />
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -1557,9 +1672,9 @@
         'preferences.close': "Close",
         'preferences.theme': "Theme",
         'preferences.language': "Language",
+        'theme.system': "System",
         'theme.light': "Light",
         'theme.dark': "Dark",
-        'theme.contrast': "Contrast",
         'lang.en': "English",
         'lang.de': "Deutsch",
         'lang.es': "Español",
@@ -1584,6 +1699,8 @@
         'about.cards.global.body': "Raised across Shanghai, Seoul, Jakarta, Detroit, and Heidelberg—comfortable collaborating across cultures and languages.",
         'experience.title': "Experience",
         'experience.lead': "A timeline that pairs academic leadership with production-grade XR systems for finance, mobility, and culture.",
+        'experience.actions.add': "Add experience",
+        'experience.actions.manage': "Manage experiences",
         'experience.srhLecturer.period': "11/2024 – 12/2024",
         'experience.srhLecturer.role': "Lecturer · SRH Hochschule Heidelberg",
         'experience.srhLecturer.description': "Designed and delivered the Mixed Reality Development module, mentoring student teams on Unreal Engine workflows, performance budgets, and XR storytelling.",
@@ -1638,9 +1755,9 @@
         'preferences.close': "Schließen",
         'preferences.theme': "Darstellung",
         'preferences.language': "Sprache",
+        'theme.system': "System",
         'theme.light': "Hell",
         'theme.dark': "Dunkel",
-        'theme.contrast': "Kontrast",
         'lang.en': "Englisch",
         'lang.de': "Deutsch",
         'lang.es': "Spanisch",
@@ -1665,6 +1782,8 @@
         'about.cards.global.body': "Aufgewachsen in Shanghai, Seoul, Jakarta, Detroit und Heidelberg – vertraut mit interkultureller Zusammenarbeit.",
         'experience.title': "Erfahrung",
         'experience.lead': "Ein Werdegang, der akademische Führung mit produktionsreifen XR-Systemen für Finanz-, Mobilitäts- und Kulturprojekte verbindet.",
+        'experience.actions.add': "Erfahrung hinzufügen",
+        'experience.actions.manage': "Erfahrungen verwalten",
         'experience.srhLecturer.period': "11/2024 – 12/2024",
         'experience.srhLecturer.role': "Dozent · SRH Hochschule Heidelberg",
         'experience.srhLecturer.description': "Konzipierte und leitete das Modul Mixed Reality Development, betreute Studierendenteams zu Unreal-Workflows, Performance-Budgets und XR-Storytelling.",
@@ -1719,9 +1838,9 @@
         'preferences.close': "Cerrar",
         'preferences.theme': "Tema",
         'preferences.language': "Idioma",
+        'theme.system': "Sistema",
         'theme.light': "Claro",
         'theme.dark': "Oscuro",
-        'theme.contrast': "Alto contraste",
         'lang.en': "Inglés",
         'lang.de': "Alemán",
         'lang.es': "Español",
@@ -1746,6 +1865,8 @@
         'about.cards.global.body': "Criado en Shanghái, Seúl, Yakarta, Detroit y Heidelberg; cómodo colaborando entre culturas e idiomas.",
         'experience.title': "Experiencia",
         'experience.lead': "Una trayectoria que combina liderazgo académico con sistemas XR listos para producción en finanzas, movilidad y cultura.",
+        'experience.actions.add': "Añadir experiencia",
+        'experience.actions.manage': "Gestionar experiencias",
         'experience.srhLecturer.period': "11/2024 – 12/2024",
         'experience.srhLecturer.role': "Profesor · SRH Hochschule Heidelberg",
         'experience.srhLecturer.description': "Diseñó e impartió el módulo Mixed Reality Development, asesorando equipos estudiantiles en flujos de trabajo con Unreal, presupuestos de rendimiento y narrativa XR.",
@@ -1800,9 +1921,9 @@
         'preferences.close': "Fermer",
         'preferences.theme': "Thème",
         'preferences.language': "Langue",
+        'theme.system': "Système",
         'theme.light': "Clair",
         'theme.dark': "Sombre",
-        'theme.contrast': "Contraste",
         'lang.en': "Anglais",
         'lang.de': "Allemand",
         'lang.es': "Espagnol",
@@ -1827,6 +1948,8 @@
         'about.cards.global.body': "A grandi à Shanghai, Séoul, Jakarta, Detroit et Heidelberg – à l’aise dans les collaborations interculturelles.",
         'experience.title': "Expérience",
         'experience.lead': "Un parcours qui marie leadership académique et systèmes XR prêts pour la production dans la finance, la mobilité et la culture.",
+        'experience.actions.add': "Ajouter une expérience",
+        'experience.actions.manage': "Gérer les expériences",
         'experience.srhLecturer.period': "11/2024 – 12/2024",
         'experience.srhLecturer.role': "Enseignant · SRH Hochschule Heidelberg",
         'experience.srhLecturer.description': "A conçu et animé le module Mixed Reality Development, en encadrant les équipes étudiantes sur les workflows Unreal, les budgets de performance et la narration XR.",
@@ -1881,9 +2004,9 @@
         'preferences.close': "关闭",
         'preferences.theme': "主题",
         'preferences.language': "语言",
+        'theme.system': "系统",
         'theme.light': "亮色",
         'theme.dark': "暗色",
-        'theme.contrast': "高对比",
         'lang.en': "英语",
         'lang.de': "德语",
         'lang.es': "西班牙语",
@@ -1908,6 +2031,8 @@
         'about.cards.global.body': "成长于上海、首尔、雅加达、底特律与海德堡，擅长跨文化协作。",
         'experience.title': "经历",
         'experience.lead': "在金融、交通与文化领域，将学术领导力与可落地的 XR 系统相结合的职业轨迹。",
+        'experience.actions.add': "新增经历",
+        'experience.actions.manage': "管理经历",
         'experience.srhLecturer.period': "2024 年 11 月 – 12 月",
         'experience.srhLecturer.role': "讲师 · SRH Hochschule Heidelberg",
         'experience.srhLecturer.description': "设计并教授混合现实开发课程，指导学生掌握 Unreal 工作流程、性能预算与 XR 叙事。",
@@ -2002,7 +2127,7 @@
     };
 
     const languages = ['en', 'de', 'es', 'fr', 'zh'];
-    const themeOptions = ['light', 'dark', 'contrast'];
+    const themePreferenceOptions = ['system', 'light', 'dark'];
 
     const root = document.documentElement;
     const body = document.body;
@@ -2025,12 +2150,17 @@
     const resumeUrlInput = document.getElementById('resumeUrl');
     const projectForm = document.getElementById('projectForm');
     const adminProjectsList = document.getElementById('adminProjectsList');
+    const experienceForm = document.getElementById('experienceForm');
+    const adminExperiencesList = document.getElementById('adminExperiencesList');
     const adminDock = document.getElementById('adminDock');
     const resumeSheet = document.getElementById('resumeSheet');
     const projectSheet = document.getElementById('projectSheet');
+    const experienceSheet = document.getElementById('experienceSheet');
     const projectTitleInput = document.getElementById('projectTitle');
+    const experienceRoleInput = document.getElementById('experienceRole');
     const toggleResumeSheetButton = document.getElementById('toggleResumeSheet');
     const toggleProjectSheetButton = document.getElementById('toggleProjectSheet');
+    const toggleExperienceSheetButton = document.getElementById('toggleExperienceSheet');
     const sheetOpenButtons = Array.from(document.querySelectorAll('[data-sheet-open]'));
     const sheetCloseButtons = Array.from(document.querySelectorAll('[data-sheet-close]'));
     const adminEditButtons = Array.from(document.querySelectorAll('.admin-edit-button'));
@@ -2042,10 +2172,19 @@
       }
     });
     const projectsGrid = document.querySelector('.projects-grid');
-    const hoverSound = document.getElementById('hoverSound');
-    const clickSound = document.getElementById('clickSound');
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const canUseSound = Boolean(hoverSound && clickSound && !reducedMotionQuery.matches);
+    const experienceGrid = document.querySelector('.experience-grid');
+    const contactLinkInputs = Array.from(document.querySelectorAll('[data-contact-input]'));
+    const contactLinkAnchors = new Map();
+    document.querySelectorAll('[data-contact-link]').forEach((anchor) => {
+      const key = anchor.dataset.contactLink;
+      if (!key) {
+        return;
+      }
+      if (!anchor.dataset.defaultHref) {
+        anchor.dataset.defaultHref = anchor.getAttribute('href') || '';
+      }
+      contactLinkAnchors.set(key, anchor);
+    });
     const projectModal = document.getElementById('projectModal');
     const modalTitle = document.getElementById('projectModalTitle');
     const modalDescription = document.getElementById('projectModalDescription');
@@ -2068,6 +2207,14 @@
       }
     };
 
+    const safeRemoveItem = (key) => {
+      try {
+        window.localStorage.removeItem(key);
+      } catch (error) {
+        /* noop */
+      }
+    };
+
     const loadJSON = (key, fallback) => {
       try {
         const raw = window.localStorage.getItem(key);
@@ -2084,6 +2231,8 @@
     let adminOverrides = loadJSON('admin.overrides', {});
     let staticOverrides = loadJSON('admin.static', {});
     let adminProjects = loadJSON('admin.projects', []);
+    let adminExperiences = loadJSON('admin.experiences', []);
+    let contactLinkOverrides = loadJSON('admin.contactLinks', {});
     const storedResume = safeGetItem('admin.resumeLink');
     let resumeLink = storedResume && storedResume.trim() ? storedResume.trim() : 'resume.pdf';
 
@@ -2197,6 +2346,9 @@
         button.setAttribute('aria-pressed', shouldEnable ? 'true' : 'false');
         button.textContent = shouldEnable ? 'Done' : 'Edit';
       }
+      if (zoneId === 'contact') {
+        syncContactInputs();
+      }
       updateBodyEditingState();
     };
 
@@ -2216,52 +2368,68 @@
     let currentLanguage = 'en';
     let activeProject = 'performance';
 
-    const updateThemeButtons = (theme) => {
+    const updateThemeButtons = (preference) => {
       themeButtons.forEach((button) => {
-        const isActive = button.dataset.themeOption === theme;
+        const isActive = button.dataset.themeOption === preference;
         button.setAttribute('aria-checked', isActive ? 'true' : 'false');
       });
     };
 
-    const setTheme = (theme, persist = true) => {
-      if (!themeOptions.includes(theme)) {
-        theme = 'light';
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const resolveTheme = (preference) => {
+      if (preference === 'light' || preference === 'dark') {
+        return preference;
       }
+      return prefersDarkScheme.matches ? 'dark' : 'light';
+    };
+
+    const applyResolvedTheme = (theme) => {
       root.setAttribute('data-theme', theme);
-      updateThemeButtons(theme);
+    };
+
+    let themePreference = 'system';
+
+    const applyThemePreference = (preference, persist = true) => {
+      if (!themePreferenceOptions.includes(preference)) {
+        preference = 'system';
+      }
+      themePreference = preference;
+      const resolved = resolveTheme(preference);
+      applyResolvedTheme(resolved);
+      updateThemeButtons(preference);
       if (persist) {
-        safeSetItem('theme', theme);
+        if (preference === 'system') {
+          safeRemoveItem('themePreference');
+        } else {
+          safeSetItem('themePreference', preference);
+        }
       }
     };
 
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    const prefersContrast = window.matchMedia('(prefers-contrast: more)');
-    const storedTheme = safeGetItem('theme');
-    const initialTheme = storedTheme && themeOptions.includes(storedTheme)
-      ? storedTheme
-      : prefersContrast.matches
-      ? 'contrast'
-      : prefersDarkScheme.matches
-      ? 'dark'
-      : 'light';
-    setTheme(initialTheme, Boolean(storedTheme));
-
-    if (!storedTheme) {
-      prefersDarkScheme.addEventListener('change', (event) => {
-        if (!safeGetItem('theme')) {
-          setTheme(event.matches ? 'dark' : 'light', false);
-        }
-      });
-      prefersContrast.addEventListener('change', (event) => {
-        if (!safeGetItem('theme') && event.matches) {
-          setTheme('contrast', false);
-        }
-      });
+    const storedThemePreference = safeGetItem('themePreference');
+    const legacyTheme = safeGetItem('theme');
+    let initialPreference = 'system';
+    if (storedThemePreference && themePreferenceOptions.includes(storedThemePreference)) {
+      initialPreference = storedThemePreference;
+    } else if (legacyTheme && themePreferenceOptions.includes(legacyTheme)) {
+      initialPreference = legacyTheme;
     }
+    applyThemePreference(initialPreference, Boolean(storedThemePreference || legacyTheme));
+    if (legacyTheme !== null) {
+      safeRemoveItem('theme');
+    }
+
+    prefersDarkScheme.addEventListener('change', () => {
+      if (themePreference === 'system') {
+        applyThemePreference('system', false);
+      }
+    });
 
     themeButtons.forEach((button) => {
       button.addEventListener('click', () => {
-        setTheme(button.dataset.themeOption || 'light');
+        const preference = button.dataset.themeOption || 'system';
+        applyThemePreference(preference);
         setPreferencePanelOpen(false);
       });
     });
@@ -2500,6 +2668,123 @@
       });
     };
 
+    const resolveContactHref = (key) => {
+      const override = contactLinkOverrides && contactLinkOverrides[key];
+      if (override && override.trim()) {
+        return override.trim();
+      }
+      const anchor = contactLinkAnchors.get(key);
+      if (!anchor) {
+        return '';
+      }
+      return anchor.dataset.defaultHref || anchor.getAttribute('href') || '';
+    };
+
+    const applyContactLinks = () => {
+      contactLinkAnchors.forEach((anchor, key) => {
+        const href = resolveContactHref(key);
+        if (href) {
+          anchor.setAttribute('href', href);
+        }
+      });
+    };
+
+    const syncContactInputs = () => {
+      contactLinkInputs.forEach((input) => {
+        const key = input.dataset.contactInput;
+        if (!key) {
+          return;
+        }
+        input.value = resolveContactHref(key);
+        input.disabled = !editingZones.has('contact');
+        const editor = input.closest('.contact-link__editor');
+        if (editor) {
+          editor.setAttribute('aria-hidden', editingZones.has('contact') ? 'false' : 'true');
+        }
+      });
+    };
+
+    const createExperienceCard = (experience) => {
+      if (!experienceGrid) {
+        return null;
+      }
+      const article = document.createElement('article');
+      article.className = 'experience-card';
+      article.dataset.adminExperience = experience.id;
+
+      const periodText = (experience.period || '').trim();
+      if (periodText) {
+        const period = document.createElement('span');
+        period.className = 'experience-card__period';
+        period.textContent = periodText;
+        article.appendChild(period);
+      }
+
+      const role = document.createElement('h3');
+      role.className = 'experience-card__role';
+      role.textContent = [experience.role, experience.company].filter(Boolean).join(' · ') || experience.role || 'Experience';
+      article.appendChild(role);
+
+      if (experience.description) {
+        const description = document.createElement('p');
+        description.className = 'experience-card__description';
+        description.textContent = experience.description;
+        article.appendChild(description);
+      }
+
+      return article;
+    };
+
+    const renderDynamicExperiences = () => {
+      if (!experienceGrid) {
+        return;
+      }
+      experienceGrid.querySelectorAll('[data-admin-experience]').forEach((card) => card.remove());
+      adminExperiences.forEach((experience) => {
+        const card = createExperienceCard(experience);
+        if (card) {
+          experienceGrid.appendChild(card);
+        }
+      });
+    };
+
+    const renderAdminExperiencesList = () => {
+      if (!adminExperiencesList) {
+        return;
+      }
+      adminExperiencesList.innerHTML = '';
+      if (adminExperiences.length === 0) {
+        const emptyState = document.createElement('p');
+        emptyState.className = 'admin-projects__empty';
+        emptyState.textContent = 'No custom experience entries yet.';
+        adminExperiencesList.appendChild(emptyState);
+        return;
+      }
+      adminExperiences.forEach((experience) => {
+        const item = document.createElement('div');
+        item.className = 'admin-experience';
+        const meta = document.createElement('div');
+        meta.className = 'admin-experience__meta';
+        const role = document.createElement('strong');
+        role.textContent = experience.role || 'Experience';
+        meta.appendChild(role);
+        const details = [experience.company, experience.period].filter(Boolean).join(' · ');
+        if (details) {
+          const detailLine = document.createElement('span');
+          detailLine.textContent = details;
+          meta.appendChild(detailLine);
+        }
+        item.appendChild(meta);
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'glass-button glass-button--slim glass-button--danger';
+        remove.dataset.experienceId = experience.id;
+        remove.textContent = 'Remove';
+        item.appendChild(remove);
+        adminExperiencesList.appendChild(item);
+      });
+    };
+
     const saveLanguageOverrides = () => {
       if (!adminMode) {
         return;
@@ -2550,7 +2835,8 @@
 
     const adminSheets = new Map([
       ['resumeSheet', resumeSheet],
-      ['projectSheet', projectSheet]
+      ['projectSheet', projectSheet],
+      ['experienceSheet', experienceSheet]
     ].filter(([, sheet]) => Boolean(sheet)));
 
     const setSheetVisible = (id, visible) => {
@@ -2566,7 +2852,11 @@
         const focusId = pendingSheetFocus;
         pendingSheetFocus = null;
         const focusTarget = focusId ? document.getElementById(focusId) : null;
-        const defaultFocus = id === 'projectSheet' ? projectTitleInput : null;
+        const defaultFocus = id === 'projectSheet'
+          ? projectTitleInput
+          : id === 'experienceSheet'
+          ? experienceRoleInput
+          : null;
         const target = focusTarget || defaultFocus;
         if (target && typeof target.focus === 'function') {
           requestAnimationFrame(() => target.focus());
@@ -2579,6 +2869,9 @@
       }
       if (id === 'projectSheet' && toggleProjectSheetButton) {
         toggleProjectSheetButton.setAttribute('aria-expanded', shouldShow ? 'true' : 'false');
+      }
+      if (id === 'experienceSheet' && toggleExperienceSheetButton) {
+        toggleExperienceSheetButton.setAttribute('aria-expanded', shouldShow ? 'true' : 'false');
       }
     };
 
@@ -2658,17 +2951,6 @@
       setAdminDockVisible(true);
     };
 
-    function playSound(audio) {
-      if (!canUseSound || !audio) {
-        return;
-      }
-      audio.currentTime = 0;
-      const playPromise = audio.play();
-      if (playPromise) {
-        playPromise.catch(() => {});
-      }
-    }
-
     const openModal = (projectKey) => {
       if (!projectModal) {
         return;
@@ -2681,7 +2963,6 @@
       requestAnimationFrame(() => {
         projectModal.classList.add('show');
       });
-      playSound(clickSound);
     };
 
     const closeModal = () => {
@@ -2735,6 +3016,10 @@
 
     renderDynamicProjects();
     renderAdminProjectsList();
+    renderDynamicExperiences();
+    renderAdminExperiencesList();
+    applyContactLinks();
+    syncContactInputs();
 
     document.querySelectorAll('[data-project-launch]').forEach((button) => attachProjectLaunch(button));
 
@@ -2789,7 +3074,15 @@
     });
 
     const storedLanguage = safeGetItem('language');
-    applyLanguage(languages.includes(storedLanguage) ? storedLanguage : 'en', false);
+    const systemLanguages = Array.isArray(navigator.languages) ? navigator.languages : [navigator.language];
+    const normalizedSystemLanguages = systemLanguages
+      .filter(Boolean)
+      .map((lang) => lang.split('-')[0])
+      .filter(Boolean);
+    const preferredLanguage = languages.includes(storedLanguage)
+      ? storedLanguage
+      : normalizedSystemLanguages.find((lang) => languages.includes(lang)) || 'en';
+    applyLanguage(preferredLanguage, Boolean(storedLanguage));
 
     const scrollToSection = (id) => {
       const target = document.getElementById(id);
@@ -2846,6 +3139,29 @@
       });
     }
 
+    if (experienceForm) {
+      experienceForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(experienceForm);
+        const role = (formData.get('experienceRole') || '').toString().trim();
+        if (!role) {
+          return;
+        }
+        const newExperience = {
+          id: `experience-${Date.now()}`,
+          role,
+          company: (formData.get('experienceCompany') || '').toString().trim(),
+          period: (formData.get('experiencePeriod') || '').toString().trim(),
+          description: (formData.get('experienceDescription') || '').toString().trim()
+        };
+        adminExperiences.push(newExperience);
+        saveJSON('admin.experiences', adminExperiences);
+        experienceForm.reset();
+        renderDynamicExperiences();
+        renderAdminExperiencesList();
+      });
+    }
+
     if (adminProjectsList) {
       adminProjectsList.addEventListener('click', (event) => {
         const button = event.target.closest('button[data-project-id]');
@@ -2860,6 +3176,40 @@
         renderAdminProjectsList();
       });
     }
+
+    if (adminExperiencesList) {
+      adminExperiencesList.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-experience-id]');
+        if (!button) {
+          return;
+        }
+        const experienceId = button.dataset.experienceId;
+        adminExperiences = adminExperiences.filter((experience) => experience.id !== experienceId);
+        saveJSON('admin.experiences', adminExperiences);
+        renderDynamicExperiences();
+        renderAdminExperiencesList();
+      });
+    }
+
+    contactLinkInputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        if (input.disabled) {
+          return;
+        }
+        const key = input.dataset.contactInput;
+        if (!key) {
+          return;
+        }
+        const value = input.value.trim();
+        if (value) {
+          contactLinkOverrides[key] = value;
+        } else {
+          delete contactLinkOverrides[key];
+        }
+        applyContactLinks();
+        saveJSON('admin.contactLinks', contactLinkOverrides);
+      });
+    });
 
     if (saveTextButton) {
       saveTextButton.addEventListener('click', saveLanguageOverrides);
@@ -2887,6 +3237,10 @@
 
     if (toggleProjectSheetButton) {
       toggleProjectSheetButton.addEventListener('click', () => toggleSheet('projectSheet'));
+    }
+
+    if (toggleExperienceSheetButton) {
+      toggleExperienceSheetButton.addEventListener('click', () => toggleSheet('experienceSheet'));
     }
 
     sheetOpenButtons.forEach((button) => {
@@ -2980,40 +3334,11 @@
 
     document.querySelectorAll('section[data-animate], header[data-animate]').forEach((section) => observer.observe(section));
 
-    if (canUseSound) {
-      let hoverTarget = null;
-
-      document.addEventListener('pointerover', (event) => {
-        const actionable = event.target.closest('button, a');
-        if (!actionable || actionable === hoverTarget) {
-          return;
-        }
-        hoverTarget = actionable;
-        playSound(hoverSound);
-        actionable.addEventListener(
-          'pointerleave',
-          () => {
-            if (hoverTarget === actionable) {
-              hoverTarget = null;
-            }
-          },
-          { once: true }
-        );
-      });
-
-      document.addEventListener('click', (event) => {
-        if (event.target.closest('button, a')) {
-          playSound(clickSound);
-        }
-      });
-    }
-
     if (retroButton) {
       retroButton.addEventListener('click', () => {
         if (adminMode) {
           const visible = adminDockVisible;
           setAdminDockVisible(!visible);
-          playSound(clickSound);
           return;
         }
         if (adminPromptVisible) {
@@ -3024,7 +3349,6 @@
         }
         retroButton.classList.add('is-active');
         showAdminPrompt();
-        playSound(clickSound);
         setTimeout(() => retroButton.classList.remove('is-active'), 320);
       });
       updateRetroScreen(currentLanguage, true);
