@@ -88,13 +88,110 @@
       border: 0;
     }
 
-    .top-right-controls {
+    .control-panel {
       position: fixed;
       top: 1.25rem;
       right: 1.25rem;
       display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.75rem;
+      z-index: 50;
+    }
+
+    .control-panel__toggle {
+      border: none;
+      background: var(--surface-glass);
+      border-radius: 9999px;
+      padding: 0.55rem 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 14px 30px rgba(15, 16, 36, 0.16);
+      border: 1px solid var(--border-soft);
+      cursor: pointer;
+      backdrop-filter: blur(18px);
+      transition: var(--transition);
+    }
+
+    .control-panel__toggle:hover,
+    .control-panel__toggle:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+      box-shadow: 0 18px 36px rgba(15, 16, 36, 0.2);
+    }
+
+    .control-panel__content {
+      width: min(320px, 80vw);
+      padding: 1.25rem 1.5rem 1.4rem;
+      border-radius: 24px;
+      background: var(--surface-glass);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 28px 60px rgba(15, 16, 36, 0.2);
+      backdrop-filter: blur(18px);
+      display: grid;
+      gap: 1.25rem;
+      opacity: 0;
+      transform: translateY(-12px);
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .control-panel[data-open="true"] .control-panel__content {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .control-panel__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 1rem;
-      z-index: 40;
+    }
+
+    .control-panel__title {
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .control-panel__close {
+      border: none;
+      background: rgba(15, 16, 36, 0.08);
+      border-radius: 9999px;
+      width: 32px;
+      height: 32px;
+      font-size: 1.1rem;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .control-panel__close:hover,
+    .control-panel__close:focus-visible {
+      background: rgba(15, 16, 36, 0.16);
+      outline: none;
+    }
+
+    .control-panel__section {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .control-panel__label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
     }
 
     .retro-pc {
@@ -102,8 +199,8 @@
       bottom: 2rem;
       left: 2rem;
       width: 220px;
-      z-index: 10;
-      pointer-events: none;
+      z-index: 40;
+      pointer-events: auto;
     }
 
     .retro-pc__button {
@@ -169,6 +266,255 @@
       border-radius: 10px;
       background: linear-gradient(90deg, rgba(68, 74, 88, 0.9), rgba(28, 30, 40, 0.9));
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .retro-admin {
+      position: absolute;
+      inset: 1.25rem 1.25rem auto 1.25rem;
+      background: rgba(5, 18, 12, 0.92);
+      border-radius: 12px;
+      border: 1px solid rgba(143, 231, 164, 0.25);
+      box-shadow: inset 0 0 0 1px rgba(143, 231, 164, 0.18);
+      padding: 0.75rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.65rem;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .retro-admin.is-visible {
+      display: flex;
+    }
+
+    .retro-admin label {
+      font-family: "SF Mono", "Menlo", "Consolas", monospace;
+      font-size: 0.8rem;
+      text-transform: lowercase;
+      color: #8fe7a4;
+    }
+
+    .retro-admin input {
+      background: rgba(12, 24, 18, 0.95);
+      border: 1px solid rgba(143, 231, 164, 0.4);
+      border-radius: 8px;
+      color: #8fe7a4;
+      font-family: "SF Mono", "Menlo", "Consolas", monospace;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.5rem;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.45);
+    }
+
+    .retro-admin__actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .retro-admin__actions button {
+      flex: 1;
+      border: 1px solid rgba(143, 231, 164, 0.35);
+      border-radius: 8px;
+      background: rgba(16, 36, 28, 0.85);
+      color: #8fe7a4;
+      font-family: "SF Mono", "Menlo", "Consolas", monospace;
+      font-size: 0.75rem;
+      padding: 0.35rem 0.5rem;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .retro-admin__actions button:hover,
+    .retro-admin__actions button:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px rgba(143, 231, 164, 0.38);
+      outline: none;
+    }
+
+    .retro-admin__status {
+      font-size: 0.7rem;
+      color: #68ff89;
+      min-height: 1rem;
+    }
+
+    .admin-panel {
+      position: fixed;
+      right: 2rem;
+      bottom: 2rem;
+      width: min(360px, 90vw);
+      padding: 1.75rem;
+      border-radius: 28px;
+      background: var(--surface-panel-alt);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 32px 80px rgba(15, 16, 36, 0.28);
+      display: none;
+      flex-direction: column;
+      gap: 1.25rem;
+      z-index: 60;
+    }
+
+    .admin-panel.is-visible {
+      display: flex;
+    }
+
+    .admin-panel__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .admin-panel__title {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .admin-panel__close {
+      border: none;
+      background: rgba(15, 16, 36, 0.12);
+      border-radius: 9999px;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .admin-panel__close:hover,
+    .admin-panel__close:focus-visible {
+      background: rgba(15, 16, 36, 0.2);
+      outline: none;
+    }
+
+    .admin-panel__section {
+      display: grid;
+      gap: 0.75rem;
+      padding: 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.16);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .admin-panel__section h3 {
+      margin: 0;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .admin-panel__section p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .admin-panel button,
+    .admin-panel input,
+    .admin-panel textarea {
+      font: inherit;
+    }
+
+    .admin-panel button {
+      border: none;
+      border-radius: 9999px;
+      padding: 0.55rem 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: rgba(15, 16, 36, 0.12);
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+
+    .admin-panel button:hover,
+    .admin-panel button:focus-visible {
+      background: rgba(15, 16, 36, 0.18);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .admin-panel button.admin-panel__danger {
+      background: rgba(200, 40, 40, 0.18);
+      color: #a00;
+    }
+
+    .admin-panel button.admin-panel__danger:hover,
+    .admin-panel button.admin-panel__danger:focus-visible {
+      background: rgba(200, 40, 40, 0.26);
+      color: #600;
+    }
+
+    .admin-panel textarea,
+    .admin-panel input[type="url"],
+    .admin-panel input[type="text"] {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(15, 16, 36, 0.12);
+      padding: 0.65rem 0.85rem;
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--text-primary);
+      transition: var(--transition);
+      resize: vertical;
+    }
+
+    .admin-panel textarea:focus,
+    .admin-panel input[type="url"]:focus,
+    .admin-panel input[type="text"]:focus {
+      outline: none;
+      border-color: rgba(15, 16, 36, 0.3);
+      box-shadow: 0 0 0 2px rgba(15, 16, 36, 0.12);
+    }
+
+    .admin-panel__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .admin-panel__projects {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .admin-panel__empty {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .admin-project {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(15, 16, 36, 0.08);
+    }
+
+    .admin-project__meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      font-size: 0.8rem;
+    }
+
+    .admin-project__meta span {
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    [data-admin-edit].is-editable,
+    [data-i18n].is-editable {
+      outline: 2px dashed rgba(58, 96, 255, 0.6);
+      outline-offset: 4px;
+      background: rgba(58, 96, 255, 0.08);
     }
 
     @keyframes pulse {
@@ -727,8 +1073,7 @@
         position: static;
       }
 
-      .top-right-controls {
-        position: fixed;
+      .control-panel {
         top: 1rem;
         right: 1rem;
       }
@@ -784,22 +1129,100 @@
       <span class="retro-pc__base" aria-hidden="true"></span>
       <span class="sr-only" id="retroLabel" data-i18n="retro.action">Launch retro workstation</span>
     </button>
+    <div class="retro-admin" id="retroAdmin" role="dialog" aria-modal="true" aria-labelledby="retroAdminLabel" hidden>
+      <form id="retroAdminForm">
+        <label for="adminPassword" id="retroAdminLabel">admin pw:</label>
+        <input type="password" id="adminPassword" name="adminPassword" autocomplete="current-password" required />
+        <div class="retro-admin__actions">
+          <button type="submit">enter</button>
+          <button type="button" id="adminCancel">cancel</button>
+        </div>
+        <p class="retro-admin__status" id="adminStatus" aria-live="polite"></p>
+      </form>
+    </div>
   </aside>
 
-  <div class="top-right-controls">
-    <div class="preference" id="themePreferences" role="radiogroup" aria-labelledby="themePreferenceLabel">
-      <span class="sr-only" id="themePreferenceLabel" data-i18n="preferences.theme">Theme</span>
-      <button type="button" role="radio" aria-checked="true" data-theme-option="light" data-i18n="theme.light">Light</button>
-      <button type="button" role="radio" aria-checked="false" data-theme-option="dark" data-i18n="theme.dark">Dark</button>
-      <button type="button" role="radio" aria-checked="false" data-theme-option="contrast" data-i18n="theme.contrast">Contrast</button>
+  <div class="control-panel" id="preferencePanel" data-open="false">
+    <button type="button" class="control-panel__toggle" id="preferenceToggle" aria-expanded="false" aria-controls="preferencePanelContent" data-i18n="preferences.open">Preferences</button>
+    <div class="control-panel__content" id="preferencePanelContent">
+      <div class="control-panel__header">
+        <h2 class="control-panel__title" data-i18n="preferences.title">Preferences</h2>
+        <button type="button" class="control-panel__close" id="preferenceClose" data-i18n-attr="aria-label:preferences.close" aria-label="Close preferences">×</button>
+      </div>
+      <div class="control-panel__section">
+        <span class="control-panel__label" data-i18n="preferences.theme">Theme</span>
+        <div class="preference" id="themePreferences" role="radiogroup" aria-labelledby="themePreferenceLabel">
+          <span class="sr-only" id="themePreferenceLabel" data-i18n="preferences.theme">Theme</span>
+          <button type="button" role="radio" aria-checked="true" data-theme-option="light" data-i18n="theme.light">Light</button>
+          <button type="button" role="radio" aria-checked="false" data-theme-option="dark" data-i18n="theme.dark">Dark</button>
+          <button type="button" role="radio" aria-checked="false" data-theme-option="contrast" data-i18n="theme.contrast">Contrast</button>
+        </div>
+      </div>
+      <div class="control-panel__section">
+        <span class="control-panel__label" data-i18n="preferences.language">Language</span>
+        <div class="preference" id="languagePreferences" role="radiogroup" aria-labelledby="languagePreferenceLabel">
+          <span class="sr-only" id="languagePreferenceLabel" data-i18n="preferences.language">Language</span>
+          <button type="button" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
+          <button type="button" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
+          <button type="button" role="radio" aria-checked="false" data-lang-option="es" data-i18n="lang.es">Español</button>
+          <button type="button" role="radio" aria-checked="false" data-lang-option="fr" data-i18n="lang.fr">Français</button>
+          <button type="button" role="radio" aria-checked="false" data-lang-option="zh" data-i18n="lang.zh">中文</button>
+        </div>
+      </div>
     </div>
-    <div class="preference" id="languagePreferences" role="radiogroup" aria-labelledby="languagePreferenceLabel">
-      <span class="sr-only" id="languagePreferenceLabel" data-i18n="preferences.language">Language</span>
-      <button type="button" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
-      <button type="button" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
-      <button type="button" role="radio" aria-checked="false" data-lang-option="es" data-i18n="lang.es">Español</button>
-      <button type="button" role="radio" aria-checked="false" data-lang-option="fr" data-i18n="lang.fr">Français</button>
-      <button type="button" role="radio" aria-checked="false" data-lang-option="zh" data-i18n="lang.zh">中文</button>
+  </div>
+
+  <div class="admin-panel" id="adminPanel" hidden>
+    <div class="admin-panel__header">
+      <h2 class="admin-panel__title">Admin console</h2>
+      <button type="button" class="admin-panel__close" id="adminClose" aria-label="Close admin console">×</button>
+    </div>
+    <div class="admin-panel__section">
+      <h3>On-page editing</h3>
+      <p>Edit visible text for the current language, then save or reset when you are happy with the changes.</p>
+      <div class="admin-panel__actions">
+        <button type="button" id="toggleEditMode">Enable editing</button>
+        <button type="button" id="saveTextChanges">Save text</button>
+        <button type="button" class="admin-panel__danger" id="resetTextChanges">Reset language</button>
+        <button type="button" class="admin-panel__danger" id="resetStaticChanges">Reset names</button>
+      </div>
+    </div>
+    <div class="admin-panel__section">
+      <h3>Résumé link</h3>
+      <p>Point the résumé CTA to any URL or hosted document.</p>
+      <form id="resumeForm">
+        <label class="control-panel__label" for="resumeUrl">URL</label>
+        <input type="url" id="resumeUrl" name="resumeUrl" placeholder="https://example.com/resume.pdf" />
+        <div class="admin-panel__actions">
+          <button type="submit">Save résumé link</button>
+        </div>
+      </form>
+    </div>
+    <div class="admin-panel__section">
+      <h3>Projects</h3>
+      <p>Add custom case studies. They will appear after the existing projects.</p>
+      <form id="projectForm" class="admin-panel__projects">
+        <label class="control-panel__label" for="projectTitle">Title</label>
+        <input type="text" id="projectTitle" name="projectTitle" required />
+        <label class="control-panel__label" for="projectMetaPrimary">Tag 1</label>
+        <input type="text" id="projectMetaPrimary" name="projectMetaPrimary" />
+        <label class="control-panel__label" for="projectMetaSecondary">Tag 2</label>
+        <input type="text" id="projectMetaSecondary" name="projectMetaSecondary" />
+        <label class="control-panel__label" for="projectDescription">Description</label>
+        <textarea id="projectDescription" name="projectDescription" rows="3"></textarea>
+        <label class="control-panel__label" for="projectImage">Image URL</label>
+        <input type="url" id="projectImage" name="projectImage" placeholder="img/project.png" />
+        <label class="control-panel__label" for="projectAlt">Image alt text</label>
+        <input type="text" id="projectAlt" name="projectAlt" />
+        <label class="control-panel__label" for="projectModalDescription">Modal description</label>
+        <textarea id="projectModalDescription" name="projectModalDescription" rows="3"></textarea>
+        <label class="control-panel__label" for="projectActionLabel">Button label</label>
+        <input type="text" id="projectActionLabel" name="projectActionLabel" placeholder="View details" />
+        <div class="admin-panel__actions">
+          <button type="submit">Add project</button>
+        </div>
+      </form>
+      <div class="admin-panel__projects" id="adminProjectsList"></div>
     </div>
   </div>
 
@@ -815,7 +1238,7 @@
     <header class="hero" id="top" data-animate>
       <div class="hero__content">
         <p class="hero__eyebrow" data-i18n="hero.eyebrow">XR developer &amp; lecturer</p>
-        <h1>Nicolas Jannek Vogt</h1>
+        <h1 data-admin-edit="hero.name">Nicolas Jannek Vogt</h1>
         <p class="hero__lead" data-i18n="hero.lead">I deliver immersive products for Union IT Services and teach Mixed Reality development at SRH Hochschule Heidelberg, blending Unreal Engine craft with a global perspective.</p>
         <div class="hero__actions">
           <button type="button" class="cta cta--primary" data-i18n="hero.cta.primary" id="viewProjects">Explore projects</button>
@@ -970,6 +1393,9 @@
     <script>
     const translations = {
       en: {
+        'preferences.open': "Preferences",
+        'preferences.title': "Preferences",
+        'preferences.close': "Close",
         'preferences.theme': "Theme",
         'preferences.language': "Language",
         'theme.light': "Light",
@@ -1042,9 +1468,13 @@
         'footer.copy': "© 2024 Nicolas Jannek Vogt. Crafted with an Apple-inspired lens.",
         'modal.close': "Close project modal",
         'retro.default': "Booting XR console…",
-        'retro.action': "Toggle retro workstation"
+        'retro.action': "Toggle retro workstation",
+        'retro.adminGranted': "Admin console ready."
       },
       de: {
+        'preferences.open': "Einstellungen",
+        'preferences.title': "Einstellungen",
+        'preferences.close': "Schließen",
         'preferences.theme': "Darstellung",
         'preferences.language': "Sprache",
         'theme.light': "Hell",
@@ -1117,9 +1547,13 @@
         'footer.copy': "© 2024 Nicolas Jannek Vogt. Mit Apple-inspirierter Ästhetik gestaltet.",
         'modal.close': "Projektmodal schließen",
         'retro.default': "XR-Konsole wird gestartet …",
-        'retro.action': "Retro-Arbeitsstation umschalten"
+        'retro.action': "Retro-Arbeitsstation umschalten",
+        'retro.adminGranted': "Admin-Konsole bereit."
       },
       es: {
+        'preferences.open': "Preferencias",
+        'preferences.title': "Preferencias",
+        'preferences.close': "Cerrar",
         'preferences.theme': "Tema",
         'preferences.language': "Idioma",
         'theme.light': "Claro",
@@ -1192,9 +1626,13 @@
         'footer.copy': "© 2024 Nicolas Jannek Vogt. Diseñado con una mirada inspirada en Apple.",
         'modal.close': "Cerrar modal del proyecto",
         'retro.default': "Iniciando consola XR…",
-        'retro.action': "Alternar estación retro"
+        'retro.action': "Alternar estación retro",
+        'retro.adminGranted': "Consola de administración lista."
       },
       fr: {
+        'preferences.open': "Préférences",
+        'preferences.title': "Préférences",
+        'preferences.close': "Fermer",
         'preferences.theme': "Thème",
         'preferences.language': "Langue",
         'theme.light': "Clair",
@@ -1267,9 +1705,13 @@
         'footer.copy': "© 2024 Nicolas Jannek Vogt. Conçu avec une esthétique inspirée d’Apple.",
         'modal.close': "Fermer la fenêtre du projet",
         'retro.default': "Démarrage de la console XR…",
-        'retro.action': "Basculer la station rétro"
+        'retro.action': "Basculer la station rétro",
+        'retro.adminGranted': "Console admin prête."
       },
       zh: {
+        'preferences.open': "偏好设置",
+        'preferences.title': "偏好设置",
+        'preferences.close': "关闭",
         'preferences.theme': "主题",
         'preferences.language': "语言",
         'theme.light': "亮色",
@@ -1342,7 +1784,8 @@
         'footer.copy': "© 2024 Nicolas Jannek Vogt。以 Apple 风格打造。",
         'modal.close': "关闭项目窗口",
         'retro.default': "正在启动 XR 控制台…",
-        'retro.action': "切换复古工作站"
+        'retro.action': "切换复古工作站",
+        'retro.adminGranted': "管理控制台已就绪。"
       }
     };
 
@@ -1398,6 +1841,25 @@
     const languageButtons = Array.from(document.querySelectorAll('[data-lang-option]'));
     const retroButton = document.getElementById('retroTerminal');
     const retroScreen = document.getElementById('retroScreen');
+    const retroAdmin = document.getElementById('retroAdmin');
+    const retroAdminForm = document.getElementById('retroAdminForm');
+    const adminPasswordInput = document.getElementById('adminPassword');
+    const adminStatus = document.getElementById('adminStatus');
+    const adminCancel = document.getElementById('adminCancel');
+    const preferencePanel = document.getElementById('preferencePanel');
+    const preferenceToggle = document.getElementById('preferenceToggle');
+    const preferenceClose = document.getElementById('preferenceClose');
+    const adminPanel = document.getElementById('adminPanel');
+    const adminClose = document.getElementById('adminClose');
+    const toggleEditModeButton = document.getElementById('toggleEditMode');
+    const saveTextButton = document.getElementById('saveTextChanges');
+    const resetTextButton = document.getElementById('resetTextChanges');
+    const resetStaticButton = document.getElementById('resetStaticChanges');
+    const resumeForm = document.getElementById('resumeForm');
+    const resumeUrlInput = document.getElementById('resumeUrl');
+    const projectForm = document.getElementById('projectForm');
+    const adminProjectsList = document.getElementById('adminProjectsList');
+    const projectsGrid = document.querySelector('.projects-grid');
     const hoverSound = document.getElementById('hoverSound');
     const clickSound = document.getElementById('clickSound');
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -1424,9 +1886,109 @@
       }
     };
 
+    const loadJSON = (key, fallback) => {
+      try {
+        const raw = window.localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (error) {
+        return fallback;
+      }
+    };
+
+    const saveJSON = (key, value) => {
+      safeSetItem(key, JSON.stringify(value));
+    };
+
+    let adminOverrides = loadJSON('admin.overrides', {});
+    let staticOverrides = loadJSON('admin.static', {});
+    let adminProjects = loadJSON('admin.projects', []);
+    const storedResume = safeGetItem('admin.resumeLink');
+    let resumeLink = storedResume && storedResume.trim() ? storedResume.trim() : 'resume.pdf';
+
+    const defaultStaticValues = {};
+    document.querySelectorAll('[data-admin-edit]').forEach((element) => {
+      const key = element.dataset.adminEdit;
+      if (key && defaultStaticValues[key] === undefined) {
+        defaultStaticValues[key] = element.textContent.trim();
+      }
+    });
+
+    const boundProjectButtons = new WeakSet();
+    const ADMIN_PASSWORD = 'xr-console';
+    let adminMode = false;
+    let adminPromptVisible = false;
+    let editMode = false;
+
     const translate = (lang, key) => {
-      const dictionary = translations[lang] || translations.en;
-      return dictionary[key] ?? translations.en[key] ?? key;
+      const overrides = adminOverrides && adminOverrides[lang];
+      if (overrides && overrides[key] !== undefined && overrides[key] !== null && overrides[key] !== '') {
+        return overrides[key];
+      }
+      const dictionary = translations[lang] || translations.en || {};
+      return dictionary[key] ?? (translations.en ? translations.en[key] : undefined) ?? key;
+    };
+
+    const applyStaticOverrides = () => {
+      document.querySelectorAll('[data-admin-edit]').forEach((element) => {
+        const key = element.dataset.adminEdit;
+        if (!key) {
+          return;
+        }
+        const value = staticOverrides[key];
+        if (typeof value === 'string') {
+          element.textContent = value;
+        } else if (defaultStaticValues[key] !== undefined) {
+          element.textContent = defaultStaticValues[key];
+        }
+      });
+    };
+
+    const isEditableElement = (element) => {
+      if (!element) {
+        return false;
+      }
+      if (element.closest('.admin-panel') || element.closest('.control-panel') || element.closest('.retro-admin')) {
+        return false;
+      }
+      if (element.dataset && element.dataset.i18nAttr) {
+        return false;
+      }
+      const forbiddenTags = ['IMG', 'AUDIO', 'VIDEO'];
+      if (forbiddenTags.includes(element.tagName)) {
+        return false;
+      }
+      return true;
+    };
+
+    const getEditableElements = () =>
+      Array.from(document.querySelectorAll('[data-i18n], [data-admin-edit]')).filter((element) => isEditableElement(element));
+
+    const setEditMode = (state) => {
+      editMode = Boolean(state);
+      const elements = getEditableElements();
+      elements.forEach((element) => {
+        if (!isEditableElement(element)) {
+          return;
+        }
+        element.contentEditable = editMode ? 'true' : 'false';
+        element.classList.toggle('is-editable', editMode);
+        if (editMode) {
+          element.setAttribute('spellcheck', 'false');
+        } else {
+          element.removeAttribute('spellcheck');
+        }
+      });
+      if (toggleEditModeButton) {
+        toggleEditModeButton.textContent = editMode ? 'Disable editing' : 'Enable editing';
+      }
+      body.classList.toggle('admin-editing', editMode);
+    };
+
+    const disableEditMode = () => {
+      if (!editMode) {
+        return;
+      }
+      setEditMode(false);
     };
 
     const retroIndices = {};
@@ -1479,6 +2041,7 @@
     themeButtons.forEach((button) => {
       button.addEventListener('click', () => {
         setTheme(button.dataset.themeOption || 'light');
+        setPreferencePanelOpen(false);
       });
     });
 
@@ -1489,6 +2052,14 @@
 
     const updateRetroScreen = (lang, reset = false) => {
       if (!retroScreen) {
+        return;
+      }
+      if (adminPromptVisible) {
+        retroScreen.textContent = 'admin pw:';
+        return;
+      }
+      if (adminMode) {
+        retroScreen.textContent = translate(lang, 'retro.adminGranted');
         return;
       }
       const messages = retroMessages[lang] || retroMessages.en;
@@ -1514,6 +2085,9 @@
       document.querySelectorAll('[data-i18n]').forEach((element) => {
         const key = element.dataset.i18n;
         if (!key) {
+          return;
+        }
+        if (editMode && element.isContentEditable) {
           return;
         }
         const value = translate(lang, key);
@@ -1548,6 +2122,13 @@
       if (!details) {
         return;
       }
+      if (details.dynamic) {
+        modalTitle.textContent = details.title || '';
+        modalDescription.textContent = details.description || '';
+        modalImage.src = details.image || 'img/project.png';
+        modalImage.alt = details.altText || details.title || '';
+        return;
+      }
       const title = translate(lang, details.titleKey);
       const description = translate(lang, details.descriptionKey);
       const altText = translate(lang, details.altKey);
@@ -1557,6 +2138,248 @@
       if (altText) {
         modalImage.alt = altText;
       }
+    };
+
+    const attachProjectLaunch = (button) => {
+      if (!button || boundProjectButtons.has(button)) {
+        return;
+      }
+      boundProjectButtons.add(button);
+      button.addEventListener('click', () => {
+        const key = button.getAttribute('data-project-launch');
+        openModal(key);
+      });
+    };
+
+    const registerProjectDetail = (project) => {
+      if (!project || !project.id) {
+        return;
+      }
+      projectDetails[project.id] = {
+        image: project.image || 'img/project.png',
+        altText: project.alt || project.title || 'Project image',
+        title: project.title || 'Project',
+        description: project.modalDescription || project.description || '',
+        dynamic: true
+      };
+    };
+
+    const createProjectCard = (project) => {
+      if (!projectsGrid) {
+        return null;
+      }
+      const article = document.createElement('article');
+      article.className = 'project-card';
+      article.dataset.adminProject = project.id;
+      article.setAttribute('data-project-key', project.id);
+
+      const image = document.createElement('img');
+      image.src = project.image || 'img/project.png';
+      image.alt = project.alt || project.title || 'Project image';
+      article.appendChild(image);
+
+      const bodyContainer = document.createElement('div');
+      bodyContainer.className = 'project-card__body';
+
+      const title = document.createElement('h3');
+      title.className = 'project-card__title';
+      title.textContent = project.title || 'Project';
+      bodyContainer.appendChild(title);
+
+      const meta = document.createElement('div');
+      meta.className = 'project-card__meta';
+      if (project.metaPrimary) {
+        const primary = document.createElement('span');
+        primary.textContent = project.metaPrimary;
+        meta.appendChild(primary);
+      }
+      if (project.metaSecondary) {
+        const secondary = document.createElement('span');
+        secondary.textContent = project.metaSecondary;
+        meta.appendChild(secondary);
+      }
+      if (meta.childElementCount > 0) {
+        bodyContainer.appendChild(meta);
+      }
+
+      if (project.description) {
+        const description = document.createElement('p');
+        description.className = 'project-card__description';
+        description.textContent = project.description;
+        bodyContainer.appendChild(description);
+      }
+
+      const levels = document.createElement('ul');
+      levels.className = 'projects-levels';
+      const levelItem = document.createElement('li');
+      const actionButton = document.createElement('button');
+      actionButton.type = 'button';
+      actionButton.className = 'level-chip';
+      actionButton.dataset.state = 'available';
+      actionButton.setAttribute('data-project-launch', project.id);
+      actionButton.textContent = project.actionLabel || 'View details';
+      levelItem.appendChild(actionButton);
+      levels.appendChild(levelItem);
+      bodyContainer.appendChild(levels);
+
+      article.appendChild(bodyContainer);
+      return article;
+    };
+
+    const renderDynamicProjects = () => {
+      if (!projectsGrid) {
+        return;
+      }
+      projectsGrid.querySelectorAll('[data-admin-project]').forEach((card) => card.remove());
+      adminProjects.forEach((project) => {
+        registerProjectDetail(project);
+        const card = createProjectCard(project);
+        if (card) {
+          projectsGrid.appendChild(card);
+          const launchButton = card.querySelector('[data-project-launch]');
+          attachProjectLaunch(launchButton);
+        }
+      });
+    };
+
+    const renderAdminProjectsList = () => {
+      if (!adminProjectsList) {
+        return;
+      }
+      adminProjectsList.innerHTML = '';
+      if (adminProjects.length === 0) {
+        const emptyState = document.createElement('p');
+        emptyState.className = 'admin-panel__empty';
+        emptyState.textContent = 'No custom projects yet.';
+        adminProjectsList.appendChild(emptyState);
+        return;
+      }
+      adminProjects.forEach((project) => {
+        const item = document.createElement('div');
+        item.className = 'admin-project';
+        const meta = document.createElement('div');
+        meta.className = 'admin-project__meta';
+        const title = document.createElement('strong');
+        title.textContent = project.title || 'Project';
+        meta.appendChild(title);
+        const tags = [project.metaPrimary, project.metaSecondary].filter(Boolean).join(' · ');
+        if (tags) {
+          const tagLine = document.createElement('span');
+          tagLine.textContent = tags;
+          meta.appendChild(tagLine);
+        }
+        item.appendChild(meta);
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'admin-panel__danger';
+        remove.dataset.projectId = project.id;
+        remove.textContent = 'Remove';
+        item.appendChild(remove);
+        adminProjectsList.appendChild(item);
+      });
+    };
+
+    const saveLanguageOverrides = () => {
+      if (!adminMode) {
+        return;
+      }
+      const elements = getEditableElements();
+      const overrides = { ...(adminOverrides[currentLanguage] || {}) };
+      elements.forEach((element) => {
+        const text = element.innerText.trim();
+        if (element.dataset && element.dataset.i18n) {
+          overrides[element.dataset.i18n] = text;
+        } else if (element.dataset && element.dataset.adminEdit) {
+          staticOverrides[element.dataset.adminEdit] = text;
+        }
+      });
+      adminOverrides[currentLanguage] = overrides;
+      saveJSON('admin.overrides', adminOverrides);
+      saveJSON('admin.static', staticOverrides);
+      setEditMode(false);
+      applyLanguage(currentLanguage, false);
+      applyStaticOverrides();
+    };
+
+    const resetLanguageOverrides = () => {
+      if (adminOverrides[currentLanguage]) {
+        delete adminOverrides[currentLanguage];
+        saveJSON('admin.overrides', adminOverrides);
+      }
+      applyLanguage(currentLanguage, false);
+    };
+
+    const resetStaticOverrides = () => {
+      staticOverrides = {};
+      saveJSON('admin.static', staticOverrides);
+      applyStaticOverrides();
+    };
+
+    const setPreferencePanelOpen = (open) => {
+      if (!preferencePanel) {
+        return;
+      }
+      preferencePanel.dataset.open = open ? 'true' : 'false';
+      if (preferenceToggle) {
+        preferenceToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+    };
+
+    const setAdminPanelVisible = (visible) => {
+      if (!adminPanel) {
+        return;
+      }
+      adminPanel.classList.toggle('is-visible', visible);
+      adminPanel.toggleAttribute('hidden', !visible);
+      if (!visible) {
+        disableEditMode();
+      }
+      body.classList.toggle('admin-visible', visible);
+    };
+
+    const showAdminPrompt = () => {
+      if (!retroAdmin) {
+        return;
+      }
+      adminPromptVisible = true;
+      retroAdmin.hidden = false;
+      retroAdmin.classList.add('is-visible');
+      if (retroScreen) {
+        retroScreen.textContent = 'admin pw:';
+      }
+      requestAnimationFrame(() => {
+        if (adminPasswordInput) {
+          adminPasswordInput.focus();
+        }
+      });
+    };
+
+    const hideAdminPrompt = () => {
+      if (!retroAdmin) {
+        return;
+      }
+      adminPromptVisible = false;
+      retroAdmin.hidden = true;
+      retroAdmin.classList.remove('is-visible');
+      if (adminPasswordInput) {
+        adminPasswordInput.value = '';
+      }
+      if (adminStatus) {
+        adminStatus.textContent = '';
+      }
+      if (!adminMode) {
+        updateRetroScreen(currentLanguage, true);
+      }
+    };
+
+    const activateAdminMode = () => {
+      adminMode = true;
+      body.classList.add('admin-enabled');
+      hideAdminPrompt();
+      if (retroScreen) {
+        retroScreen.textContent = translate(currentLanguage, 'retro.adminGranted');
+      }
+      setAdminPanelVisible(true);
     };
 
     function playSound(audio) {
@@ -1608,17 +2431,28 @@
     }
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        closeModal();
+      if (event.key !== 'Escape') {
+        return;
       }
+      if (adminPromptVisible) {
+        hideAdminPrompt();
+        return;
+      }
+      if (adminMode && adminPanel && !adminPanel.hasAttribute('hidden')) {
+        setAdminPanelVisible(false);
+        return;
+      }
+      if (preferencePanel && preferencePanel.dataset.open === 'true') {
+        setPreferencePanelOpen(false);
+        return;
+      }
+      closeModal();
     });
 
-    document.querySelectorAll('[data-project-launch]').forEach((button) => {
-      button.addEventListener('click', () => {
-        const key = button.getAttribute('data-project-launch');
-        openModal(key);
-      });
-    });
+    renderDynamicProjects();
+    renderAdminProjectsList();
+
+    document.querySelectorAll('[data-project-launch]').forEach((button) => attachProjectLaunch(button));
 
     const applyLanguage = (lang, persist = true) => {
       if (!languages.includes(lang)) {
@@ -1629,6 +2463,7 @@
       root.setAttribute('lang', lang);
       updateLanguageButtons(lang);
       applyTextTranslations(lang);
+      applyStaticOverrides();
       if (activeProject && projectDetails[activeProject]) {
         updateModalContent(activeProject, lang);
       }
@@ -1642,7 +2477,30 @@
       button.addEventListener('click', () => {
         const lang = button.dataset.langOption || 'en';
         applyLanguage(lang);
+        setPreferencePanelOpen(false);
       });
+    });
+
+    if (preferenceToggle) {
+      preferenceToggle.addEventListener('click', () => {
+        const isOpen = preferencePanel && preferencePanel.dataset.open === 'true';
+        setPreferencePanelOpen(!isOpen);
+      });
+    }
+
+    if (preferenceClose) {
+      preferenceClose.addEventListener('click', () => setPreferencePanelOpen(false));
+    }
+
+    document.addEventListener('click', (event) => {
+      if (!preferencePanel || preferencePanel.dataset.open !== 'true') {
+        return;
+      }
+      const target = event.target;
+      const clickedToggle = preferenceToggle && preferenceToggle.contains(target);
+      if (!clickedToggle && !preferencePanel.contains(target)) {
+        setPreferencePanelOpen(false);
+      }
     });
 
     const storedLanguage = safeGetItem('language');
@@ -1663,9 +2521,121 @@
 
     document.querySelectorAll('[data-action="resume"]').forEach((button) => {
       button.addEventListener('click', () => {
-        window.open('resume.pdf', '_blank');
+        window.open(resumeLink || 'resume.pdf', '_blank');
       });
     });
+
+    if (resumeForm && resumeUrlInput) {
+      resumeUrlInput.value = resumeLink;
+      resumeForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        resumeLink = resumeUrlInput.value.trim() || 'resume.pdf';
+        safeSetItem('admin.resumeLink', resumeLink);
+      });
+    }
+
+    if (projectForm) {
+      projectForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(projectForm);
+        const title = (formData.get('projectTitle') || '').toString().trim();
+        if (!title) {
+          return;
+        }
+        const newProject = {
+          id: `project-${Date.now()}`,
+          title,
+          metaPrimary: (formData.get('projectMetaPrimary') || '').toString().trim(),
+          metaSecondary: (formData.get('projectMetaSecondary') || '').toString().trim(),
+          description: (formData.get('projectDescription') || '').toString().trim(),
+          image: (formData.get('projectImage') || '').toString().trim() || 'img/project.png',
+          alt: (formData.get('projectAlt') || '').toString().trim(),
+          modalDescription: (formData.get('projectModalDescription') || '').toString().trim(),
+          actionLabel: (formData.get('projectActionLabel') || '').toString().trim() || 'View details'
+        };
+        adminProjects.push(newProject);
+        saveJSON('admin.projects', adminProjects);
+        projectForm.reset();
+        renderDynamicProjects();
+        renderAdminProjectsList();
+      });
+    }
+
+    if (adminProjectsList) {
+      adminProjectsList.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-project-id]');
+        if (!button) {
+          return;
+        }
+        const projectId = button.dataset.projectId;
+        adminProjects = adminProjects.filter((project) => project.id !== projectId);
+        delete projectDetails[projectId];
+        saveJSON('admin.projects', adminProjects);
+        renderDynamicProjects();
+        renderAdminProjectsList();
+      });
+    }
+
+    if (toggleEditModeButton) {
+      toggleEditModeButton.addEventListener('click', () => setEditMode(!editMode));
+    }
+
+    if (saveTextButton) {
+      saveTextButton.addEventListener('click', saveLanguageOverrides);
+    }
+
+    if (resetTextButton) {
+      resetTextButton.addEventListener('click', () => {
+        resetLanguageOverrides();
+        disableEditMode();
+      });
+    }
+
+    if (resetStaticButton) {
+      resetStaticButton.addEventListener('click', () => {
+        resetStaticOverrides();
+        disableEditMode();
+      });
+    }
+
+    if (adminClose) {
+      adminClose.addEventListener('click', () => setAdminPanelVisible(false));
+    }
+
+    if (retroAdminForm) {
+      retroAdminForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const value = adminPasswordInput ? adminPasswordInput.value.trim() : '';
+        if (value === ADMIN_PASSWORD) {
+          if (adminStatus) {
+            adminStatus.textContent = 'access granted';
+          }
+          activateAdminMode();
+        } else {
+          if (adminStatus) {
+            adminStatus.textContent = 'access denied';
+          }
+          if (retroScreen) {
+            retroScreen.textContent = 'access denied';
+            setTimeout(() => {
+              if (adminPromptVisible) {
+                retroScreen.textContent = 'admin pw:';
+              }
+            }, 1200);
+          }
+          if (adminPasswordInput) {
+            adminPasswordInput.value = '';
+            adminPasswordInput.focus();
+          }
+        }
+      });
+    }
+
+    if (adminCancel) {
+      adminCancel.addEventListener('click', () => {
+        hideAdminPrompt();
+      });
+    }
 
     const viewProjectsCta = document.getElementById('viewProjects');
     if (viewProjectsCta) {
@@ -1716,14 +2686,20 @@
 
     if (retroButton) {
       retroButton.addEventListener('click', () => {
-        const messages = retroMessages[currentLanguage] || retroMessages.en;
-        if (!messages || messages.length === 0) {
+        if (adminMode) {
+          const visible = adminPanel && !adminPanel.hasAttribute('hidden');
+          setAdminPanelVisible(!visible);
+          playSound(clickSound);
           return;
         }
-        const nextIndex = (getRetroIndex(currentLanguage) + 1) % messages.length;
-        setRetroIndex(currentLanguage, nextIndex);
+        if (adminPromptVisible) {
+          if (adminPasswordInput) {
+            adminPasswordInput.focus();
+          }
+          return;
+        }
         retroButton.classList.add('is-active');
-        updateRetroScreen(currentLanguage);
+        showAdminPrompt();
         playSound(clickSound);
         setTimeout(() => retroButton.classList.remove('is-active'), 320);
       });
