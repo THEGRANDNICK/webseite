@@ -241,7 +241,7 @@
       align-items: flex-end;
       gap: 0.75rem;
       z-index: 50;
-      max-width: min(360px, calc(100vw - 2.5rem));
+      max-width: min(360px, calc(100vw - 2rem));
     }
 
     .control-panel__toggle {
@@ -251,7 +251,7 @@
     }
 
     .control-panel__content {
-      width: min(360px, 80vw);
+      width: min(360px, calc(100vw - 2rem));
       padding: 1.25rem 1.5rem 1.4rem;
       border-radius: 24px;
       background: var(--surface-glass);
@@ -660,6 +660,32 @@
       color: #fff;
     }
 
+    .admin-card-remove {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: none;
+      z-index: 12;
+      background: var(--glass-danger);
+      border-color: rgba(255, 255, 255, 0.28);
+      color: #8c1b2c;
+    }
+
+    .admin-card-remove:hover,
+    .admin-card-remove:focus-visible {
+      background: var(--glass-danger-hover);
+      color: #5c0f1d;
+    }
+
+    [data-theme="dark"] .admin-card-remove {
+      color: #f8d7de;
+      border-color: rgba(143, 148, 191, 0.3);
+    }
+
+    body.admin-enabled .admin-card-remove {
+      display: inline-flex;
+    }
+
     .admin-zone--editing {
       outline: 2px dashed rgba(58, 96, 255, 0.45);
       outline-offset: 6px;
@@ -684,46 +710,93 @@
     }
 
     .preference {
-      display: inline-flex;
-      gap: 0.35rem;
-      padding: 0.35rem;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid var(--border-soft);
-      backdrop-filter: blur(18px);
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
     }
 
-    .preference .glass-button {
+    .preference--segments {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem;
+      border-radius: 9999px;
+      background: var(--surface-glass);
+      border: 1px solid var(--border-soft);
+      backdrop-filter: blur(18px);
+      width: auto;
+    }
+
+    .preference--segments .glass-button {
       border-color: transparent;
       box-shadow: none;
       background: transparent;
       color: var(--text-secondary);
     }
 
-    .preference .glass-button:hover,
-    .preference .glass-button:focus-visible {
+    .preference--segments .glass-button:hover,
+    .preference--segments .glass-button:focus-visible {
       background: rgba(255, 255, 255, 0.16);
       box-shadow: none;
       color: var(--text-primary);
     }
 
-    .preference .glass-button[aria-checked="true"] {
+    .preference--segments .glass-button[aria-checked="true"] {
       border-color: transparent;
       color: #fff;
     }
 
     .preference--list {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      max-height: 11rem;
+      flex-wrap: wrap;
+      align-items: stretch;
+      padding: 0.75rem;
+      border-radius: 24px;
+      background: var(--surface-glass);
+      border: 1px solid var(--border-soft);
+      backdrop-filter: blur(18px);
+      max-height: 12.5rem;
       overflow-y: auto;
-      padding-right: 0.35rem;
-      gap: 0.35rem;
+      gap: 0.5rem;
     }
 
     .preference--list .glass-button {
       justify-content: flex-start;
-      width: 100%;
+      flex: 1 1 calc(50% - 0.5rem);
+      min-width: 140px;
+      padding: 0.65rem 1rem;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: none;
+      color: var(--text-secondary);
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-size: 0.78rem;
+      border-radius: 18px;
+    }
+
+    .preference--list .glass-button:hover,
+    .preference--list .glass-button:focus-visible {
+      background: rgba(255, 255, 255, 0.16);
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .preference--list .glass-button[aria-checked="true"] {
+      background: var(--glass-accent);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 20px 40px rgba(46, 123, 255, 0.35);
+    }
+
+    @media (max-width: 540px) {
+      .preference--list {
+        max-height: none;
+      }
+
+      .preference--list .glass-button {
+        flex-basis: 100%;
+        min-width: 0;
+      }
     }
 
     nav.site-nav {
@@ -1021,6 +1094,7 @@
       backdrop-filter: blur(18px);
       display: grid;
       gap: 0.5rem;
+      position: relative;
     }
 
     .panel--light .experience-card {
@@ -1354,7 +1428,7 @@
       </div>
       <div class="control-panel__section">
         <span class="control-panel__label" data-i18n="preferences.theme">Theme</span>
-        <div class="preference" id="themePreferences" role="radiogroup" aria-labelledby="themePreferenceLabel">
+        <div class="preference preference--segments" id="themePreferences" role="radiogroup" aria-labelledby="themePreferenceLabel">
           <span class="sr-only" id="themePreferenceLabel" data-i18n="preferences.theme">Theme</span>
           <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="true" data-theme-option="system" data-i18n="theme.system">System</button>
           <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-theme-option="light" data-i18n="theme.light">Light</button>
@@ -1365,11 +1439,11 @@
         <span class="control-panel__label" data-i18n="preferences.language">Language</span>
         <div class="preference preference--list" id="languagePreferences" role="radiogroup" aria-labelledby="languagePreferenceLabel">
           <span class="sr-only" id="languagePreferenceLabel" data-i18n="preferences.language">Language</span>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-lang-option="es" data-i18n="lang.es">Español</button>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-lang-option="fr" data-i18n="lang.fr">Français</button>
-          <button type="button" class="glass-button glass-button--segment" role="radio" aria-checked="false" data-lang-option="zh" data-i18n="lang.zh">中文</button>
+          <button type="button" class="glass-button" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
+          <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
+          <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="es" data-i18n="lang.es">Español</button>
+          <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="fr" data-i18n="lang.fr">Français</button>
+          <button type="button" class="glass-button" role="radio" aria-checked="false" data-lang-option="zh" data-i18n="lang.zh">中文</button>
         </div>
       </div>
     </div>
@@ -1509,7 +1583,7 @@
       </div>
     </section>
 
-    <section class="panel" data-animate id="experience" data-admin-zone="experience">
+    <section class="panel panel--light" data-animate id="experience" data-admin-zone="experience">
       <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="experience" aria-pressed="false">Edit</button>
       <div class="panel__content">
         <div class="panel__header">
@@ -1552,7 +1626,7 @@
       </div>
     </section>
 
-    <section class="panel" data-animate id="projects" data-admin-zone="projects">
+    <section class="panel panel--light" data-animate id="projects" data-admin-zone="projects">
       <button type="button" class="glass-button glass-button--slim admin-edit-button" data-admin-toggle="projects" aria-pressed="false">Edit</button>
       <div class="panel__content">
         <div class="panel__header">
@@ -1747,7 +1821,8 @@
         'modal.close': "Close project modal",
         'retro.default': "Booting XR console…",
         'retro.action': "Toggle retro workstation",
-        'retro.adminGranted': "Admin console ready."
+        'retro.adminGranted': "Admin console ready.",
+        'retro.exit': "back to normal mode"
       },
       de: {
         'preferences.open': "Einstellungen",
@@ -1830,7 +1905,8 @@
         'modal.close': "Projektmodal schließen",
         'retro.default': "XR-Konsole wird gestartet …",
         'retro.action': "Retro-Arbeitsstation umschalten",
-        'retro.adminGranted': "Admin-Konsole bereit."
+        'retro.adminGranted': "Admin-Konsole bereit.",
+        'retro.exit': "Zurück zum Normalmodus"
       },
       es: {
         'preferences.open': "Preferencias",
@@ -1913,7 +1989,8 @@
         'modal.close': "Cerrar modal del proyecto",
         'retro.default': "Iniciando consola XR…",
         'retro.action': "Alternar estación retro",
-        'retro.adminGranted': "Consola de administración lista."
+        'retro.adminGranted': "Consola de administración lista.",
+        'retro.exit': "Volver al modo normal"
       },
       fr: {
         'preferences.open': "Préférences",
@@ -1996,7 +2073,8 @@
         'modal.close': "Fermer la fenêtre du projet",
         'retro.default': "Démarrage de la console XR…",
         'retro.action': "Basculer la station rétro",
-        'retro.adminGranted': "Console admin prête."
+        'retro.adminGranted': "Console admin prête.",
+        'retro.exit': "Retour au mode normal"
       },
       zh: {
         'preferences.open': "偏好设置",
@@ -2079,7 +2157,8 @@
         'modal.close': "关闭项目窗口",
         'retro.default': "正在启动 XR 控制台…",
         'retro.action': "切换复古工作站",
-        'retro.adminGranted': "管理控制台已就绪。"
+        'retro.adminGranted': "管理控制台已就绪。",
+        'retro.exit': "返回正常模式"
       }
     };
 
@@ -2439,21 +2518,32 @@
       retroIndices[lang] = value;
     };
 
+    const updateRetroButtonLabel = () => {
+      if (!retroButton) {
+        return;
+      }
+      const labelKey = adminMode ? 'retro.exit' : 'retro.action';
+      retroButton.setAttribute('aria-label', translate(currentLanguage, labelKey));
+    };
+
     const updateRetroScreen = (lang, reset = false) => {
       if (!retroScreen) {
         return;
       }
       if (adminPromptVisible) {
         retroScreen.textContent = 'admin pw:';
+        updateRetroButtonLabel();
         return;
       }
       if (adminMode) {
-        retroScreen.textContent = translate(lang, 'retro.adminGranted');
+        retroScreen.textContent = translate(lang, 'retro.exit');
+        updateRetroButtonLabel();
         return;
       }
       const messages = retroMessages[lang] || retroMessages.en;
       if (!messages || messages.length === 0) {
         retroScreen.textContent = '';
+        updateRetroButtonLabel();
         return;
       }
       if (reset) {
@@ -2461,6 +2551,7 @@
       }
       const index = getRetroIndex(lang) % messages.length;
       retroScreen.textContent = messages[index];
+      updateRetroButtonLabel();
     };
 
     const updateLanguageButtons = (lang) => {
@@ -2612,6 +2703,15 @@
       bodyContainer.appendChild(levels);
 
       article.appendChild(bodyContainer);
+
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'glass-button glass-button--icon admin-card-remove';
+      removeButton.dataset.removeProject = project.id;
+      removeButton.setAttribute('aria-label', `Delete ${project.title || 'project'}`);
+      removeButton.title = `Delete ${project.title || 'project'}`;
+      removeButton.textContent = '×';
+      article.appendChild(removeButton);
       return article;
     };
 
@@ -2662,7 +2762,7 @@
         remove.type = 'button';
         remove.className = 'glass-button glass-button--slim glass-button--danger';
         remove.dataset.projectId = project.id;
-        remove.textContent = 'Remove';
+        remove.textContent = 'Delete';
         item.appendChild(remove);
         adminProjectsList.appendChild(item);
       });
@@ -2732,6 +2832,15 @@
         article.appendChild(description);
       }
 
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'glass-button glass-button--icon admin-card-remove';
+      removeButton.dataset.removeExperience = experience.id;
+      removeButton.setAttribute('aria-label', `Delete ${experience.role || 'experience'}`);
+      removeButton.title = `Delete ${experience.role || 'experience'}`;
+      removeButton.textContent = '×';
+      article.appendChild(removeButton);
+
       return article;
     };
 
@@ -2779,7 +2888,7 @@
         remove.type = 'button';
         remove.className = 'glass-button glass-button--slim glass-button--danger';
         remove.dataset.experienceId = experience.id;
-        remove.textContent = 'Remove';
+        remove.textContent = 'Delete';
         item.appendChild(remove);
         adminExperiencesList.appendChild(item);
       });
@@ -2891,6 +3000,7 @@
         closeAllZones();
         closeAllSheets();
       }
+      updateRetroScreen(currentLanguage, !adminDockVisible && !adminMode);
     };
 
     const toggleSheet = (id) => {
@@ -2915,6 +3025,7 @@
       if (retroScreen) {
         retroScreen.textContent = 'admin pw:';
       }
+      updateRetroButtonLabel();
       requestAnimationFrame(() => {
         if (adminPasswordInput) {
           adminPasswordInput.focus();
@@ -2945,10 +3056,18 @@
       adminMode = true;
       body.classList.add('admin-enabled');
       hideAdminPrompt();
-      if (retroScreen) {
-        retroScreen.textContent = translate(currentLanguage, 'retro.adminGranted');
-      }
       setAdminDockVisible(true);
+      updateRetroScreen(currentLanguage);
+    };
+
+    const deactivateAdminMode = () => {
+      if (!adminMode) {
+        return;
+      }
+      adminMode = false;
+      body.classList.remove('admin-enabled');
+      setAdminDockVisible(false);
+      updateRetroScreen(currentLanguage, true);
     };
 
     const openModal = (projectKey) => {
@@ -3191,6 +3310,37 @@
       });
     }
 
+    if (projectsGrid) {
+      projectsGrid.addEventListener('click', (event) => {
+        const removeButton = event.target.closest('button[data-remove-project]');
+        if (!removeButton) {
+          return;
+        }
+        event.stopPropagation();
+        const projectId = removeButton.dataset.removeProject;
+        adminProjects = adminProjects.filter((project) => project.id !== projectId);
+        delete projectDetails[projectId];
+        saveJSON('admin.projects', adminProjects);
+        renderDynamicProjects();
+        renderAdminProjectsList();
+      });
+    }
+
+    if (experienceGrid) {
+      experienceGrid.addEventListener('click', (event) => {
+        const removeButton = event.target.closest('button[data-remove-experience]');
+        if (!removeButton) {
+          return;
+        }
+        event.stopPropagation();
+        const experienceId = removeButton.dataset.removeExperience;
+        adminExperiences = adminExperiences.filter((experience) => experience.id !== experienceId);
+        saveJSON('admin.experiences', adminExperiences);
+        renderDynamicExperiences();
+        renderAdminExperiencesList();
+      });
+    }
+
     contactLinkInputs.forEach((input) => {
       input.addEventListener('input', () => {
         if (input.disabled) {
@@ -3337,8 +3487,13 @@
     if (retroButton) {
       retroButton.addEventListener('click', () => {
         if (adminMode) {
-          const visible = adminDockVisible;
-          setAdminDockVisible(!visible);
+          if (adminDockVisible) {
+            retroButton.classList.add('is-active');
+            deactivateAdminMode();
+            setTimeout(() => retroButton.classList.remove('is-active'), 320);
+          } else {
+            setAdminDockVisible(true);
+          }
           return;
         }
         if (adminPromptVisible) {
@@ -3352,6 +3507,7 @@
         setTimeout(() => retroButton.classList.remove('is-active'), 320);
       });
       updateRetroScreen(currentLanguage, true);
+      updateRetroButtonLabel();
     }
   </script>
 
