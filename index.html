@@ -2,1734 +2,580 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Nicolas Vogt Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicolas J. Vogt Portfolio</title>
   <style>
     :root {
       color-scheme: light;
-      --body-bg: radial-gradient(140% 160% at 20% 10%, #f7f8fa 0%, #f0f2f8 32%, #dbe0f5 100%);
-      --text-primary: #0b0c11;
-      --text-secondary: rgba(17, 18, 25, 0.68);
-      --surface-glass: rgba(255, 255, 255, 0.7);
-      --surface-hero: linear-gradient(135deg, rgba(12, 12, 20, 0.92), rgba(22, 24, 40, 0.72));
-      --surface-panel: linear-gradient(135deg, rgba(24, 26, 44, 0.85), rgba(10, 10, 16, 0.82));
-      --surface-panel-alt: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(245, 245, 247, 0.9));
-      --border-soft: rgba(255, 255, 255, 0.4);
-      --shadow-lg: 0 40px 80px rgba(15, 16, 36, 0.2);
-      --shadow-xl: 0 48px 120px rgba(12, 14, 32, 0.35);
-      --panel-radius: 36px;
-      --transition: all 0.35s ease;
+      --body-bg: linear-gradient(180deg, #c9dffb 0%, #eaf2ff 40%, #f8fbff 100%);
+      --text-primary: #0b1f4a;
+      --text-secondary: #4f638b;
+      --panel-bg: #ffffff;
+      --panel-border: #b7c7e9;
+      --shadow: 0 14px 34px rgba(32, 57, 112, 0.15);
+      --radius: 18px;
+      --button-bg: linear-gradient(180deg, #e9f1ff 0%, #d5e3fb 100%);
+      --button-border: #98b3e5;
+      --button-hover: #c7d9f7;
+      --accent: #2b78e4;
+      --accent-contrast: #ffffff;
+      --surface-soft: #f5f7fd;
+      --transition: all 0.2s ease;
     }
 
     [data-theme="dark"] {
       color-scheme: dark;
-      --body-bg: radial-gradient(140% 160% at 20% 10%, #06070d 0%, #0e101c 40%, #070912 100%);
-      --text-primary: #f5f5f7;
-      --text-secondary: rgba(245, 245, 247, 0.7);
-      --surface-glass: rgba(16, 17, 27, 0.62);
-      --surface-hero: linear-gradient(135deg, rgba(12, 13, 24, 0.92), rgba(38, 43, 70, 0.78));
-      --surface-panel: linear-gradient(135deg, rgba(25, 28, 42, 0.92), rgba(10, 11, 18, 0.92));
-      --surface-panel-alt: linear-gradient(135deg, rgba(28, 30, 48, 0.88), rgba(14, 15, 25, 0.9));
-      --border-soft: rgba(255, 255, 255, 0.08);
-      --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.45);
-      --shadow-xl: 0 48px 120px rgba(0, 0, 0, 0.55);
+      --body-bg: linear-gradient(180deg, #0d1b32 0%, #0a1426 100%);
+      --text-primary: #eaf1ff;
+      --text-secondary: #9eb2d8;
+      --panel-bg: #0f1f3a;
+      --panel-border: #27406a;
+      --shadow: 0 14px 30px rgba(4, 8, 16, 0.6);
+      --radius: 18px;
+      --button-bg: linear-gradient(180deg, #1d3156 0%, #152642 100%);
+      --button-border: #4367a1;
+      --button-hover: #23416c;
+      --accent: #6ea8ff;
+      --accent-contrast: #061126;
+      --surface-soft: #152748;
+      --transition: all 0.2s ease;
     }
 
-    [data-theme="contrast"] {
-      color-scheme: light;
-      --body-bg: linear-gradient(145deg, #ffffff 0%, #f1f1f1 45%, #dcdcdc 100%);
-      --text-primary: #050505;
-      --text-secondary: rgba(5, 5, 5, 0.75);
-      --surface-glass: rgba(255, 255, 255, 0.95);
-      --surface-hero: linear-gradient(135deg, #0a0a0a, #222222);
-      --surface-panel: linear-gradient(135deg, #111111, #1a1a1a);
-      --surface-panel-alt: linear-gradient(135deg, #ffffff, #ebebeb);
-      --border-soft: rgba(5, 5, 5, 0.18);
-      --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.55);
-      --shadow-xl: 0 48px 120px rgba(0, 0, 0, 0.65);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Segoe UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--body-bg);
       color: var(--text-primary);
-      transition: background 0.6s ease, color 0.6s ease;
+      transition: background 0.3s ease, color 0.3s ease;
+      padding-bottom: 5.5rem;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      backdrop-filter: blur(60px);
-      pointer-events: none;
-      z-index: -1;
-    }
+    img { max-width: 100%; display: block; border-radius: 12px; }
+    h1, h2, h3, h4, p { margin: 0; }
+    a { color: inherit; }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    .top-right-controls {
-      position: fixed;
-      top: 1.25rem;
-      right: 1.25rem;
-      display: flex;
-      gap: 1rem;
-      z-index: 40;
-    }
-
-    .retro-pc {
-      position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      width: 220px;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    .retro-pc__button {
-      position: relative;
-      width: 100%;
-      padding: 1.25rem 1rem 2.5rem;
-      border: none;
-      border-radius: 18px 18px 12px 12px;
-      background: linear-gradient(160deg, rgba(36, 40, 52, 0.88), rgba(18, 20, 30, 0.92));
-      box-shadow: 0 24px 60px rgba(12, 14, 32, 0.35);
-      display: block;
-      cursor: pointer;
-      pointer-events: auto;
-      overflow: hidden;
-      transition: transform 0.45s ease, box-shadow 0.45s ease;
-    }
-
-    .retro-pc__button:hover,
-    .retro-pc__button:focus-visible {
-      transform: translateY(-6px);
-      box-shadow: 0 32px 80px rgba(12, 14, 32, 0.45);
-      outline: none;
-    }
-
-    .retro-pc__button.is-active {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 36px 90px rgba(12, 14, 32, 0.55);
-    }
-
-    .retro-pc__screen {
-      display: block;
-      font-family: "SF Mono", "Menlo", "Consolas", monospace;
-      font-size: 0.85rem;
-      line-height: 1.4;
-      color: #8fe7a4;
-      background: radial-gradient(circle at 30% 20%, rgba(143, 231, 164, 0.28), transparent 60%), rgba(6, 18, 12, 0.9);
-      border-radius: 12px;
-      padding: 1rem;
-      min-height: 90px;
-      box-shadow: inset 0 0 0 1px rgba(143, 231, 164, 0.25);
-      text-align: left;
-      text-shadow: 0 0 6px rgba(143, 231, 164, 0.65);
-    }
-
-    .retro-pc__indicator {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #68ff89 0%, #1c7f2f 80%);
-      top: 0.85rem;
-      right: 1.1rem;
-      box-shadow: 0 0 8px rgba(104, 255, 137, 0.6);
-      animation: pulse 2.8s ease-in-out infinite;
-    }
-
-    .retro-pc__base {
-      position: absolute;
-      left: 10%;
-      right: 10%;
-      bottom: 0.75rem;
-      height: 18px;
-      border-radius: 10px;
-      background: linear-gradient(90deg, rgba(68, 74, 88, 0.9), rgba(28, 30, 40, 0.9));
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        opacity: 0.75;
-      }
-      50% {
-        opacity: 1;
-      }
-    }
-
-    .preference {
+    .button {
       display: inline-flex;
-      gap: 0.35rem;
-      padding: 0.35rem;
-      border-radius: 9999px;
-      background: var(--surface-glass);
-      border: 1px solid var(--border-soft);
-      backdrop-filter: blur(18px);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-    }
-
-    .preference button {
-      border: none;
-      background: transparent;
-      border-radius: 9999px;
-      padding: 0.35rem 0.85rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-primary);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .preference button[aria-checked="true"] {
-      background: rgba(255, 255, 255, 0.28);
-      box-shadow: 0 8px 20px rgba(12, 14, 32, 0.15);
-    }
-
-    .preference button:focus-visible {
-      outline: 2px solid rgba(255, 255, 255, 0.6);
-      outline-offset: 2px;
-    }
-
-    nav.site-nav {
-      position: sticky;
-      top: 1.25rem;
-      margin: 0 auto;
-      padding: 0.75rem 1.25rem;
-      max-width: 960px;
-      border-radius: 9999px;
-      background: var(--surface-glass);
-      border: 1px solid var(--border-soft);
-      backdrop-filter: blur(18px);
-      display: flex;
-      gap: 0.75rem;
+      align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
-      box-shadow: 0 20px 40px rgba(15, 16, 36, 0.12);
-      z-index: 30;
-    }
-
-    nav.site-nav button {
-      border: none;
-      background: transparent;
-      border-radius: 9999px;
-      padding: 0.6rem 1.4rem;
-      font-size: 0.95rem;
-      font-weight: 500;
+      gap: 0.35rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid var(--button-border);
+      background: var(--button-bg);
       color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), var(--shadow);
       transition: var(--transition);
       cursor: pointer;
     }
 
-    nav.site-nav button:hover,
-    nav.site-nav button:focus-visible {
-      background: rgba(255, 255, 255, 0.35);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+    .button:hover,
+    .button:focus-visible {
+      background: var(--button-hover);
+      transform: translateY(-1px);
       outline: none;
     }
 
-    main.page {
-      padding: clamp(6rem, 10vw, 9rem) clamp(1.5rem, 4vw, 4rem) 5rem;
+    .button:active { transform: translateY(0); }
+
+    .button--primary {
+      background: linear-gradient(180deg, #3b88f4 0%, #2b78e4 100%);
+      color: var(--accent-contrast);
+      border-color: transparent;
+    }
+
+    .button--ghost { background: var(--surface-soft); }
+
+    .site-nav {
+      position: fixed;
+      bottom: 1.1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.45rem 0.65rem;
+      border-radius: 999px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      box-shadow: var(--shadow);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      z-index: 20;
+      flex-wrap: wrap;
+    }
+
+    .site-nav .button { padding: 0.45rem 0.9rem; font-weight: 700; }
+
+    main {
+      padding: clamp(1.5rem, 6vw, 3rem);
       display: flex;
       flex-direction: column;
-      gap: clamp(3.5rem, 8vw, 6rem);
-    }
-
-    .hero {
-      position: relative;
-      border-radius: var(--panel-radius);
-      padding: clamp(3.5rem, 6vw, 5.5rem);
-      background: var(--surface-hero);
-      color: #f5f5f7;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(2rem, 4vw, 4rem);
-      box-shadow: var(--shadow-xl);
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: -20% -10% 10% 40%;
-      background: radial-gradient(circle at top left, rgba(105, 158, 255, 0.55), transparent 55%);
-      transform: translate3d(0, 0, 0);
-      z-index: 0;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 30% -15% -40% 20%;
-      background: radial-gradient(circle at bottom right, rgba(255, 120, 60, 0.45), transparent 60%);
-      z-index: 0;
-    }
-
-    .hero__content,
-    .hero__visual {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero__eyebrow {
-      font-size: 0.85rem;
-      letter-spacing: 0.38em;
-      text-transform: uppercase;
-      opacity: 0.65;
-      margin: 0 0 1.25rem;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(2.8rem, 6vw, 4.4rem);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
-    .hero__lead {
-      margin: 1.5rem 0 2.5rem;
-      font-size: clamp(1.1rem, 2.4vw, 1.4rem);
-      line-height: 1.6;
-      max-width: 42ch;
-      color: rgba(245, 245, 247, 0.82);
-    }
-
-    .hero__actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .cta {
-      border: none;
-      border-radius: 9999px;
-      padding: 0.85rem 2.4rem;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-    }
-
-    .cta--primary {
-      background: linear-gradient(135deg, #0071e3, #559dff);
-      color: #fff;
-      box-shadow: 0 24px 48px rgba(0, 113, 227, 0.35);
-    }
-
-    .cta--primary:hover,
-    .cta--primary:focus-visible {
-      transform: translateY(-4px);
-      box-shadow: 0 32px 64px rgba(0, 113, 227, 0.42);
-      outline: none;
-    }
-
-    .cta--ghost {
-      background: rgba(255, 255, 255, 0.16);
-      color: #f5f5f7;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
-    }
-
-    .cta--ghost:hover,
-    .cta--ghost:focus-visible {
-      background: rgba(255, 255, 255, 0.24);
-      transform: translateY(-4px);
-      outline: none;
-    }
-
-    .hero__visual {
-      display: grid;
-      place-items: center;
-    }
-
-    .hero__visual figure,
-    .hero__visual img {
-      border-radius: 32px;
-      overflow: hidden;
-    }
-
-    .hero__visual img {
-      width: min(520px, 100%);
-      box-shadow: 0 50px 110px rgba(3, 5, 15, 0.55);
-      transform: translateY(0);
-      transition: transform 0.6s ease;
-    }
-
-    .hero:hover .hero__visual img {
-      transform: translateY(-6px) scale(1.015);
+      gap: clamp(2rem, 5vw, 3rem);
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     .panel {
-      position: relative;
-      border-radius: var(--panel-radius);
-      padding: clamp(3rem, 6vw, 4.5rem);
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-      display: grid;
-      gap: clamp(2rem, 4vw, 3rem);
-      color: #f5f5f7;
-      background: var(--surface-panel);
+      background: var(--panel-bg);
+      border-radius: var(--radius);
+      padding: clamp(1.25rem, 3vw, 2rem);
+      border: 1px solid var(--panel-border);
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.4s ease;
     }
 
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(120% 120% at 15% 0%, rgba(255, 255, 255, 0.22), transparent 60%);
-      opacity: 0.85;
-      z-index: 0;
-    }
-
-    .panel--light {
-      background: var(--surface-panel-alt);
-      color: var(--text-primary);
-    }
-
-    .panel--light::before {
-      background: radial-gradient(120% 120% at 85% 0%, rgba(91, 132, 255, 0.15), transparent 65%);
-    }
-
-    .panel__content,
-    .panel__grid,
-    .panel__visual {
-      position: relative;
-      z-index: 1;
-    }
-
-    section[data-animate] {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    section[data-animate].is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    section h2 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-
-    section p.lead {
-      margin: 1rem 0 0;
-      font-size: 1.1rem;
-      line-height: 1.65;
-      color: inherit;
-      max-width: 56ch;
-    }
-
-    .about-highlights {
-      display: grid;
-      gap: 1.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-
-    .about-card {
-      padding: 1.75rem;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      backdrop-filter: blur(18px);
-    }
-
-    .panel--light .about-card {
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(15, 16, 36, 0.08);
-    }
-
-    .about-card h3 {
-      margin: 0 0 0.75rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .about-card p {
-      margin: 0;
-      line-height: 1.6;
-      color: inherit;
-      opacity: 0.85;
-    }
-
-    .experience-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 1.5rem;
-    }
-
-    .experience-item {
-      padding: 1.75rem;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(14px);
-      display: grid;
-      gap: 0.4rem;
-    }
-
-    .experience-item span {
-      font-size: 0.9rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      opacity: 0.65;
-    }
-
-    .experience-item h3 {
-      margin: 0;
-      font-size: 1.25rem;
-    }
-
-    .experience-item p {
-      margin: 0;
-      color: inherit;
-      opacity: 0.8;
-      line-height: 1.6;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .project-card {
-      position: relative;
-      border-radius: 28px;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .panel--light .project-card {
-      background: rgba(255, 255, 255, 0.75);
-      border: 1px solid rgba(15, 16, 36, 0.08);
-    }
-
-    .project-card:hover,
-    .project-card:focus-visible {
-      transform: translateY(-8px);
-      box-shadow: 0 32px 60px rgba(12, 14, 32, 0.25);
-      outline: none;
-    }
-
-    .project-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-
-    .project-card__body {
-      padding: 1.75rem;
-      display: grid;
-      gap: 0.75rem;
-    }
-
-    .project-card__title {
-      margin: 0;
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-
-    .project-card__meta {
+    .panel__header {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      color: inherit;
-      opacity: 0.65;
-      font-size: 0.9rem;
-    }
-
-    .project-card__description {
-      margin: 0;
-      line-height: 1.6;
-      color: inherit;
-      opacity: 0.85;
-    }
-
-    .projects-levels {
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .level-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      border-radius: 9999px;
-      padding: 0.4rem 1.1rem;
-      font-size: 0.85rem;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.26);
-      transition: background 0.3s ease, border-color 0.3s ease;
-    }
-
-    .panel--light .level-chip {
-      background: rgba(15, 16, 36, 0.08);
-      border: 1px solid rgba(15, 16, 36, 0.12);
-    }
-
-    .level-chip[data-state="available"] {
-      cursor: pointer;
-    }
-
-    .level-chip[data-state="available"]:hover,
-    .level-chip[data-state="available"]:focus-visible {
-      background: rgba(255, 255, 255, 0.22);
-      border-color: rgba(255, 255, 255, 0.4);
-      outline: none;
-    }
-
-    .contact-cta {
-      display: flex;
-      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
       gap: 1rem;
+      margin-bottom: 0.75rem;
     }
 
-    .contact-cta a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 9999px;
-      padding: 0.75rem 2rem;
-      font-size: 1rem;
-      font-weight: 500;
-      text-decoration: none;
-      color: inherit;
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      transition: var(--transition);
-    }
+    .panel__header h2 { font-size: clamp(1.35rem, 3vw, 1.7rem); letter-spacing: -0.01em; }
 
-    .panel--light .contact-cta a {
-      background: rgba(15, 16, 36, 0.08);
-      border: 1px solid rgba(15, 16, 36, 0.16);
-    }
-
-    .contact-cta a:hover,
-    .contact-cta a:focus-visible {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.26);
-      outline: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem 1rem 3rem;
+    .panel__lead {
       color: var(--text-secondary);
-      font-size: 0.9rem;
+      line-height: 1.5;
+      font-size: 1rem;
+      margin-bottom: 1rem;
     }
 
-    .modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(3, 5, 15, 0.55);
-      backdrop-filter: blur(18px);
-      z-index: 100;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .modal.show {
-      display: flex;
-      opacity: 1;
-    }
-
-    .modal__content {
-      background: var(--surface-panel-alt);
-      color: var(--text-primary);
-      padding: clamp(2rem, 4vw, 3rem);
-      border-radius: 28px;
-      max-width: min(560px, 90vw);
-      box-shadow: 0 32px 80px rgba(12, 14, 32, 0.32);
+    .hero {
       display: grid;
-      gap: 1.5rem;
-      position: relative;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 0.55fr);
+      gap: clamp(1.25rem, 4vw, 2.5rem);
+      align-items: center;
     }
 
-    .modal__close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      border: none;
-      background: rgba(15, 16, 36, 0.08);
-      border-radius: 9999px;
-      width: 36px;
-      height: 36px;
-      font-size: 1.35rem;
-      cursor: pointer;
+    .hero__title { font-size: clamp(2.2rem, 6vw, 3.2rem); letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .hero__meta { color: var(--text-secondary); line-height: 1.6; font-size: 1.02rem; }
+
+    .hero__visual {
+      justify-self: center;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 1 / 1;
+      border-radius: 18px;
+      background: var(--surface-soft);
+      border: 1px solid var(--panel-border);
       display: grid;
       place-items: center;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+
+    .card {
+      background: var(--surface-soft);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover { transform: translateY(-3px); }
+
+    .skills { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+
+    .skill-pill {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #eef3ff 0%, #d8e3f8 100%);
+      border: 1px solid var(--panel-border);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+    }
+
+    .experience-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .experience-card {
+      background: var(--surface-soft);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 1rem 1.1rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .experience-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+
+    .experience-title { font-size: 1.05rem; margin-bottom: 0.25rem; }
+
+    .experience-meta { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.4; }
+
+    .experience-desc { color: var(--text-primary); line-height: 1.55; margin: 0.65rem 0; }
+
+    .experience-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .badge { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 999px; padding: 0.25rem 0.65rem; font-weight: 600; color: var(--text-primary); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+
+    .carousel { position: relative; overflow: hidden; }
+    .carousel__track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, 1fr); gap: 1rem; transition: transform 0.35s ease; }
+    .carousel__controls { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.75rem; }
+
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 1px solid var(--panel-border);
+      background: transparent;
+      cursor: pointer;
       transition: var(--transition);
     }
 
-    .modal__close:hover,
-    .modal__close:focus-visible {
-      background: rgba(15, 16, 36, 0.16);
-      outline: none;
-    }
+    .dot[aria-current="true"] { background: var(--accent); border-color: var(--accent); }
 
-    .modal__media img {
-      border-radius: 20px;
-      box-shadow: 0 24px 60px rgba(12, 14, 32, 0.25);
-    }
-
-    .modal__description {
-      margin: 0;
-      line-height: 1.65;
-      color: var(--text-secondary);
-    }
+    .footer { text-align: center; color: var(--text-secondary); padding: 1.25rem; font-size: 0.95rem; }
 
     @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      nav.site-nav {
-        position: static;
-      }
-
-      .top-right-controls {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-      }
-
-      .retro-pc {
-        display: none;
-      }
+      .hero { grid-template-columns: 1fr; }
+      .panel__header { flex-direction: column; align-items: flex-start; }
+      .site-nav { max-width: calc(100% - 1.25rem); }
     }
 
-    @media (max-width: 640px) {
-      main.page {
-        padding-top: 7rem;
-      }
-
-      .hero,
-      .panel {
-        border-radius: 28px;
-      }
-
-      .hero__actions,
-      .contact-cta {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .cta,
-      .contact-cta a {
-        width: 100%;
-        justify-content: center;
-      }
+    @media (max-width: 540px) {
+      body { padding-bottom: 6.5rem; }
+      .site-nav { justify-content: center; }
+      .site-nav .button { flex: 1 1 42%; text-align: center; }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-<body data-lang="en">
-  <audio id="hoverSound" src="audio/S_Bubble_Hover.mp3" preload="auto"></audio>
-  <audio id="clickSound" src="audio/S_Bubble_Click.mp3" preload="auto"></audio>
-
-  <aside class="retro-pc" aria-live="polite">
-    <button type="button" class="retro-pc__button" id="retroTerminal" data-sound="click" aria-labelledby="retroLabel" data-i18n-attr="aria-label:retro.action">
-      <span class="retro-pc__screen" id="retroScreen" data-i18n="retro.default">Booting XR console…</span>
-      <span class="retro-pc__indicator" aria-hidden="true"></span>
-      <span class="retro-pc__base" aria-hidden="true"></span>
-      <span class="sr-only" id="retroLabel" data-i18n="retro.action">Launch retro workstation</span>
-    </button>
-  </aside>
-
-  <div class="top-right-controls">
-    <div class="preference" id="themePreferences" role="radiogroup" aria-labelledby="themePreferenceLabel">
-      <span class="sr-only" id="themePreferenceLabel" data-i18n="preferences.theme">Theme</span>
-      <button type="button" role="radio" aria-checked="true" data-theme-option="light" data-i18n="theme.light">Light</button>
-      <button type="button" role="radio" aria-checked="false" data-theme-option="dark" data-i18n="theme.dark">Dark</button>
-      <button type="button" role="radio" aria-checked="false" data-theme-option="contrast" data-i18n="theme.contrast">Contrast</button>
-    </div>
-    <div class="preference" id="languagePreferences" role="radiogroup" aria-labelledby="languagePreferenceLabel">
-      <span class="sr-only" id="languagePreferenceLabel" data-i18n="preferences.language">Language</span>
-      <button type="button" role="radio" aria-checked="true" data-lang-option="en" data-i18n="lang.en">English</button>
-      <button type="button" role="radio" aria-checked="false" data-lang-option="de" data-i18n="lang.de">Deutsch</button>
-      <button type="button" role="radio" aria-checked="false" data-lang-option="es" data-i18n="lang.es">Español</button>
-      <button type="button" role="radio" aria-checked="false" data-lang-option="fr" data-i18n="lang.fr">Français</button>
-      <button type="button" role="radio" aria-checked="false" data-lang-option="zh" data-i18n="lang.zh">中文</button>
-    </div>
-  </div>
-
-  <nav aria-label="Primary" class="site-nav">
-    <button type="button" data-scroll="about" data-i18n="nav.about">About</button>
-    <button type="button" data-scroll="experience" data-i18n="nav.experience">Experience</button>
-    <button type="button" data-scroll="projects" data-i18n="nav.projects">Projects</button>
-    <button type="button" data-scroll="contact" data-i18n="nav.contact">Contact</button>
-    <button type="button" data-action="resume" data-i18n="nav.resume">Résumé</button>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <button class="button" data-scroll="about">About</button>
+    <button class="button" data-scroll="experience">Experience</button>
+    <button class="button" data-scroll="projects">Projects</button>
+    <button class="button" data-scroll="contact">Contact</button>
+    <button class="button" id="themeToggle" aria-pressed="false">Light mode</button>
   </nav>
 
-  <main class="page">
-    <header class="hero" id="top" data-animate>
-      <div class="hero__content">
-        <p class="hero__eyebrow" data-i18n="hero.eyebrow">XR developer &amp; lecturer</p>
-        <h1>Nicolas Jannek Vogt</h1>
-        <p class="hero__lead" data-i18n="hero.lead">I deliver immersive products for Union IT Services and teach Mixed Reality development at SRH Hochschule Heidelberg, blending Unreal Engine craft with a global perspective.</p>
-        <div class="hero__actions">
-          <button type="button" class="cta cta--primary" data-i18n="hero.cta.primary" id="viewProjects">Explore projects</button>
-          <button type="button" class="cta cta--ghost" data-i18n="hero.cta.secondary" data-action="resume">Download résumé</button>
+  <main>
+    <section class="panel hero" id="about">
+      <div>
+        <p class="panel__lead">XR Engineer &amp; Lecturer focused on immersive training and applied research.</p>
+        <h1 class="hero__title">Nicolas J. Vogt Portfolio</h1>
+        <p class="hero__meta">Durch lehren, praktische Arbeit und Forschung ermögliche ich anderen, komplexe XR-Themen zu meistern und innovative Lösungen zu entwickeln.</p>
+        <div style="display:flex; gap:0.65rem; flex-wrap:wrap; margin-top:1.1rem;">
+          <button class="button button--primary" data-scroll="projects">View projects</button>
+          <button class="button button--ghost" data-scroll="contact">Get in touch</button>
         </div>
       </div>
       <div class="hero__visual">
-        <figure>
-          <img alt="Cinematic rendering of a virtual reality workspace" src="img/background.jpg" />
-        </figure>
-      </div>
-    </header>
-
-    <section class="panel panel--light" data-animate id="about">
-      <div class="panel__content">
-        <h2 data-i18n="about.title">About me</h2>
-        <p class="lead" data-i18n="about.lead">Heidelberg-based XR engineer currently pursuing a Master in Virtual and Augmented Realities while shipping Unreal Engine solutions for finance and education.</p>
-      </div>
-      <div class="panel__grid about-highlights">
-        <div class="about-card">
-          <h3 data-i18n="about.cards.educator.title">Educator &amp; mentor</h3>
-          <p data-i18n="about.cards.educator.body">Lead lecturer for the Mixed Reality Development module at SRH Hochschule Heidelberg, guiding students from concept to deployment-ready experiences.</p>
-        </div>
-        <div class="about-card">
-          <h3 data-i18n="about.cards.technologist.title">Immersive technologist</h3>
-          <p data-i18n="about.cards.technologist.body">Builds VR and AR prototypes with Unreal Engine, C++, Blueprints, Blender, and Azure DevOps pipelines that scale across teams.</p>
-        </div>
-        <div class="about-card">
-          <h3 data-i18n="about.cards.global.title">Global perspective</h3>
-          <p data-i18n="about.cards.global.body">Raised across Shanghai, Seoul, Jakarta, Detroit, and Heidelberg—comfortable collaborating across cultures and languages.</p>
-        </div>
+        <img src="img/profilbild.jpg" alt="Portrait of Nicolas J. Vogt" />
       </div>
     </section>
 
-    <section class="panel" data-animate id="experience">
-      <div class="panel__content">
-        <h2 data-i18n="experience.title">Experience</h2>
-        <p class="lead" data-i18n="experience.lead">A timeline that pairs academic leadership with production-grade XR systems for finance, mobility, and culture.</p>
+    <section class="panel" id="about-cards">
+      <div class="panel__header">
+        <h2>About me</h2>
+        <p class="panel__lead">Exploring immersive technologies with a balance of research, teaching, and hands-on development.</p>
       </div>
-      <ul class="experience-list">
-        <li class="experience-item">
-          <span data-i18n="experience.srhLecturer.period">11/2024 – 12/2024</span>
-          <h3 data-i18n="experience.srhLecturer.role">Lecturer · SRH Hochschule Heidelberg</h3>
-          <p data-i18n="experience.srhLecturer.description">Designed and delivered the Mixed Reality Development module, mentoring student teams on Unreal Engine workflows, performance budgets, and XR storytelling.</p>
-        </li>
-        <li class="experience-item">
-          <span data-i18n="experience.unionStudent.period">09/2023 – 12/2024</span>
-          <h3 data-i18n="experience.unionStudent.role">Working student XR · Union IT Services GmbH</h3>
-          <p data-i18n="experience.unionStudent.description">Implemented VR and AR prototypes for Union Investment’s innovation lab, integrating Azure DevOps, GitHub, and optimized 3D assets into client-ready demos.</p>
-        </li>
-        <li class="experience-item">
-          <span data-i18n="experience.unionIntern.period">04/2023 – 08/2023</span>
-          <h3 data-i18n="experience.unionIntern.role">XR intern · Union IT Services GmbH</h3>
-          <p data-i18n="experience.unionIntern.description">Accelerated digital transformation initiatives with Design Thinking sprints and rapid Unreal Engine prototypes supporting internal process digitization.</p>
-        </li>
-        <li class="experience-item">
-          <span data-i18n="experience.srhAssistant.period">10/2021 – 03/2022</span>
-          <h3 data-i18n="experience.srhAssistant.role">Research assistant · SRH Hochschule Heidelberg</h3>
-          <p data-i18n="experience.srhAssistant.description">Supported the rectorate with digital learning strategy, academic communications, and cross-faculty project coordination.</p>
-        </li>
-        <li class="experience-item">
-          <span data-i18n="experience.early.period">2018 – 2020</span>
-          <h3 data-i18n="experience.early.role">Early industry exposure</h3>
-          <p data-i18n="experience.early.description">Hands-on service, automotive, and community roles at Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf, and Kinder- und Jugendtreff Hasenleiser.</p>
-        </li>
-      </ul>
+      <p class="panel__lead">Durch Lehre, praxisnahe Projekte und Forschung verbinde ich Technik und Didaktik, um immersive Anwendungen zu gestalten. Ich arbeite an Lösungen, die von astronautischem Training bis hin zu virtuellen Produktionsumgebungen reichen.</p>
+      <div class="skills" aria-label="Skills">
+        <span class="skill-pill">XR Entwicklung</span>
+        <span class="skill-pill">R&amp;D</span>
+        <span class="skill-pill">XR &amp; Software Development</span>
+        <span class="skill-pill">3D Modeling &amp; CAD</span>
+        <span class="skill-pill">Project Management</span>
+        <span class="skill-pill">Unreal Engine</span>
+      </div>
     </section>
 
-    <section class="panel" data-animate id="projects">
-      <div class="panel__content">
-        <h2 data-i18n="projects.title">Projects</h2>
-        <p class="lead" data-i18n="projects.lead">Selected case studies that translate research, curriculum design, and enterprise innovation into tangible XR outcomes.</p>
+    <section class="panel" id="experience">
+      <div class="panel__header">
+        <h2>Experience</h2>
+        <p class="panel__lead">LinkedIn-style timeline with every role surfaced for quick scanning.</p>
       </div>
-      <div class="projects-grid">
-        <article class="project-card" data-project-key="performance" data-modal-image="img/project.png" data-modal-alt-key="projects.performance.alt">
-          <img src="img/project.png" alt="Meta Quest performance benchmarking dashboard" data-i18n-attr="alt:projects.performance.alt" />
-          <div class="project-card__body">
-            <h3 class="project-card__title" data-i18n="projects.performance.title">Meta Quest performance lab</h3>
-            <div class="project-card__meta">
-              <span data-i18n="projects.performance.meta.0">Research</span>
-              <span data-i18n="projects.performance.meta.1">Unreal Engine</span>
+      <div class="experience-list" aria-label="Experience timeline">
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">XR Lab in Human and Robotic Exploration</h3>
+              <p class="experience-meta">European Space Agency · XR Engineer · Jan 2025 – Present · Remote · Cologne/Bonn Region</p>
+              <p class="experience-meta">Entwicklung und Optimierung von XR-Anwendungen für astronautisches Training und virtuelle Produktionsumgebungen.</p>
             </div>
-            <p class="project-card__description" data-i18n="projects.performance.description">Built a benchmarking pipeline for standalone VR headsets, profiling Unreal Engine scenes and optimizing frame budgets for Meta Quest deployments.</p>
-            <ul class="projects-levels">
-              <li>
-                <button type="button" class="level-chip" data-state="available" data-project-launch="performance" data-i18n="projects.performance.level1">Open performance toolkit</button>
-              </li>
-              <li>
-                <span class="level-chip" data-state="upcoming" data-i18n="projects.performance.level2">Design system case study</span>
-              </li>
-              <li>
-                <span class="level-chip" data-state="upcoming" data-i18n="projects.performance.level3">Optimization playbook</span>
-              </li>
-            </ul>
+          </div>
+          <p class="experience-desc">Focus auf VR-Trainingsszenarien, XR-AI-Projekte und den Einsatz von VirtualizationXR für mobiles VR-Headtracking und Echtzeit-Datenzugriff.</p>
+          <div class="experience-skills">
+            <span class="badge">XR Development</span>
+            <span class="badge">VR Optimisation</span>
+            <span class="badge">3D &amp; CAD</span>
           </div>
         </article>
-        <article class="project-card" data-project-key="mixedReality" data-modal-image="img/background.jpg" data-modal-alt-key="projects.mixedReality.alt">
-          <img src="img/background.jpg" alt="Students collaborating inside a mixed reality studio" data-i18n-attr="alt:projects.mixedReality.alt" />
-          <div class="project-card__body">
-            <h3 class="project-card__title" data-i18n="projects.mixedReality.title">Mixed Reality studio syllabus</h3>
-            <div class="project-card__meta">
-              <span data-i18n="projects.mixedReality.meta.0">Education</span>
-              <span data-i18n="projects.mixedReality.meta.1">Curriculum design</span>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Teaching &amp; Administrative Assistant AR/VR</h3>
+              <p class="experience-meta">HFT Stuttgart · Full-time · Mar 2023 – Jul 2024 · On-site</p>
+              <p class="experience-meta">Support von Studierendenprojekten, Qualitätsmanagement und R&amp;D.</p>
             </div>
-            <p class="project-card__description" data-i18n="projects.mixedReality.description">Authored and delivered a semester-long Mixed Reality Development module, covering Unreal Engine tooling, performance budgets, and collaborative delivery.</p>
-            <ul class="projects-levels">
-              <li>
-                <button type="button" class="level-chip" data-state="available" data-project-launch="mixedReality" data-i18n="projects.mixedReality.level1">View module outline</button>
-              </li>
-              <li>
-                <span class="level-chip" data-state="upcoming" data-i18n="projects.mixedReality.level2">Workshop templates</span>
-              </li>
-              <li>
-                <span class="level-chip" data-state="upcoming" data-i18n="projects.mixedReality.level3">Student outcomes</span>
-              </li>
-            </ul>
+          </div>
+          <p class="experience-desc">Aufbau eines VR/AR-Labors, Betreuung von Softwareentwicklungen und Koordination administrativer Prozesse.</p>
+          <div class="experience-skills">
+            <span class="badge">Student Support</span>
+            <span class="badge">R&amp;D</span>
+            <span class="badge">AR/VR Engineering</span>
+          </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Adjunct Lecturer in VR Development</h3>
+              <p class="experience-meta">SRH University · Self-employed · Nov 2024 – Dec 2024 · Remote</p>
+              <p class="experience-meta">Lehre zu VR-Entwicklung, Unreal Engine und Storytelling.</p>
+            </div>
+          </div>
+          <p class="experience-desc">Vermittlung von visueller Qualität in XR, Echtzeit-Rendering sowie Konzeption und Prototyping.</p>
+          <div class="experience-skills">
+            <span class="badge">Unreal Engine</span>
+            <span class="badge">XR Education</span>
+            <span class="badge">Public Speaking</span>
+          </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">XR Development</h3>
+              <p class="experience-meta">Self-employed · Aug 2023 – Present · Hybrid · Stuttgart</p>
+              <p class="experience-meta">XR Workmodel, Virtual Production Previsualisation, Green Screen Pipeline.</p>
+            </div>
+          </div>
+          <p class="experience-desc">Schwerpunkt auf XR-AI, Metaverse und 3D-Animationen mit hohem Anspruch an Echtzeit-Rendering und generative Workflows.</p>
+          <div class="experience-skills">
+            <span class="badge">XR Development</span>
+            <span class="badge">Virtual Production</span>
+            <span class="badge">3D Animation</span>
+          </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Student Assistant VR/AR</h3>
+              <p class="experience-meta">Festo Didactic SE · Aug 2023 – Apr 2024 · On-site</p>
+              <p class="experience-meta">Unterstützung im XR-Bereich und Erstellung interaktiver Lernmodule.</p>
+            </div>
+          </div>
+          <p class="experience-desc">Mitwirkung bei der Entwicklung von VR/AR-Schulungen, Testing von Prototypen und Dokumentation von Funktionen.</p>
+          <div class="experience-skills">
+            <span class="badge">XR Training</span>
+            <span class="badge">Prototyping</span>
+            <span class="badge">Testing</span>
+          </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Tutor VR/AR Foundation Engine</h3>
+              <p class="experience-meta">HFT Stuttgart · Nov 2022 – Feb 2023 · On-site</p>
+              <p class="experience-meta">Betreuung von Studierenden bei Engine-Grundlagen.</p>
+            </div>
+          </div>
+          <p class="experience-desc">Anleitung zu XR-Basics, Unterstützung bei Projekten und Qualitätsfeedback für frühe Prototypen.</p>
+          <div class="experience-skills">
+            <span class="badge">Mentoring</span>
+            <span class="badge">XR Foundations</span>
+            <span class="badge">Quality Review</span>
+          </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Virtual Reality Developer</h3>
+              <p class="experience-meta">Daimler TSS · Oct 2021 – Nov 2021 · On-site</p>
+              <p class="experience-meta">Entwicklung von VR-Visualisierungslösungen.</p>
+            </div>
+          </div>
+          <p class="experience-desc">Umsetzung immersiver Darstellungen, Optimierung von Rendering-Performance und Zusammenarbeit mit Fachteams.</p>
+          <div class="experience-skills">
+            <span class="badge">VR Rendering</span>
+            <span class="badge">Collaboration</span>
+            <span class="badge">Performance</span>
+          </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">XR Development Lab</h3>
+              <p class="experience-meta">ternary GmbH · Apr 2021 – Oct 2021 · Remote</p>
+              <p class="experience-meta">Fokus auf Labormethoden für XR-Prototypen.</p>
+            </div>
+          </div>
+          <p class="experience-desc">Konzeption und Bau von XR-Experiments, Aufbau von Pipelines und Testumgebungen.</p>
+          <div class="experience-skills">
+            <span class="badge">Experimentation</span>
+            <span class="badge">Pipelines</span>
+            <span class="badge">Remote Work</span>
+          </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Virtual Reality Developer</h3>
+              <p class="experience-meta">VHS Esslingen · Feb 2020 – Jul 2021 · Part-time · On-site</p>
+              <p class="experience-meta">Begleitung von XR-Workshops und Entwicklung von VR-Anwendungen.</p>
+            </div>
+          </div>
+          <p class="experience-desc">Erstellung interaktiver Lerninhalte, Pflege von Demo-Anwendungen und Unterstützung von Kursen.</p>
+          <div class="experience-skills">
+            <span class="badge">Workshops</span>
+            <span class="badge">VR Applications</span>
+            <span class="badge">Instruction</span>
+          </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">XR Journey</h3>
+              <p class="experience-meta">Self-employed · Feb 2019 – Aug 2020 · Stuttgart</p>
+              <p class="experience-meta">Entwicklung personalisierter XR-Reisen und Anwendungen.</p>
+            </div>
+          </div>
+          <p class="experience-desc">Konzeption und Prototyping von Story-basierten XR-Erlebnissen, Nutzerbetreuung und Testing.</p>
+          <div class="experience-skills">
+            <span class="badge">Storytelling</span>
+            <span class="badge">XR Prototyping</span>
+            <span class="badge">User Testing</span>
+          </div>
+        </article>
+        <article class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">Research &amp; Development for XR Business Cases</h3>
+              <p class="experience-meta">ternary GmbH · May 2019 – Sep 2019 · On-site</p>
+              <p class="experience-meta">Erforschung von XR-Geschäftsmodellen.</p>
+            </div>
+          </div>
+          <p class="experience-desc">Analyse von XR-Nutzungsszenarien, Erstellung von Konzepten und Validierung durch Pilotprojekte.</p>
+          <div class="experience-skills">
+            <span class="badge">Research</span>
+            <span class="badge">Business Cases</span>
+            <span class="badge">Validation</span>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="panel panel--light" data-animate id="contact">
-      <div class="panel__content">
-        <h2 data-i18n="contact.title">Contact</h2>
-        <p class="lead" data-i18n="contact.lead">Let’s collaborate on spatial products, research partnerships, or guest lectureships across Europe and beyond.</p>
+    <section class="panel" id="projects">
+      <div class="panel__header">
+        <h2>Projects</h2>
+        <p class="panel__lead">Ausgewählte XR-Projekte aus Forschung, Lehre und selbstständiger Arbeit.</p>
       </div>
-      <div class="panel__grid contact-cta">
-        <a href="mailto:nicovogt56@gmail.com" data-i18n="contact.email">Email</a>
-        <a href="https://github.com/THEGRANDNICK" target="_blank" rel="noopener" data-i18n="contact.github">GitHub</a>
-        <a href="https://linkedin.com/in/nicolasjannekvogt" target="_blank" rel="noopener" data-i18n="contact.linkedin">LinkedIn</a>
+      <div class="carousel" data-carousel>
+        <div class="carousel__track" id="projectsTrack">
+          <article class="card">
+            <h3>Human and Robotic Exploration (XR-AI)</h3>
+            <p class="panel__lead">XR-AI-Projekt zur Trainingsunterstützung für Astronaut:innen mit VirtualizationXR und mobilen Trackinglösungen.</p>
+          </article>
+          <article class="card">
+            <h3>XR Workmodel</h3>
+            <p class="panel__lead">Virtuelle Produktionspipeline mit Greenscreen-Integration, Realtime-Compositing und präziser Reprojektion.</p>
+          </article>
+          <article class="card">
+            <h3>XR Journey</h3>
+            <p class="panel__lead">Story-driven XR-Erlebnisse mit persönlicher Begleitung von Konzeption bis Ausführung.</p>
+          </article>
+          <article class="card">
+            <h3>VR-HoloModel</h3>
+            <p class="panel__lead">Digitale Werkstatt für Realtime-Asset-Erstellung, Szenenaufbau und Kollaboration in VR.</p>
+          </article>
+          <article class="card">
+            <h3>XR Lab Visionary Technologies</h3>
+            <p class="panel__lead">Plattform zum Testen neuer XR-Prototypen, Datenpipelines und immersiver Interaktionskonzepte.</p>
+          </article>
+        </div>
+        <div class="carousel__controls" id="projectsDots" aria-label="Project selector"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="contact">
+      <div class="panel__header">
+        <h2>Contact</h2>
+        <p class="panel__lead">Lass uns über XR-Entwicklung, Forschung oder Lehrprojekte sprechen.</p>
+      </div>
+      <div style="display:flex; gap:0.65rem; flex-wrap:wrap;">
+        <a class="button" href="mailto:vogtxr56@gmail.com">vogtxr56@gmail.com</a>
+        <a class="button" href="https://www.linkedin.com/in/nicolas-jannek-vogt" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="button" href="tel:+4915901854825">+49 1590 1854825</a>
+        <a class="button" href="https://www.thegrandnick.de" target="_blank" rel="noopener">thegrandnick.de</a>
       </div>
     </section>
   </main>
 
-  <footer>
-    <span data-i18n="footer.copy">© 2024 Nicolas Jannek Vogt. Crafted with an Apple-inspired lens.</span>
-  </footer>
+  <footer class="footer">© 2024 Nicolas J. Vogt</footer>
 
-  <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" aria-describedby="projectModalDescription">
-    <div class="modal__content">
-      <button class="modal__close" data-i18n-attr="aria-label:modal.close">×</button>
-      <div class="modal__media">
-        <img id="projectModalImage" src="img/project.png" alt="Meta Quest performance benchmarking dashboard" />
-      </div>
-      <div class="modal__copy">
-        <h3 id="projectModalTitle">Meta Quest performance lab</h3>
-        <p class="modal__description" id="projectModalDescription">Built a benchmarking pipeline for standalone VR headsets, profiling Unreal Engine scenes and optimizing frame budgets for Meta Quest deployments.</p>
-      </div>
-    </div>
-  </div>
-
-    <script>
-    const translations = {
-      en: {
-        'preferences.theme': "Theme",
-        'preferences.language': "Language",
-        'theme.light': "Light",
-        'theme.dark': "Dark",
-        'theme.contrast': "Contrast",
-        'lang.en': "English",
-        'lang.de': "Deutsch",
-        'lang.es': "Español",
-        'lang.fr': "Français",
-        'lang.zh': "中文",
-        'nav.about': "About",
-        'nav.experience': "Experience",
-        'nav.projects': "Projects",
-        'nav.contact': "Contact",
-        'nav.resume': "Résumé",
-        'hero.eyebrow': "XR developer & lecturer",
-        'hero.lead': "I deliver immersive products for Union IT Services and teach Mixed Reality development at SRH Hochschule Heidelberg, blending Unreal Engine craft with a global perspective.",
-        'hero.cta.primary': "Explore projects",
-        'hero.cta.secondary': "Download résumé",
-        'about.title': "About me",
-        'about.lead': "Heidelberg-based XR engineer currently pursuing a Master in Virtual and Augmented Realities while shipping Unreal Engine solutions for finance and education.",
-        'about.cards.educator.title': "Educator & mentor",
-        'about.cards.educator.body': "Lead lecturer for the Mixed Reality Development module at SRH Hochschule Heidelberg, guiding students from concept to deployment-ready experiences.",
-        'about.cards.technologist.title': "Immersive technologist",
-        'about.cards.technologist.body': "Builds VR and AR prototypes with Unreal Engine, C++, Blueprints, Blender, and Azure DevOps pipelines that scale across teams.",
-        'about.cards.global.title': "Global perspective",
-        'about.cards.global.body': "Raised across Shanghai, Seoul, Jakarta, Detroit, and Heidelberg—comfortable collaborating across cultures and languages.",
-        'experience.title': "Experience",
-        'experience.lead': "A timeline that pairs academic leadership with production-grade XR systems for finance, mobility, and culture.",
-        'experience.srhLecturer.period': "11/2024 – 12/2024",
-        'experience.srhLecturer.role': "Lecturer · SRH Hochschule Heidelberg",
-        'experience.srhLecturer.description': "Designed and delivered the Mixed Reality Development module, mentoring student teams on Unreal Engine workflows, performance budgets, and XR storytelling.",
-        'experience.unionStudent.period': "09/2023 – 12/2024",
-        'experience.unionStudent.role': "Working student XR · Union IT Services GmbH",
-        'experience.unionStudent.description': "Implemented VR and AR prototypes for Union Investment’s innovation lab, integrating Azure DevOps, GitHub, and optimized 3D assets into client-ready demos.",
-        'experience.unionIntern.period': "04/2023 – 08/2023",
-        'experience.unionIntern.role': "XR intern · Union IT Services GmbH",
-        'experience.unionIntern.description': "Accelerated digital transformation initiatives with Design Thinking sprints and rapid Unreal Engine prototypes supporting internal process digitization.",
-        'experience.srhAssistant.period': "10/2021 – 03/2022",
-        'experience.srhAssistant.role': "Research assistant · SRH Hochschule Heidelberg",
-        'experience.srhAssistant.description': "Supported the rectorate with digital learning strategy, academic communications, and cross-faculty project coordination.",
-        'experience.early.period': "2018 – 2020",
-        'experience.early.role': "Early industry exposure",
-        'experience.early.description': "Hands-on service, automotive, and community roles at Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf, and Kinder- und Jugendtreff Hasenleiser.",
-        'projects.title': "Projects",
-        'projects.lead': "Selected case studies that translate research, curriculum design, and enterprise innovation into tangible XR outcomes.",
-        'projects.performance.title': "Meta Quest performance lab",
-        'projects.performance.meta.0': "Research",
-        'projects.performance.meta.1': "Unreal Engine",
-        'projects.performance.description': "Built a benchmarking pipeline for standalone VR headsets, profiling Unreal Engine scenes and optimizing frame budgets for Meta Quest deployments.",
-        'projects.performance.level1': "Open performance toolkit",
-        'projects.performance.level2': "Design system case study",
-        'projects.performance.level3': "Optimization playbook",
-        'projects.performance.alt': "Meta Quest performance benchmarking dashboard",
-        'projects.performance.modal': "A bachelor thesis project establishing reproducible Unreal Engine benchmarks for standalone headsets, including telemetry capture, automated build profiles, and actionable optimization guidelines for Meta Quest.",
-        'projects.mixedReality.title': "Mixed Reality studio syllabus",
-        'projects.mixedReality.meta.0': "Education",
-        'projects.mixedReality.meta.1': "Curriculum design",
-        'projects.mixedReality.description': "Authored and delivered a semester-long Mixed Reality Development module, covering Unreal Engine tooling, performance budgets, and collaborative delivery.",
-        'projects.mixedReality.level1': "View module outline",
-        'projects.mixedReality.level2': "Workshop templates",
-        'projects.mixedReality.level3': "Student outcomes",
-        'projects.mixedReality.alt': "Students collaborating inside a mixed reality studio",
-        'projects.mixedReality.modal': "An applied curriculum for SRH Hochschule Heidelberg guiding students from concept to shipped prototypes, complete with evaluation rubrics, agile rituals, and Unreal Engine best practices.",
-        'contact.title': "Contact",
-        'contact.lead': "Let’s collaborate on spatial products, research partnerships, or guest lectureships across Europe and beyond.",
-        'contact.email': "Email",
-        'contact.github': "GitHub",
-        'contact.linkedin': "LinkedIn",
-        'footer.copy': "© 2024 Nicolas Jannek Vogt. Crafted with an Apple-inspired lens.",
-        'modal.close': "Close project modal",
-        'retro.default': "Booting XR console…",
-        'retro.action': "Toggle retro workstation"
-      },
-      de: {
-        'preferences.theme': "Darstellung",
-        'preferences.language': "Sprache",
-        'theme.light': "Hell",
-        'theme.dark': "Dunkel",
-        'theme.contrast': "Kontrast",
-        'lang.en': "Englisch",
-        'lang.de': "Deutsch",
-        'lang.es': "Spanisch",
-        'lang.fr': "Französisch",
-        'lang.zh': "Chinesisch",
-        'nav.about': "Über mich",
-        'nav.experience': "Erfahrung",
-        'nav.projects': "Projekte",
-        'nav.contact': "Kontakt",
-        'nav.resume': "Lebenslauf",
-        'hero.eyebrow': "XR-Entwickler & Dozent",
-        'hero.lead': "Ich entwickle immersive Produkte für Union IT Services und lehre Mixed-Reality-Entwicklung an der SRH Hochschule Heidelberg – mit Unreal-Engine-Expertise und globaler Perspektive.",
-        'hero.cta.primary': "Projekte entdecken",
-        'hero.cta.secondary': "Lebenslauf herunterladen",
-        'about.title': "Über mich",
-        'about.lead': "XR-Ingenieur aus Heidelberg, der einen Master in Virtuellen und Augmentierten Realitäten absolviert und parallel Unreal-Engine-Lösungen für Finanzen und Bildung realisiert.",
-        'about.cards.educator.title': "Dozent & Mentor",
-        'about.cards.educator.body': "Leitender Dozent des Moduls Mixed Reality Development an der SRH Hochschule Heidelberg und Begleiter von Studierenden vom Konzept bis zum marktreifen Erlebnis.",
-        'about.cards.technologist.title': "Immersive Technologe",
-        'about.cards.technologist.body': "Erstellt VR- und AR-Prototypen mit Unreal Engine, C++, Blueprints, Blender sowie Azure-DevOps-Pipelines für skalierbare Teams.",
-        'about.cards.global.title': "Globale Perspektive",
-        'about.cards.global.body': "Aufgewachsen in Shanghai, Seoul, Jakarta, Detroit und Heidelberg – vertraut mit interkultureller Zusammenarbeit.",
-        'experience.title': "Erfahrung",
-        'experience.lead': "Ein Werdegang, der akademische Führung mit produktionsreifen XR-Systemen für Finanz-, Mobilitäts- und Kulturprojekte verbindet.",
-        'experience.srhLecturer.period': "11/2024 – 12/2024",
-        'experience.srhLecturer.role': "Dozent · SRH Hochschule Heidelberg",
-        'experience.srhLecturer.description': "Konzipierte und leitete das Modul Mixed Reality Development, betreute Studierendenteams zu Unreal-Workflows, Performance-Budgets und XR-Storytelling.",
-        'experience.unionStudent.period': "09/2023 – 12/2024",
-        'experience.unionStudent.role': "Werkstudent XR · Union IT Services GmbH",
-        'experience.unionStudent.description': "Implementierte VR- und AR-Prototypen für das Innovationslabor von Union Investment und integrierte Azure DevOps, GitHub und optimierte 3D-Assets in kundentaugliche Demos.",
-        'experience.unionIntern.period': "04/2023 – 08/2023",
-        'experience.unionIntern.role': "XR-Praktikant · Union IT Services GmbH",
-        'experience.unionIntern.description': "Beschleunigte Digitalisierungsinitiativen mit Design-Thinking-Sprints und schnellen Unreal-Prototypen zur Unterstützung interner Prozessautomatisierung.",
-        'experience.srhAssistant.period': "10/2021 – 03/2022",
-        'experience.srhAssistant.role': "Wissenschaftliche Hilfskraft · SRH Hochschule Heidelberg",
-        'experience.srhAssistant.description': "Unterstützte das Rektorat bei digitaler Lernstrategie, Hochschulkommunikation und bereichsübergreifender Projektkoordination.",
-        'experience.early.period': "2018 – 2020",
-        'experience.early.role': "Frühe Praxiserfahrung",
-        'experience.early.description': "Operative Einsätze in Service, Automotive und Jugendarbeit bei Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf und Kinder- und Jugendtreff Hasenleiser.",
-        'projects.title': "Projekte",
-        'projects.lead': "Ausgewählte Case-Studies, die Forschung, Curriculumsdesign und Unternehmensinnovation in greifbare XR-Ergebnisse übersetzen.",
-        'projects.performance.title': "Meta-Quest Performance-Lab",
-        'projects.performance.meta.0': "Forschung",
-        'projects.performance.meta.1': "Unreal Engine",
-        'projects.performance.description': "Entwickelte eine Benchmarking-Pipeline für autarke VR-Headsets, profilierte Unreal-Szenen und optimierte Frame-Budgets für Meta-Quest-Deployments.",
-        'projects.performance.level1': "Performance-Toolkit öffnen",
-        'projects.performance.level2': "Design-System-Fallstudie",
-        'projects.performance.level3': "Optimierungsleitfaden",
-        'projects.performance.alt': "Performance-Dashboard für Meta-Quest-Benchmarks",
-        'projects.performance.modal': "Bachelorarbeit mit reproduzierbaren Unreal-Benchmarks für autarke Headsets inklusive Telemetrie, automatisierten Build-Profilen und konkreten Optimierungsleitlinien für die Meta Quest.",
-        'projects.mixedReality.title': "Mixed-Reality-Studiosyllabus",
-        'projects.mixedReality.meta.0': "Bildung",
-        'projects.mixedReality.meta.1': "Curriculum-Design",
-        'projects.mixedReality.description': "Konzipierte und vermittelte ein Semester-Modul Mixed Reality Development mit Unreal-Tooling, Performance-Budgets und kollaborativen Delivery-Standards.",
-        'projects.mixedReality.level1': "Modulübersicht ansehen",
-        'projects.mixedReality.level2': "Workshop-Vorlagen",
-        'projects.mixedReality.level3': "Studierenden-Ergebnisse",
-        'projects.mixedReality.alt': "Studierende arbeiten gemeinsam in einem Mixed-Reality-Studio",
-        'projects.mixedReality.modal': "Ein praxisorientiertes Curriculum der SRH Hochschule Heidelberg, das Studierende vom Konzept bis zum Prototyp begleitet – inklusive Bewertungsraster, agiler Rituale und Unreal-Best Practices.",
-        'contact.title': "Kontakt",
-        'contact.lead': "Lassen Sie uns an räumlichen Produkten, Forschungskooperationen oder Gastvorträgen in Europa und darüber hinaus arbeiten.",
-        'contact.email': "E-Mail",
-        'contact.github': "GitHub",
-        'contact.linkedin': "LinkedIn",
-        'footer.copy': "© 2024 Nicolas Jannek Vogt. Mit Apple-inspirierter Ästhetik gestaltet.",
-        'modal.close': "Projektmodal schließen",
-        'retro.default': "XR-Konsole wird gestartet …",
-        'retro.action': "Retro-Arbeitsstation umschalten"
-      },
-      es: {
-        'preferences.theme': "Tema",
-        'preferences.language': "Idioma",
-        'theme.light': "Claro",
-        'theme.dark': "Oscuro",
-        'theme.contrast': "Alto contraste",
-        'lang.en': "Inglés",
-        'lang.de': "Alemán",
-        'lang.es': "Español",
-        'lang.fr': "Francés",
-        'lang.zh': "Chino",
-        'nav.about': "Sobre mí",
-        'nav.experience': "Experiencia",
-        'nav.projects': "Proyectos",
-        'nav.contact': "Contacto",
-        'nav.resume': "Currículum",
-        'hero.eyebrow': "Desarrollador XR y profesor",
-        'hero.lead': "Diseño productos inmersivos para Union IT Services y enseño desarrollo de Realidad Mixta en la SRH Hochschule Heidelberg, combinando destreza en Unreal Engine con una perspectiva global.",
-        'hero.cta.primary': "Explorar proyectos",
-        'hero.cta.secondary': "Descargar currículum",
-        'about.title': "Sobre mí",
-        'about.lead': "Ingeniero XR con base en Heidelberg que cursa un máster en Realidades Virtuales y Aumentadas mientras entrega soluciones con Unreal Engine para finanzas y educación.",
-        'about.cards.educator.title': "Educador y mentor",
-        'about.cards.educator.body': "Docente principal del módulo Mixed Reality Development en la SRH Hochschule Heidelberg, guiando al alumnado desde el concepto hasta experiencias listas para producción.",
-        'about.cards.technologist.title': "Tecnólogo inmersivo",
-        'about.cards.technologist.body': "Crea prototipos VR y AR con Unreal Engine, C++, Blueprints, Blender y canalizaciones de Azure DevOps escalables.",
-        'about.cards.global.title': "Perspectiva global",
-        'about.cards.global.body': "Criado en Shanghái, Seúl, Yakarta, Detroit y Heidelberg; cómodo colaborando entre culturas e idiomas.",
-        'experience.title': "Experiencia",
-        'experience.lead': "Una trayectoria que combina liderazgo académico con sistemas XR listos para producción en finanzas, movilidad y cultura.",
-        'experience.srhLecturer.period': "11/2024 – 12/2024",
-        'experience.srhLecturer.role': "Profesor · SRH Hochschule Heidelberg",
-        'experience.srhLecturer.description': "Diseñó e impartió el módulo Mixed Reality Development, asesorando equipos estudiantiles en flujos de trabajo con Unreal, presupuestos de rendimiento y narrativa XR.",
-        'experience.unionStudent.period': "09/2023 – 12/2024",
-        'experience.unionStudent.role': "Estudiante en prácticas XR · Union IT Services GmbH",
-        'experience.unionStudent.description': "Implementó prototipos VR y AR para el laboratorio de innovación de Union Investment, integrando Azure DevOps, GitHub y assets 3D optimizados en demos listas para clientes.",
-        'experience.unionIntern.period': "04/2023 – 08/2023",
-        'experience.unionIntern.role': "Practicante XR · Union IT Services GmbH",
-        'experience.unionIntern.description': "Aceleró iniciativas de transformación digital con sprints de Design Thinking y prototipos rápidos en Unreal para respaldar la digitalización interna.",
-        'experience.srhAssistant.period': "10/2021 – 03/2022",
-        'experience.srhAssistant.role': "Asistente de investigación · SRH Hochschule Heidelberg",
-        'experience.srhAssistant.description': "Apoyó al rectorado en estrategia de aprendizaje digital, comunicación académica y coordinación de proyectos interfacultad.",
-        'experience.early.period': "2018 – 2020",
-        'experience.early.role': "Experiencia temprana en la industria",
-        'experience.early.description': "Trabajo práctico en servicios, automoción y comunidad en Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf y Kinder- und Jugendtreff Hasenleiser.",
-        'projects.title': "Proyectos",
-        'projects.lead': "Casos destacados que convierten la investigación, el diseño curricular y la innovación empresarial en resultados XR tangibles.",
-        'projects.performance.title': "Laboratorio de rendimiento Meta Quest",
-        'projects.performance.meta.0': "Investigación",
-        'projects.performance.meta.1': "Unreal Engine",
-        'projects.performance.description': "Creó una canalización de benchmarking para visores VR autónomos, perfilando escenas de Unreal y optimizando presupuestos de fotogramas para implementaciones en Meta Quest.",
-        'projects.performance.level1': "Abrir toolkit de rendimiento",
-        'projects.performance.level2': "Caso de estudio del sistema de diseño",
-        'projects.performance.level3': "Manual de optimización",
-        'projects.performance.alt': "Panel de benchmarks de rendimiento para Meta Quest",
-        'projects.performance.modal': "Proyecto de tesis que establece benchmarks reproducibles de Unreal para visores autónomos, con captura de telemetría, perfiles de compilación automatizados y guías de optimización para Meta Quest.",
-        'projects.mixedReality.title': "Programa de estudio de Mixed Reality",
-        'projects.mixedReality.meta.0': "Educación",
-        'projects.mixedReality.meta.1': "Diseño curricular",
-        'projects.mixedReality.description': "Diseñó e impartió un módulo semestral de Mixed Reality Development que cubre herramientas de Unreal, presupuestos de rendimiento y entrega colaborativa.",
-        'projects.mixedReality.level1': "Ver plan del módulo",
-        'projects.mixedReality.level2': "Plantillas de talleres",
-        'projects.mixedReality.level3': "Resultados estudiantiles",
-        'projects.mixedReality.alt': "Estudiantes colaborando en un estudio de realidad mixta",
-        'projects.mixedReality.modal': "Currículo aplicado para la SRH Hochschule Heidelberg que lleva al alumnado del concepto al prototipo, con rúbricas de evaluación, rituales ágiles y mejores prácticas de Unreal.",
-        'contact.title': "Contacto",
-        'contact.lead': "Colaboremos en productos espaciales, alianzas de investigación o clases magistrales en Europa y más allá.",
-        'contact.email': "Correo",
-        'contact.github': "GitHub",
-        'contact.linkedin': "LinkedIn",
-        'footer.copy': "© 2024 Nicolas Jannek Vogt. Diseñado con una mirada inspirada en Apple.",
-        'modal.close': "Cerrar modal del proyecto",
-        'retro.default': "Iniciando consola XR…",
-        'retro.action': "Alternar estación retro"
-      },
-      fr: {
-        'preferences.theme': "Thème",
-        'preferences.language': "Langue",
-        'theme.light': "Clair",
-        'theme.dark': "Sombre",
-        'theme.contrast': "Contraste",
-        'lang.en': "Anglais",
-        'lang.de': "Allemand",
-        'lang.es': "Espagnol",
-        'lang.fr': "Français",
-        'lang.zh': "Chinois",
-        'nav.about': "À propos",
-        'nav.experience': "Expérience",
-        'nav.projects': "Projets",
-        'nav.contact': "Contact",
-        'nav.resume': "CV",
-        'hero.eyebrow': "Développeur XR et enseignant",
-        'hero.lead': "Je réalise des produits immersifs pour Union IT Services et j’enseigne le développement Mixed Reality à la SRH Hochschule Heidelberg, en alliant maîtrise d’Unreal Engine et regard international.",
-        'hero.cta.primary': "Explorer les projets",
-        'hero.cta.secondary': "Télécharger le CV",
-        'about.title': "À propos de moi",
-        'about.lead': "Ingénieur XR basé à Heidelberg, en master de Réalités virtuelle et augmentée, livrant des solutions Unreal Engine pour la finance et l’éducation.",
-        'about.cards.educator.title': "Formateur & mentor",
-        'about.cards.educator.body': "Responsable du module Mixed Reality Development à la SRH Hochschule Heidelberg, accompagnant les étudiants du concept à la mise en production.",
-        'about.cards.technologist.title': "Technologue immersif",
-        'about.cards.technologist.body': "Conçoit des prototypes VR et AR avec Unreal Engine, C++, Blueprints, Blender et des pipelines Azure DevOps évolutifs.",
-        'about.cards.global.title': "Perspective globale",
-        'about.cards.global.body': "A grandi à Shanghai, Séoul, Jakarta, Detroit et Heidelberg – à l’aise dans les collaborations interculturelles.",
-        'experience.title': "Expérience",
-        'experience.lead': "Un parcours qui marie leadership académique et systèmes XR prêts pour la production dans la finance, la mobilité et la culture.",
-        'experience.srhLecturer.period': "11/2024 – 12/2024",
-        'experience.srhLecturer.role': "Enseignant · SRH Hochschule Heidelberg",
-        'experience.srhLecturer.description': "A conçu et animé le module Mixed Reality Development, en encadrant les équipes étudiantes sur les workflows Unreal, les budgets de performance et la narration XR.",
-        'experience.unionStudent.period': "09/2023 – 12/2024",
-        'experience.unionStudent.role': "Alternant XR · Union IT Services GmbH",
-        'experience.unionStudent.description': "A implémenté des prototypes VR et AR pour le laboratoire d’innovation de Union Investment en intégrant Azure DevOps, GitHub et des assets 3D optimisés dans des démos prêtes pour les clients.",
-        'experience.unionIntern.period': "04/2023 – 08/2023",
-        'experience.unionIntern.role': "Stagiaire XR · Union IT Services GmbH",
-        'experience.unionIntern.description': "A accéléré les initiatives de transformation digitale grâce à des sprints de Design Thinking et des prototypes Unreal rapides pour la numérisation interne.",
-        'experience.srhAssistant.period': "10/2021 – 03/2022",
-        'experience.srhAssistant.role': "Assistant de recherche · SRH Hochschule Heidelberg",
-        'experience.srhAssistant.description': "A soutenu le rectorat sur la stratégie d’apprentissage numérique, la communication académique et la coordination de projets transverses.",
-        'experience.early.period': "2018 – 2020",
-        'experience.early.role': "Premières expériences",
-        'experience.early.description': "Missions terrain dans les services, l’automobile et l’animation jeunesse chez Luxor FTB Englert, Daimler AG, Restaurant zum güldenen Schaf et Kinder- und Jugendtreff Hasenleiser.",
-        'projects.title': "Projets",
-        'projects.lead': "Des études de cas transformant la recherche, le design pédagogique et l’innovation en résultats XR tangibles.",
-        'projects.performance.title': "Laboratoire de performance Meta Quest",
-        'projects.performance.meta.0': "Recherche",
-        'projects.performance.meta.1': "Unreal Engine",
-        'projects.performance.description': "A construit une pipeline de benchmarking pour casques VR autonomes, profilant des scènes Unreal et optimisant les budgets de frame pour Meta Quest.",
-        'projects.performance.level1': "Ouvrir le toolkit de performance",
-        'projects.performance.level2': "Étude du système de design",
-        'projects.performance.level3': "Guide d’optimisation",
-        'projects.performance.alt': "Tableau de benchmarks de performance Meta Quest",
-        'projects.performance.modal': "Projet de mémoire établissant des benchmarks Unreal reproductibles pour casques autonomes, avec capture de télémétrie, profils de build automatisés et recommandations d’optimisation pour Meta Quest.",
-        'projects.mixedReality.title': "Programme Mixed Reality Studio",
-        'projects.mixedReality.meta.0': "Éducation",
-        'projects.mixedReality.meta.1': "Conception de cursus",
-        'projects.mixedReality.description': "A rédigé et animé un module semestriel Mixed Reality Development couvrant les outils Unreal, les budgets de performance et la livraison collaborative.",
-        'projects.mixedReality.level1': "Voir le plan du module",
-        'projects.mixedReality.level2': "Modèles d’ateliers",
-        'projects.mixedReality.level3': "Résultats étudiants",
-        'projects.mixedReality.alt': "Étudiants collaborant dans un studio de réalité mixte",
-        'projects.mixedReality.modal': "Un curriculum appliqué pour la SRH Hochschule Heidelberg qui mène les étudiants du concept au prototype avec grilles d’évaluation, rituels agiles et bonnes pratiques Unreal.",
-        'contact.title': "Contact",
-        'contact.lead': "Collaborons sur des produits spatiaux, des partenariats de recherche ou des interventions en Europe et au-delà.",
-        'contact.email': "E-mail",
-        'contact.github': "GitHub",
-        'contact.linkedin': "LinkedIn",
-        'footer.copy': "© 2024 Nicolas Jannek Vogt. Conçu avec une esthétique inspirée d’Apple.",
-        'modal.close': "Fermer la fenêtre du projet",
-        'retro.default': "Démarrage de la console XR…",
-        'retro.action': "Basculer la station rétro"
-      },
-      zh: {
-        'preferences.theme': "主题",
-        'preferences.language': "语言",
-        'theme.light': "亮色",
-        'theme.dark': "暗色",
-        'theme.contrast': "高对比",
-        'lang.en': "英语",
-        'lang.de': "德语",
-        'lang.es': "西班牙语",
-        'lang.fr': "法语",
-        'lang.zh': "中文",
-        'nav.about': "关于我",
-        'nav.experience': "经历",
-        'nav.projects': "项目",
-        'nav.contact': "联系",
-        'nav.resume': "简历",
-        'hero.eyebrow': "XR 开发者与讲师",
-        'hero.lead': "为 Union IT Services 打造沉浸式产品，并在 SRH Hochschule Heidelberg 授课混合现实开发，结合 Unreal Engine 专业与全球视野。",
-        'hero.cta.primary': "浏览项目",
-        'hero.cta.secondary': "下载简历",
-        'about.title': "关于我",
-        'about.lead': "常驻海德堡的 XR 工程师，攻读虚拟与增强现实硕士，同时为金融与教育领域交付 Unreal Engine 解决方案。",
-        'about.cards.educator.title': "教育者与导师",
-        'about.cards.educator.body': "担任 SRH Hochschule Heidelberg 混合现实开发课程负责人，引导学生从概念走向可交付体验。",
-        'about.cards.technologist.title': "沉浸式技术专家",
-        'about.cards.technologist.body': "使用 Unreal Engine、C++、Blueprints、Blender 以及 Azure DevOps 管线构建可扩展的 VR/AR 原型。",
-        'about.cards.global.title': "全球化视野",
-        'about.cards.global.body': "成长于上海、首尔、雅加达、底特律与海德堡，擅长跨文化协作。",
-        'experience.title': "经历",
-        'experience.lead': "在金融、交通与文化领域，将学术领导力与可落地的 XR 系统相结合的职业轨迹。",
-        'experience.srhLecturer.period': "2024 年 11 月 – 12 月",
-        'experience.srhLecturer.role': "讲师 · SRH Hochschule Heidelberg",
-        'experience.srhLecturer.description': "设计并教授混合现实开发课程，指导学生掌握 Unreal 工作流程、性能预算与 XR 叙事。",
-        'experience.unionStudent.period': "2023 年 9 月 – 2024 年 12 月",
-        'experience.unionStudent.role': "XR 勤工学生 · Union IT Services GmbH",
-        'experience.unionStudent.description': "为 Union Investment 创新实验室实现 VR/AR 原型，集成 Azure DevOps、GitHub 以及优化的 3D 资产，交付面向客户的演示。",
-        'experience.unionIntern.period': "2023 年 4 月 – 8 月",
-        'experience.unionIntern.role': "XR 实习生 · Union IT Services GmbH",
-        'experience.unionIntern.description': "通过 Design Thinking 冲刺与快速 Unreal 原型，加速内部流程数字化项目。",
-        'experience.srhAssistant.period': "2021 年 10 月 – 2022 年 3 月",
-        'experience.srhAssistant.role': "科研助理 · SRH Hochschule Heidelberg",
-        'experience.srhAssistant.description': "协助校长办公室推进数字化学习战略、学术传播与跨学院项目协调。",
-        'experience.early.period': "2018 – 2020",
-        'experience.early.role': "早期行业实践",
-        'experience.early.description': "在 Luxor FTB Englert、Daimler AG、Restaurant zum güldenen Schaf 与 Kinder- und Jugendtreff Hasenleiser 的服务、汽车与社区岗位中积累一线经验。",
-        'projects.title': "项目",
-        'projects.lead': "将科研、课程设计与企业创新转化为可感知 XR 成果的精选案例。",
-        'projects.performance.title': "Meta Quest 性能实验室",
-        'projects.performance.meta.0': "研究",
-        'projects.performance.meta.1': "Unreal Engine",
-        'projects.performance.description': "构建针对独立式 VR 头显的基准测试管线，分析 Unreal 场景并优化 Meta Quest 部署的帧率预算。",
-        'projects.performance.level1': "打开性能工具包",
-        'projects.performance.level2': "设计系统案例",
-        'projects.performance.level3': "优化手册",
-        'projects.performance.alt': "Meta Quest 性能基准仪表板",
-        'projects.performance.modal': "本科毕业项目，建立可重复的 Unreal 基准测试流程，涵盖遥测采集、自动化构建配置及面向 Meta Quest 的优化指南。",
-        'projects.mixedReality.title': "混合现实工作室课程",
-        'projects.mixedReality.meta.0': "教育",
-        'projects.mixedReality.meta.1': "课程设计",
-        'projects.mixedReality.description': "规划并教授为期一学期的混合现实开发课程，涵盖 Unreal 工具链、性能预算与协同交付。",
-        'projects.mixedReality.level1': "查看课程纲要",
-        'projects.mixedReality.level2': "工作坊模板",
-        'projects.mixedReality.level3': "学生成果",
-        'projects.mixedReality.alt': "学生在混合现实工作室中合作",
-        'projects.mixedReality.modal': "为 SRH Hochschule Heidelberg 打造的实践课程，提供评估量表、敏捷流程与 Unreal 最佳实践，引导学生从概念走向原型。",
-        'contact.title': "联系",
-        'contact.lead': "欢迎就空间产品、研究合作或客座课程在欧洲及其他地区展开合作。",
-        'contact.email': "邮箱",
-        'contact.github': "GitHub",
-        'contact.linkedin': "LinkedIn",
-        'footer.copy': "© 2024 Nicolas Jannek Vogt。以 Apple 风格打造。",
-        'modal.close': "关闭项目窗口",
-        'retro.default': "正在启动 XR 控制台…",
-        'retro.action': "切换复古工作站"
-      }
-    };
-
-    const retroMessages = {
-      en: [
-        ">> ready: boot XR console.",
-        "Streaming Union IT Services builds…",
-        "SRH Mixed Reality studio online. Tap to iterate."
-      ],
-      de: [
-        ">> bereit: XR-Konsole starten.",
-        "Union IT Services Builds werden gestreamt…",
-        "SRH Mixed-Reality-Studio aktiv. Tippen zum Iterieren."
-      ],
-      es: [
-        ">> listo: iniciar consola XR.",
-        "Transmitiendo builds de Union IT Services…",
-        "Estudio Mixed Reality de SRH en línea. Pulsa para iterar."
-      ],
-      fr: [
-        ">> prêt : démarrage de la console XR.",
-        "Diffusion des builds Union IT Services…",
-        "Studio Mixed Reality de la SRH en ligne. Appuyez pour itérer."
-      ],
-      zh: [
-        ">> 准备就绪：启动 XR 控制台。",
-        "正在传输 Union IT Services 构建…",
-        "SRH 混合现实工作室上线。点击继续迭代。"
-      ]
-    };
-
-    const projectDetails = {
-      performance: {
-        image: 'img/project.png',
-        altKey: 'projects.performance.alt',
-        titleKey: 'projects.performance.title',
-        descriptionKey: 'projects.performance.modal'
-      },
-      mixedReality: {
-        image: 'img/background.jpg',
-        altKey: 'projects.mixedReality.alt',
-        titleKey: 'projects.mixedReality.title',
-        descriptionKey: 'projects.mixedReality.modal'
-      }
-    };
-
-    const languages = ['en', 'de', 'es', 'fr', 'zh'];
-    const themeOptions = ['light', 'dark', 'contrast'];
-
+  <script>
     const root = document.documentElement;
-    const body = document.body;
-    const themeButtons = Array.from(document.querySelectorAll('[data-theme-option]'));
-    const languageButtons = Array.from(document.querySelectorAll('[data-lang-option]'));
-    const retroButton = document.getElementById('retroTerminal');
-    const retroScreen = document.getElementById('retroScreen');
-    const hoverSound = document.getElementById('hoverSound');
-    const clickSound = document.getElementById('clickSound');
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const canUseSound = Boolean(hoverSound && clickSound && !reducedMotionQuery.matches);
-    const projectModal = document.getElementById('projectModal');
-    const modalTitle = document.getElementById('projectModalTitle');
-    const modalDescription = document.getElementById('projectModalDescription');
-    const modalImage = document.getElementById('projectModalImage');
-    const modalClose = projectModal ? projectModal.querySelector('.modal__close') : null;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    root.setAttribute('data-theme', initialTheme);
+    themeToggle.textContent = initialTheme === 'dark' ? 'Dark mode' : 'Light mode';
+    themeToggle.setAttribute('aria-pressed', initialTheme === 'dark');
 
-    const safeGetItem = (key) => {
-      try {
-        return window.localStorage.getItem(key);
-      } catch (error) {
-        return null;
-      }
-    };
-
-    const safeSetItem = (key, value) => {
-      try {
-        window.localStorage.setItem(key, value);
-      } catch (error) {
-        /* noop */
-      }
-    };
-
-    const translate = (lang, key) => {
-      const dictionary = translations[lang] || translations.en;
-      return dictionary[key] ?? translations.en[key] ?? key;
-    };
-
-    const retroIndices = {};
-    let currentLanguage = 'en';
-    let activeProject = 'performance';
-
-    const updateThemeButtons = (theme) => {
-      themeButtons.forEach((button) => {
-        const isActive = button.dataset.themeOption === theme;
-        button.setAttribute('aria-checked', isActive ? 'true' : 'false');
-      });
-    };
-
-    const setTheme = (theme, persist = true) => {
-      if (!themeOptions.includes(theme)) {
-        theme = 'light';
-      }
-      root.setAttribute('data-theme', theme);
-      updateThemeButtons(theme);
-      if (persist) {
-        safeSetItem('theme', theme);
-      }
-    };
-
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    const prefersContrast = window.matchMedia('(prefers-contrast: more)');
-    const storedTheme = safeGetItem('theme');
-    const initialTheme = storedTheme && themeOptions.includes(storedTheme)
-      ? storedTheme
-      : prefersContrast.matches
-      ? 'contrast'
-      : prefersDarkScheme.matches
-      ? 'dark'
-      : 'light';
-    setTheme(initialTheme, Boolean(storedTheme));
-
-    if (!storedTheme) {
-      prefersDarkScheme.addEventListener('change', (event) => {
-        if (!safeGetItem('theme')) {
-          setTheme(event.matches ? 'dark' : 'light', false);
-        }
-      });
-      prefersContrast.addEventListener('change', (event) => {
-        if (!safeGetItem('theme') && event.matches) {
-          setTheme('contrast', false);
-        }
-      });
-    }
-
-    themeButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        setTheme(button.dataset.themeOption || 'light');
-      });
+    themeToggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      themeToggle.textContent = next === 'dark' ? 'Dark mode' : 'Light mode';
+      themeToggle.setAttribute('aria-pressed', next === 'dark');
     });
-
-    const getRetroIndex = (lang) => retroIndices[lang] ?? 0;
-    const setRetroIndex = (lang, value) => {
-      retroIndices[lang] = value;
-    };
-
-    const updateRetroScreen = (lang, reset = false) => {
-      if (!retroScreen) {
-        return;
-      }
-      const messages = retroMessages[lang] || retroMessages.en;
-      if (!messages || messages.length === 0) {
-        retroScreen.textContent = '';
-        return;
-      }
-      if (reset) {
-        setRetroIndex(lang, 0);
-      }
-      const index = getRetroIndex(lang) % messages.length;
-      retroScreen.textContent = messages[index];
-    };
-
-    const updateLanguageButtons = (lang) => {
-      languageButtons.forEach((button) => {
-        const isActive = button.dataset.langOption === lang;
-        button.setAttribute('aria-checked', isActive ? 'true' : 'false');
-      });
-    };
-
-    const applyTextTranslations = (lang) => {
-      document.querySelectorAll('[data-i18n]').forEach((element) => {
-        const key = element.dataset.i18n;
-        if (!key) {
-          return;
-        }
-        const value = translate(lang, key);
-        if (value !== undefined) {
-          element.textContent = value;
-        }
-      });
-
-      document.querySelectorAll('[data-i18n-attr]').forEach((element) => {
-        const mapping = element.dataset.i18nAttr;
-        if (!mapping) {
-          return;
-        }
-        mapping.split(';').forEach((pair) => {
-          const [attr, key] = pair.split(':');
-          if (!attr || !key) {
-            return;
-          }
-          const value = translate(lang, key.trim());
-          if (value !== undefined) {
-            element.setAttribute(attr.trim(), value);
-          }
-        });
-      });
-    };
-
-    const updateModalContent = (projectKey, lang = currentLanguage) => {
-      if (!modalTitle || !modalDescription || !modalImage) {
-        return;
-      }
-      const details = projectDetails[projectKey];
-      if (!details) {
-        return;
-      }
-      const title = translate(lang, details.titleKey);
-      const description = translate(lang, details.descriptionKey);
-      const altText = translate(lang, details.altKey);
-      modalTitle.textContent = title;
-      modalDescription.textContent = description;
-      modalImage.src = details.image;
-      if (altText) {
-        modalImage.alt = altText;
-      }
-    };
-
-    function playSound(audio) {
-      if (!canUseSound || !audio) {
-        return;
-      }
-      audio.currentTime = 0;
-      const playPromise = audio.play();
-      if (playPromise) {
-        playPromise.catch(() => {});
-      }
-    }
-
-    const openModal = (projectKey) => {
-      if (!projectModal) {
-        return;
-      }
-      if (projectKey && projectDetails[projectKey]) {
-        activeProject = projectKey;
-      }
-      updateModalContent(activeProject);
-      projectModal.style.display = 'flex';
-      requestAnimationFrame(() => {
-        projectModal.classList.add('show');
-      });
-      playSound(clickSound);
-    };
-
-    const closeModal = () => {
-      if (!projectModal) {
-        return;
-      }
-      projectModal.classList.remove('show');
-      setTimeout(() => {
-        projectModal.style.display = 'none';
-      }, 350);
-    };
-
-    if (modalClose) {
-      modalClose.addEventListener('click', closeModal);
-    }
-
-    if (projectModal) {
-      projectModal.addEventListener('click', (event) => {
-        if (event.target === projectModal) {
-          closeModal();
-        }
-      });
-    }
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        closeModal();
-      }
-    });
-
-    document.querySelectorAll('[data-project-launch]').forEach((button) => {
-      button.addEventListener('click', () => {
-        const key = button.getAttribute('data-project-launch');
-        openModal(key);
-      });
-    });
-
-    const applyLanguage = (lang, persist = true) => {
-      if (!languages.includes(lang)) {
-        lang = 'en';
-      }
-      currentLanguage = lang;
-      body.setAttribute('data-lang', lang);
-      root.setAttribute('lang', lang);
-      updateLanguageButtons(lang);
-      applyTextTranslations(lang);
-      if (activeProject && projectDetails[activeProject]) {
-        updateModalContent(activeProject, lang);
-      }
-      updateRetroScreen(lang, true);
-      if (persist) {
-        safeSetItem('language', lang);
-      }
-    };
-
-    languageButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const lang = button.dataset.langOption || 'en';
-        applyLanguage(lang);
-      });
-    });
-
-    const storedLanguage = safeGetItem('language');
-    applyLanguage(languages.includes(storedLanguage) ? storedLanguage : 'en', false);
-
-    const scrollToSection = (id) => {
-      const target = document.getElementById(id);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    };
 
     document.querySelectorAll('[data-scroll]').forEach((button) => {
       button.addEventListener('click', () => {
-        scrollToSection(button.getAttribute('data-scroll'));
+        const targetId = button.getAttribute('data-scroll');
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
 
-    document.querySelectorAll('[data-action="resume"]').forEach((button) => {
-      button.addEventListener('click', () => {
-        window.open('resume.pdf', '_blank');
+    const carouselTrack = document.getElementById('projectsTrack');
+    const dotsContainer = document.getElementById('projectsDots');
+    const slides = Array.from(carouselTrack.children);
+    let activeSlide = 0;
+
+    const renderDots = () => {
+      dotsContainer.innerHTML = '';
+      slides.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'dot';
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Show project ${index + 1}`);
+        dot.setAttribute('aria-current', index === activeSlide);
+        dot.addEventListener('click', () => moveToSlide(index));
+        dotsContainer.appendChild(dot);
       });
-    });
+    };
 
-    const viewProjectsCta = document.getElementById('viewProjects');
-    if (viewProjectsCta) {
-      viewProjectsCta.addEventListener('click', () => scrollToSection('projects'));
-    }
+    const moveToSlide = (index) => {
+      activeSlide = Math.max(0, Math.min(index, slides.length - 1));
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      const gap = 16;
+      const offset = activeSlide * (slideWidth + gap);
+      carouselTrack.style.transform = `translateX(-${offset}px)`;
+      renderDots();
+    };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
+    const recalc = () => moveToSlide(activeSlide);
 
-    document.querySelectorAll('section[data-animate], header[data-animate]').forEach((section) => observer.observe(section));
-
-    if (canUseSound) {
-      let hoverTarget = null;
-
-      document.addEventListener('pointerover', (event) => {
-        const actionable = event.target.closest('button, a');
-        if (!actionable || actionable === hoverTarget) {
-          return;
-        }
-        hoverTarget = actionable;
-        playSound(hoverSound);
-        actionable.addEventListener(
-          'pointerleave',
-          () => {
-            if (hoverTarget === actionable) {
-              hoverTarget = null;
-            }
-          },
-          { once: true }
-        );
-      });
-
-      document.addEventListener('click', (event) => {
-        if (event.target.closest('button, a')) {
-          playSound(clickSound);
-        }
-      });
-    }
-
-    if (retroButton) {
-      retroButton.addEventListener('click', () => {
-        const messages = retroMessages[currentLanguage] || retroMessages.en;
-        if (!messages || messages.length === 0) {
-          return;
-        }
-        const nextIndex = (getRetroIndex(currentLanguage) + 1) % messages.length;
-        setRetroIndex(currentLanguage, nextIndex);
-        retroButton.classList.add('is-active');
-        updateRetroScreen(currentLanguage);
-        playSound(clickSound);
-        setTimeout(() => retroButton.classList.remove('is-active'), 320);
-      });
-      updateRetroScreen(currentLanguage, true);
-    }
+    window.addEventListener('resize', recalc);
+    renderDots();
+    moveToSlide(0);
   </script>
-
 </body>
 </html>
